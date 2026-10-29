@@ -902,7 +902,7 @@
     },
     {
       "platform": "youtube",
-      "handle": "humanitefr",
+      "handle": "lhumanitefr",
       "displayName": "L'Humanité",
       "category": "media",
       "source": "https://www.humanite.fr/",
@@ -1075,7 +1075,7 @@
     },
     {
       "platform": "youtube",
-      "handle": "streetpresstv",
+      "handle": "streetpress",
       "displayName": "StreetPress",
       "category": "media",
       "source": "https://www.streetpress.com/",
@@ -1124,7 +1124,7 @@
     },
     {
       "platform": "youtube",
-      "handle": "politisvideos",
+      "handle": "politis_fr",
       "displayName": "Politis",
       "category": "media",
       "source": "https://www.politis.fr/",
@@ -1323,7 +1323,7 @@
     },
     {
       "platform": "youtube",
-      "handle": "arretsurimagesmedia",
+      "handle": "arrêtsurimages-w9h",
       "displayName": "Arrêt sur images",
       "category": "media",
       "source": "https://www.arretsurimages.net/",
@@ -1403,7 +1403,7 @@
     },
     {
       "platform": "youtube",
-      "handle": "radionovachannel",
+      "handle": "radionova",
       "displayName": "Radio Nova",
       "category": "media",
       "source": "https://www.nova.fr/",
@@ -2099,7 +2099,7 @@
     },
     {
       "platform": "youtube",
-      "handle": "cnpcf",
+      "handle": "pcf-particommunistefrançais",
       "displayName": "Parti communiste français",
       "category": "parti",
       "source": "https://www.pcf.fr/",
