@@ -43,7 +43,7 @@ Les images du site viennent d'un dossier de design (poings, favicons, visuels de
 python3 scripts/preparer-visuels.py <dossier du design>
 ```
 
-Le script écrit `site/img/` (poings, silhouettes du logo, grain, vignettes allégées), `site/visuels/` (visuels en pleine taille et leur zip), `site/icons/` et `site/partage.png`, sans aucune métadonnée.
+Le script écrit `site/img/` (poings, grain, vignettes allégées), `site/visuels/` (visuels en pleine taille et leur zip), `site/icons/` et `site/partage.png`, sans aucune métadonnée.
 
 ### Polices
 

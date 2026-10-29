@@ -111,16 +111,17 @@ input {
   gap: 10px;
 }
 
-/* Silhouette pleine sous 40 px de haut, poing gravé au-dessus. */
+/* Le poing du logo n'apparaît que sur ordi : sur téléphone, la barre n'a que les mots. */
 .logo-poing {
+  display: none;
   flex: none;
-  width: 18px;
-  height: 38px;
-  background: url(img/silhouette-rouge.png) center / contain no-repeat;
+  width: 24px;
+  height: 50px;
+  background: url(img/poing-rouge-180.webp) center / contain no-repeat;
 }
 
 .ecran-fin .logo-poing {
-  background-image: url(img/silhouette-papier.png);
+  background-image: url(img/poing-papier-180.webp);
 }
 
 .logo-mots {
@@ -748,13 +749,7 @@ input:checked + .case,
   }
 
   .logo-poing {
-    width: 24px;
-    height: 50px;
-    background-image: url(img/poing-rouge-180.webp);
-  }
-
-  .ecran-fin .logo-poing {
-    background-image: url(img/poing-papier-180.webp);
+    display: block;
   }
 
   .logo-soyons {

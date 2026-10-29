@@ -3,7 +3,7 @@
 
     python3 scripts/preparer-visuels.py <dossier du handoff>
 
-Écrit dans site/ : poings, silhouettes du logo, grain et vignettes (img/), visuels à télécharger
+Écrit dans site/ : poings, grain et vignettes (img/), visuels à télécharger
 et leur zip (visuels/), favicons et icônes (icons/), image d'aperçu du lien (partage.png).
 Aucune métadonnée ne suit : profils de couleur, EXIF et commentaires sont retirés.
 Outil local (Pillow), pas une dépendance du site.
@@ -17,7 +17,6 @@ from PIL import Image
 
 SITE = Path(__file__).resolve().parent.parent / 'site'
 PAPIER = '#EADFC8'
-ROUGE = '#D7261E'
 
 # Dans l'ordre de VISUAL_GROUPS (site/lib/visuals.js) : le zip les reprend ainsi.
 DOWNLOADS = [
@@ -89,12 +88,6 @@ def write_archive(destination, files):
             archive.writestr(info, path.read_bytes())
 
 
-def solid_from_mask(mask, color):
-    """Aplat de couleur qui prend l'alpha du masque."""
-    flat = Image.new('RGBA', mask.size, color)
-    flat.putalpha(mask.getchannel('A'))
-    return flat
-
 
 def report(path):
     print(f'{path.relative_to(SITE)}  {path.stat().st_size // 1024} Ko')
@@ -119,9 +112,6 @@ def main(handoff):
     save(to_height(rouge, 180), img / 'poing-rouge-180.webp', quality=85, method=6)
     save(to_height(papier, 180), img / 'poing-papier-180.webp', quality=85, method=6)
 
-    mask = to_height(open_clean(source('assets/poing/masque-silhouette-blanc.png')), 76)
-    save(solid_from_mask(mask, ROUGE), img / 'silhouette-rouge.png', optimize=True)
-    save(solid_from_mask(mask, PAPIER), img / 'silhouette-papier.png', optimize=True)
 
     grain = open_clean(source('complements/grain.png')).convert('RGBA')
     paper = Image.new('RGB', grain.size, PAPIER)

@@ -173,17 +173,23 @@
   pointer-events: none;
 }
 
+/* Le coin Mise au poing : encadré noir, texte rouge, dans le bloc rouge. */
 .bloc .coin-blocage {
   margin-top: 4px;
-  padding-top: 12px;
-  border-top: 1px solid var(--noir);
+  padding: 14px 16px;
+  background: var(--noir);
+  color: var(--rouge);
   font-size: 15px;
   line-height: 1.45;
 }
 
 .coin-blocage a {
-  color: var(--noir);
+  color: var(--rouge);
   text-underline-offset: 3px;
+}
+
+.coin-blocage :focus-visible {
+  outline-color: var(--papier);
 }
 
 /* Tête de section : titre, phrase et bouton (la liste, « Fais tourner »). */
