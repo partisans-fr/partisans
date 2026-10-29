@@ -4,6 +4,13 @@
 [functions]
   directory = "netlify/functions"
 
+# L'ancienne adresse mène à la nouvelle (Netlify ne le fait pas de lui-même).
+[[redirects]]
+  from = "https://partisans.netlify.app/*"
+  to = "https://soyonspartisans.fr/:splat"
+  status = 301
+  force = true
+
 # Netlify sert le manifeste en application/octet-stream sans cette précision.
 [[headers]]
   for = "/manifest.webmanifest"
