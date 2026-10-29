@@ -1765,6 +1765,172 @@
       "addedAt": "2026-10-29"
     },
     {
+      "platform": "x",
+      "handle": "edwyplenel",
+      "displayName": "Edwy Plenel",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q3048836",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "edwyplenel.bsky.social",
+      "id": "did:plc:ybx3s4azqenega7hdvxkioxa",
+      "displayName": "Edwy Plenel",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q3048836",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "edwyplenel@mamot.fr",
+      "displayName": "Edwy Plenel",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q3048836",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "instagram",
+      "handle": "rokhayadiallo",
+      "displayName": "Rokhaya Diallo",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q3439879",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "rokhayadiallo",
+      "displayName": "Rokhaya Diallo",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q3439879",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "facebook",
+      "handle": "rokhaya.diallo",
+      "displayName": "Rokhaya Diallo",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q3439879",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "youtube",
+      "handle": "rokhayadiallofr",
+      "id": "UCY_h6kGsaxrhsNo7wwFZURg",
+      "displayName": "Rokhaya Diallo",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q3439879",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "rokhayadiallo.bsky.social",
+      "id": "did:plc:p5limtyiil35ljdint4dtvgr",
+      "displayName": "Rokhaya Diallo",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q3439879",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "monachollet",
+      "displayName": "Mona Chollet",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q3320033",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "monachollet.bsky.social",
+      "id": "did:plc:v4glrbzyoin574ixpjf2epwr",
+      "displayName": "Mona Chollet",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q3320033",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "d_schneidermann",
+      "displayName": "Daniel Schneidermann",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q146749",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "dschneidermann.bsky.social",
+      "id": "did:plc:w27mzb5ehguvhskrhcb76fit",
+      "displayName": "Daniel Schneidermann",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q146749",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "abelmestre",
+      "displayName": "Abel Mestre",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q19629414",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "amestre.bsky.social",
+      "id": "did:plc:7j4q6w54iatv3rpxzmbyzbz3",
+      "displayName": "Abel Mestre",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q19629414",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "anttonrouget",
+      "displayName": "Antton Rouget",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q57548187",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "anttonrouget@piaille.fr",
+      "displayName": "Antton Rouget",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q57548187",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "kempfherve",
+      "displayName": "Hervé Kempf",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q664942",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "joconfa",
+      "displayName": "Joseph Confavreux",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q23035589",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "lindgaard",
+      "displayName": "Jade Lindgaard",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q18214974",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "jaderens",
+      "displayName": "Jean-Arnault Dérens",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q3163739",
+      "addedAt": "2026-10-29"
+    },
+    {
       "platform": "facebook",
       "handle": "akimomiricomedie",
       "displayName": "Akim Omiri",
