@@ -13,7 +13,7 @@ export function button(label, href, { secondary = false } = {}) {
 }
 
 export const bar = (extra = '') =>
-  `<header class="barre"><span class="logo"><span class="logo-poing" aria-hidden="true"></span><span class="logo-mots"><span class="logo-soyons">Soyons</span> <span class="logo-partisans">Partisans</span></span></span>${extra}</header>`;
+  `<header class="barre"><a class="logo" href="#"><span class="logo-poing" aria-hidden="true"></span><span class="logo-mots"><span class="logo-soyons">Soyons</span> <span class="logo-partisans">Partisans</span></span></a>${extra}</header>`;
 
 export const plural = (count, word) => `${count} ${word}${count > 1 ? 's' : ''}`;
 

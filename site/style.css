@@ -109,6 +109,8 @@ input {
   display: flex;
   align-items: center;
   gap: 10px;
+  color: inherit;
+  text-decoration: none;
 }
 
 /* Le poing du logo n'apparaît que sur ordi : sur téléphone, la barre n'a que les mots. */

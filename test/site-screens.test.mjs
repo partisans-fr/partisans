@@ -151,11 +151,11 @@ test('la fin compte les abonnements et porte le message', () => {
   ]);
 });
 
-test('chaque écran du parcours a la barre au logo et au plus un bouton rouge plein', () => {
+test('chaque écran du parcours a la barre au logo, qui ramène à l\'accueil, et au plus un bouton rouge plein', () => {
   const fields = { platforms: ['instagram', 'bluesky'], followed: ['instagram:alicemartin'] };
   for (const hash of ['#reseaux', '#categories', '#liste/instagram', '#liste/bluesky', '#fin']) {
     const html = render(hash, fields, { starterPackUrl: 'https://bsky.app/starter-pack/projet.example/partisans' });
-    assert.ok(html.includes('<header class="barre"><span class="logo"><span class="logo-poing" aria-hidden="true"></span><span class="logo-mots"><span class="logo-soyons">Soyons</span> <span class="logo-partisans">Partisans</span></span></span>'), hash);
+    assert.ok(html.includes('<header class="barre"><a class="logo" href="#"><span class="logo-poing" aria-hidden="true"></span><span class="logo-mots"><span class="logo-soyons">Soyons</span> <span class="logo-partisans">Partisans</span></span></a>'), hash);
     assert.ok((html.match(/class="btn"/g) ?? []).length <= 1, hash);
   }
   assert.ok(render('#liste/instagram', fields).includes('<a class="btn secondaire" href="#fin">J\'ai fini</a>'));
