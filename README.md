@@ -2,6 +2,8 @@
 
 Un site, pour téléphone et pour ordi, qui abonne la personne, réseau par réseau, à des comptes de gauche qui combattent l'extrême droite. Un appui sur « Suivre » ouvre la page ou l'appli de la plateforme ; la progression reste dans le navigateur.
 
+La section « Fais tourner » de l'accueil propose les visuels du projet à télécharger un par un (logos, bandeau de profil, posts, stories), ou tous d'un coup dans un zip sur ordi.
+
 Le site : https://soyonspartisans.fr/
 
 ## Principes
@@ -33,10 +35,32 @@ Il refuse tout commit qui contiendrait une identité non anonyme, un chemin abso
 
 Le site est servi par Netlify depuis le dossier `site/` (voir `netlify.toml`), à l'adresse https://soyonspartisans.fr/ (https://partisans.netlify.app/ y redirige).
 
+### Visuels
+
+Les images du site viennent d'un dossier de design (poings, favicons, visuels des réseaux). Pour les produire à nouveau (Python 3 et Pillow) :
+
+```sh
+python3 scripts/preparer-visuels.py <dossier du design>
+```
+
+Le script écrit `site/img/` (poings, silhouettes du logo, grain, vignettes allégées), `site/visuels/` (visuels en pleine taille et leur zip), `site/icons/` et `site/partage.png`, sans aucune métadonnée.
+
+### Polices
+
+Dela Gothic One et Karla viennent du dépôt `google/fonts`. Seul le sous-ensemble latin est servi (Karla réduite à ses graisses 400 à 800), avec fontTools :
+
+```sh
+pyftsubset DelaGothicOne-Regular.ttf --unicodes="$U" --layout-features='kern,liga' --flavor=woff2 --output-file=site/polices/dela-gothic-one.woff2
+fonttools varLib.instancer 'Karla[wght].ttf' wght=400:800 -o karla-400-800.ttf
+pyftsubset karla-400-800.ttf --unicodes="$U" --layout-features='kern,liga' --flavor=woff2 --output-file=site/polices/karla.woff2
+```
+
+où `U='U+0020-007E,U+00A0-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2009,U+200B,U+2010-2011,U+2013,U+2018-2019,U+201C-201D,U+2026,U+202F,U+20AC,U+2190-2193'`.
+
 ## Licence
 
 Copyright (C) 2026 Les contributeurs de Partisans
 
 Ce programme est un logiciel libre, distribué sous licence [GNU GPL v3](LICENSE).
 
-Polices Bricolage Grotesque et Newsreader : SIL Open Font License (`site/polices/`).
+Polices Dela Gothic One et Karla : SIL Open Font License (`site/polices/`).
