@@ -1,0 +1,76 @@
+name: Signaler un compte
+description: Demander le retrait ou la correction d'un compte de la liste Partisans.
+title: "[Signalement] "
+labels: ["signalement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Les critères de la liste sont décrits dans le `README.md`. Les mainteneurs répondent dans cette issue, avec une décision motivée.
+
+        **Cette issue est publique.** N'y mets aucune donnée personnelle (adresse, téléphone, pièce d'identité). Si ta demande en nécessite, indique-le ci-dessous sans les joindre : les mainteneurs te proposeront un moyen de contact privé.
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Plateforme
+      options:
+        - Instagram
+        - X
+        - TikTok
+        - YouTube
+        - Threads
+        - Bluesky
+        - Mastodon
+        - Facebook
+    validations:
+      required: true
+  - type: input
+    id: handle
+    attributes:
+      label: Compte concerné
+      description: Le pseudo tel qu'il figure dans la liste.
+      placeholder: nom.bsky.social
+    validations:
+      required: true
+  - type: dropdown
+    id: request
+    attributes:
+      label: Demande
+      options:
+        - Retrait de la liste
+        - Correction (nom affiché, catégorie, pseudo)
+    validations:
+      required: true
+  - type: dropdown
+    id: relation
+    attributes:
+      label: Ton lien avec ce compte
+      options:
+        - Je suis titulaire du compte
+        - Je représente la personne ou l'organisation titulaire
+        - Aucun lien direct
+    validations:
+      required: true
+  - type: dropdown
+    id: reason
+    attributes:
+      label: Motif
+      options:
+        - Le compte n'appartient pas à cette personne ou organisation
+        - Compte usurpé
+        - Personne ou organisation mal classée
+        - Source erronée
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Éléments à l'appui
+      description: Précisions et liens publics qui appuient ta demande.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Confidentialité
+      options:
+        - label: Je n'ai mis aucune donnée personnelle dans cette demande publique.
+          required: true

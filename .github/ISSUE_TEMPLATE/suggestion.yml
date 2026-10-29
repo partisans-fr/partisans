@@ -1,0 +1,56 @@
+name: Suggérer un compte
+description: Proposer un compte à ajouter à la liste Partisans.
+title: "[Suggestion] "
+labels: ["suggestion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Les critères de la liste sont décrits dans le `README.md`. Rien n'entre dans la liste sans la validation des mainteneurs, qui répondent dans cette issue.
+
+        **Cette issue est publique**, et ton compte GitHub apparaît avec ta suggestion. N'y mets aucune donnée personnelle (adresse, téléphone, pièce d'identité).
+  - type: input
+    id: personne
+    attributes:
+      label: Personne ou organisation
+      description: Son nom, et son rôle public (mandat, média, mouvement).
+      placeholder: Jeanne Dupont, députée
+    validations:
+      required: true
+  - type: textarea
+    id: comptes
+    attributes:
+      label: Lien du ou des comptes
+      description: Un lien par ligne. La plateforme se déduit du lien.
+      placeholder: https://www.instagram.com/nom/
+    validations:
+      required: true
+  - type: dropdown
+    id: categorie
+    attributes:
+      label: Catégorie proposée
+      options:
+        - Personnalités politiques
+        - Médias
+        - Journalistes
+        - Influenceurs
+        - Partis et mouvements
+        - Associations
+    validations:
+      required: true
+  - type: textarea
+    id: preuve
+    attributes:
+      label: Preuve que le compte lui appartient
+      description: Un lien où la personne ou l'organisation renvoie vers ce compte, par exemple son site officiel, un autre profil déjà connu ou sa fiche à l'Assemblée.
+    validations:
+      required: true
+  - type: checkboxes
+    id: engagements
+    attributes:
+      label: Vérifications
+      options:
+        - label: Je n'ai mis aucune donnée personnelle dans cette suggestion publique.
+          required: true
+        - label: Le compte est public et appartient à une personne ou une organisation qui a un rôle public, pas à un particulier.
+          required: true

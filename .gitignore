@@ -1,0 +1,32 @@
+# Environnement et secrets
+.env
+.env.*
+*.pem
+*.key
+*.p12
+
+# Dépendances
+node_modules/
+
+# Logs
+*.log
+
+# IDE et éditeurs
+.vscode/
+.idea/
+.history/
+*.swp
+*.swo
+*~
+
+# Fichiers système (Windows, macOS, WSL)
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+*Zone.Identifier
+
+# Outils IA locaux
+.claude/
+CLAUDE.local.md

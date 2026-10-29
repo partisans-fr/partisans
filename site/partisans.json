@@ -1,0 +1,1691 @@
+{
+  "schemaVersion": 1,
+  "name": "Partisans",
+  "description": "Comptes de gauche, LFI et progressistes à suivre pour donner de la force à ceux qui combattent l'extrême droite.",
+  "maintainer": {
+    "name": "Partisans"
+  },
+  "contestUrl": "https://github.com/partisans-fr/partisans/issues/new?template=signalement.yml",
+  "suggestUrl": "https://github.com/partisans-fr/partisans/issues/new?template=suggestion.yml",
+  "version": "2026.10.28",
+  "updatedAt": "2026-10-28",
+  "categories": {
+    "politique": "Personnalités politiques",
+    "media": "Médias",
+    "journaliste": "Journalistes",
+    "influenceur": "Influenceurs",
+    "parti": "Partis et mouvements",
+    "association": "Associations"
+  },
+  "entries": [
+    {
+      "platform": "instagram",
+      "handle": "jlmelenchon",
+      "displayName": "Jean-Luc Mélenchon",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q5829",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "jlmelenchon",
+      "displayName": "Jean-Luc Mélenchon",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q5829",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "jlmelenchon",
+      "displayName": "Jean-Luc Mélenchon",
+      "category": "politique",
+      "source": "https://melenchon.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "threads",
+      "handle": "jlmelenchon",
+      "displayName": "Jean-Luc Mélenchon",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q5829",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "jlmelenchon",
+      "displayName": "Jean-Luc Mélenchon",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q5829",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "mathildepanotfi",
+      "displayName": "Mathilde Panot",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q30343128",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "mathildepanot.bsky.social",
+      "id": "did:plc:awp4pev7xbtmhlwvq6qfirpz",
+      "displayName": "Mathilde Panot",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q30343128",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "mathildepanot",
+      "displayName": "Mathilde Panot",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q30343128",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "mathildepanot",
+      "displayName": "Mathilde Panot",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q30343128",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "threads",
+      "handle": "mathildepanot",
+      "displayName": "Mathilde Panot",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q30343128",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "mathildepanotoff",
+      "id": "UCilxiEGEQHVZ25GU_cnyCzg",
+      "displayName": "Mathilde Panot",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q30343128",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "mathildepanot",
+      "displayName": "Mathilde Panot",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q30343128",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "threads",
+      "handle": "manuelbompard",
+      "displayName": "Manuel Bompard",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q29575749",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "manuelbompard",
+      "displayName": "Manuel Bompard",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q29575749",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "manuelbompard",
+      "displayName": "Manuel Bompard",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q29575749",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "mbompard",
+      "displayName": "Manuel Bompard",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q29575749",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "mbompard",
+      "displayName": "Manuel Bompard",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q29575749",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "threads",
+      "handle": "clemence_guette",
+      "displayName": "Clémence Guetté",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q109969696",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "clémenceguetté-y7s",
+      "id": "UCpU9riAixpc1Xn9Q4i7AkOw",
+      "displayName": "Clémence Guetté",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q109969696",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "clemence_guette",
+      "displayName": "Clémence Guetté",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q109969696",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "clemenceguette.bsky.social",
+      "id": "did:plc:hlx5zxbo4kkp7mvtotlaaljg",
+      "displayName": "Clémence Guetté",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q109969696",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "guetteclemence",
+      "displayName": "Clémence Guetté",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q109969696",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "clemence_guette",
+      "displayName": "Clémence Guetté",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q109969696",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "threads",
+      "handle": "boyardlouis",
+      "displayName": "Louis Boyard",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q112654108",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "louisboyard.bsky.social",
+      "id": "did:plc:q46qie5bksl2kym2oakeeife",
+      "displayName": "Louis Boyard",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q112654108",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "l_boyard",
+      "displayName": "Louis Boyard",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q112654108",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "boyardlouis",
+      "displayName": "Louis Boyard",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q112654108",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "louisboyard",
+      "displayName": "Louis Boyard",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q112654108",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "david.guiraud.50",
+      "displayName": "David Guiraud",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q112651457",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "guiraudind",
+      "displayName": "David Guiraud",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q112651457",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "threads",
+      "handle": "rimamobarak",
+      "displayName": "Rima Hassan",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q123232131",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "rimahas",
+      "displayName": "Rima Hassan",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q123232131",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "rimamobarak",
+      "displayName": "Rima Hassan",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q123232131",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "manonaubryfr",
+      "displayName": "Manon Aubry",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q59601214",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "manonaubryfr",
+      "displayName": "Manon Aubry",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q59601214",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "manonaubryfr",
+      "displayName": "Manon Aubry",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q59601214",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "manonaubryfr.bsky.social",
+      "id": "did:plc:5w4jlfdtbdzxpryfihvvm5h4",
+      "displayName": "Manon Aubry",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q59601214",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "threads",
+      "handle": "manonaubryfr",
+      "displayName": "Manon Aubry",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q59601214",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "dan.obono.5",
+      "displayName": "Danièle Obono",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q30335340",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "deputee_obono",
+      "displayName": "Danièle Obono",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q30335340",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "camaradobono",
+      "displayName": "Danièle Obono",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q30335340",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "threads",
+      "handle": "raphael_arnault",
+      "displayName": "Raphaël Arnault",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q116870344",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "arnaultraphael",
+      "displayName": "Raphaël Arnault",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q116870344",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "raphael_arnault",
+      "displayName": "Raphaël Arnault",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q116870344",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "aleaument",
+      "displayName": "Antoine Léaument",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q62976462",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "aleaument",
+      "displayName": "Antoine Léaument",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q62976462",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "aleaument",
+      "displayName": "Antoine Léaument",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q62976462",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "threads",
+      "handle": "aleaument",
+      "displayName": "Antoine Léaument",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q62976462",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "trouveaurelie",
+      "displayName": "Aurélie Trouvé",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q2872015",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "trouveaurelie93",
+      "displayName": "Aurélie Trouvé",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q2872015",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "trouveaurelie",
+      "id": "UCBmDLidbbwRUiZeCKWrlPMg",
+      "displayName": "Aurélie Trouvé",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q2872015",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "trouveaurelie",
+      "displayName": "Aurélie Trouvé",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q2872015",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "alma_dufour",
+      "displayName": "Alma Dufour",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q110998923",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "almadufour.bsky.social",
+      "id": "did:plc:atmw756apgevldphyaouvhw2",
+      "displayName": "Alma Dufour",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q110998923",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "100044148110691",
+      "displayName": "Clémentine Autain",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q2980738",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "clementineautain",
+      "displayName": "Clémentine Autain",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q2980738",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "threads",
+      "handle": "clementineautain",
+      "displayName": "Clémentine Autain",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q2980738",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "clementineautain.bsky.social",
+      "id": "did:plc:i27lvonqvridxzfgstsqw6p2",
+      "displayName": "Clémentine Autain",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q2980738",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "clémentineautain-i2l",
+      "id": "UCZgJ_r_Ewlu1Ck-RzNCHuUQ",
+      "displayName": "Clémentine Autain",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q2980738",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "clementine_autain",
+      "displayName": "Clémentine Autain",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q2980738",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "clem_autain",
+      "displayName": "Clémentine Autain",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q2980738",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "ian.brossat",
+      "displayName": "Ian Brossat",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q3147241",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "ianbrossat",
+      "displayName": "Ian Brossat",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q3147241",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "threads",
+      "handle": "marinetondelier",
+      "displayName": "Marine Tondelier",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q29917987",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "marinetondelier",
+      "displayName": "Marine Tondelier",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q29917987",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "marinetondelier.fr",
+      "id": "did:plc:gixn227k63od3d4cyrwp67w5",
+      "displayName": "Marine Tondelier",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q29917987",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "marinetondelier",
+      "displayName": "Marine Tondelier",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q29917987",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "marinetondelier@piaille.fr",
+      "displayName": "Marine Tondelier",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q29917987",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "marinetondelier",
+      "displayName": "Marine Tondelier",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q29917987",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "marinetondelierfr",
+      "displayName": "Marine Tondelier",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q29917987",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "sandrousseau@mastodon.social",
+      "displayName": "Sandrine Rousseau",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q21013136",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "sandrousseau.bsky.social",
+      "id": "did:plc:zvgnnx7oncrqqqlwmhqiccpv",
+      "displayName": "Sandrine Rousseau",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q21013136",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "sandrousseau",
+      "displayName": "Sandrine Rousseau",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q21013136",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "sandrousseau",
+      "displayName": "Sandrine Rousseau",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q21013136",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "royalsegolene",
+      "displayName": "Ségolène Royal",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q81923",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "segoleneroyal",
+      "displayName": "Ségolène Royal",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q81923",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "humanite_fr",
+      "displayName": "L'Humanité",
+      "category": "media",
+      "source": "https://www.humanite.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "humanite.fr",
+      "displayName": "L'Humanité",
+      "category": "media",
+      "source": "https://www.humanite.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "humanitefr",
+      "displayName": "L'Humanité",
+      "category": "media",
+      "source": "https://www.humanite.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "humanite.fr",
+      "id": "did:plc:vaats7pht5zoubxm6zaxq2zd",
+      "displayName": "L'Humanité",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q1137404",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "mediapart",
+      "displayName": "Mediapart",
+      "category": "media",
+      "source": "https://www.mediapart.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "mediapart.fr",
+      "displayName": "Mediapart",
+      "category": "media",
+      "source": "https://www.mediapart.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "mediapart",
+      "displayName": "Mediapart",
+      "category": "media",
+      "source": "https://www.mediapart.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "mediapart@mediapart.social",
+      "displayName": "Mediapart",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q619342",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "mediapart",
+      "displayName": "Mediapart",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q619342",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "mediapart.fr",
+      "id": "did:plc:2egpzsea27fru2vkrjgdw2ob",
+      "displayName": "Mediapart",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q619342",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "blast-info.fr",
+      "id": "did:plc:omtqqkwusnfvxos7pxvl4fgo",
+      "displayName": "Blast",
+      "category": "media",
+      "source": "https://www.blast-info.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "blast_info@mamot.fr",
+      "displayName": "Blast",
+      "category": "media",
+      "source": "https://www.blast-info.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "blastofficiel",
+      "displayName": "Blast",
+      "category": "media",
+      "source": "https://www.blast-info.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "blastofficiel",
+      "displayName": "Blast",
+      "category": "media",
+      "source": "https://www.blast-info.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "blastinfo",
+      "id": "UC__xRB5L4toU9yYawt_lIKg",
+      "displayName": "Blast",
+      "category": "media",
+      "source": "https://www.blast-info.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "blast_france",
+      "displayName": "Blast",
+      "category": "media",
+      "source": "https://www.blast-info.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "lemediatv",
+      "displayName": "Le Média",
+      "category": "media",
+      "source": "https://www.lemediatv.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "lemediaofficiel",
+      "displayName": "Le Média",
+      "category": "media",
+      "source": "https://www.lemediatv.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "lemediatv.bsky.social",
+      "id": "did:plc:hr4uzamyz54qo2lrf2isqcu3",
+      "displayName": "Le Média",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q44281886",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "lemediatv",
+      "displayName": "Le Média",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q44281886",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "streetpress",
+      "displayName": "StreetPress",
+      "category": "media",
+      "source": "https://www.streetpress.com/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "streetpress",
+      "displayName": "StreetPress",
+      "category": "media",
+      "source": "https://www.streetpress.com/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "streetpress",
+      "displayName": "StreetPress",
+      "category": "media",
+      "source": "https://www.streetpress.com/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "streetpresstv",
+      "displayName": "StreetPress",
+      "category": "media",
+      "source": "https://www.streetpress.com/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "streetpress_",
+      "displayName": "StreetPress",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q3500224",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "streetpress@mamot.fr",
+      "displayName": "StreetPress",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q3500224",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "streetpress.bsky.social",
+      "id": "did:plc:oc4vdaapdvl4rpxg7szifvqv",
+      "displayName": "StreetPress",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q3500224",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "politis_fr",
+      "displayName": "Politis",
+      "category": "media",
+      "source": "https://www.politis.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "politismag",
+      "displayName": "Politis",
+      "category": "media",
+      "source": "https://www.politis.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "politisvideos",
+      "displayName": "Politis",
+      "category": "media",
+      "source": "https://www.politis.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "politis.fr",
+      "id": "did:plc:oj6rklu3kys7xf37e2kmlnl5",
+      "displayName": "Politis",
+      "category": "media",
+      "source": "https://www.politis.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "politis@piaille.fr",
+      "displayName": "Politis",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q511952",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "politis_fr",
+      "displayName": "Politis",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q511952",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "regards.bsky.social",
+      "id": "did:plc:jgkyhqwociqqkzqfmvm4umlo",
+      "displayName": "Regards",
+      "category": "media",
+      "source": "https://regards.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "regards.fr",
+      "displayName": "Regards",
+      "category": "media",
+      "source": "https://regards.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "revue_regards",
+      "displayName": "Regards",
+      "category": "media",
+      "source": "https://regards.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "revueregards",
+      "displayName": "Regards",
+      "category": "media",
+      "source": "https://regards.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "regardsfr",
+      "displayName": "Regards",
+      "category": "media",
+      "source": "https://regards.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "regards_fr",
+      "displayName": "Regards",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q3423380",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "reporterre@mastodon.social",
+      "displayName": "Reporterre",
+      "category": "media",
+      "source": "https://reporterre.net/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "reporterremediadelecologie",
+      "displayName": "Reporterre",
+      "category": "media",
+      "source": "https://reporterre.net/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "reporterre_media",
+      "displayName": "Reporterre",
+      "category": "media",
+      "source": "https://reporterre.net/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "reporterre_media",
+      "id": "UCDn6zvBZNEWUv44xjgELicA",
+      "displayName": "Reporterre",
+      "category": "media",
+      "source": "https://reporterre.net/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "reporterre.net",
+      "id": "did:plc:2htr6vzopp6mejep7qcpszru",
+      "displayName": "Reporterre",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q28495146",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "basta.media",
+      "id": "did:plc:6tko42pks4rfcjh7rfqkzmhu",
+      "displayName": "Basta!",
+      "category": "media",
+      "source": "https://basta.media/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "bastamedia@mastodon.social",
+      "displayName": "Basta!",
+      "category": "media",
+      "source": "https://basta.media/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "journalbasta",
+      "displayName": "Basta!",
+      "category": "media",
+      "source": "https://basta.media/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "basta.media",
+      "displayName": "Basta!",
+      "category": "media",
+      "source": "https://basta.media/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "bastamedia",
+      "id": "UCl2DC-Gr2Ym2qfsyvesTBdA",
+      "displayName": "Basta!",
+      "category": "media",
+      "source": "https://basta.media/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "bastamag",
+      "displayName": "Basta!",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q2887631",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "arretsurimages.net",
+      "id": "did:plc:jmusvarqn5czqikhnqdmjyum",
+      "displayName": "Arrêt sur images",
+      "category": "media",
+      "source": "https://www.arretsurimages.net/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "arretsurimages.net",
+      "displayName": "Arrêt sur images",
+      "category": "media",
+      "source": "https://www.arretsurimages.net/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "arretsurimages_net",
+      "displayName": "Arrêt sur images",
+      "category": "media",
+      "source": "https://www.arretsurimages.net/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "arretsurimagesmedia",
+      "displayName": "Arrêt sur images",
+      "category": "media",
+      "source": "https://www.arretsurimages.net/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "arretsurimages",
+      "displayName": "Arrêt sur images",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q703888",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "arretsurimages@mamot.fr",
+      "displayName": "Arrêt sur images",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q703888",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "mdiplo",
+      "displayName": "Le Monde diplomatique",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q858121",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "lemondediplo",
+      "displayName": "Le Monde diplomatique",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q858121",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "mondediplo",
+      "displayName": "Le Monde diplomatique",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q858121",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "mdiplo@mamot.fr",
+      "displayName": "Le Monde diplomatique",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q858121",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "laradionova",
+      "displayName": "Radio Nova",
+      "category": "media",
+      "source": "https://www.nova.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "laradionova",
+      "displayName": "Radio Nova",
+      "category": "media",
+      "source": "https://www.nova.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "laradionova",
+      "displayName": "Radio Nova",
+      "category": "media",
+      "source": "https://www.nova.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "radionovachannel",
+      "displayName": "Radio Nova",
+      "category": "media",
+      "source": "https://www.nova.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "laradionova.bsky.social",
+      "id": "did:plc:qowbtxbacsozuqde2xrujoeq",
+      "displayName": "Radio Nova",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q2292969",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "contreattaque.bsky.social",
+      "id": "did:plc:gpss3375acfwih7x37b4kz2d",
+      "displayName": "Contre Attaque",
+      "category": "media",
+      "source": "https://contre-attaque.net/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "contreattaque@mastodon.social",
+      "displayName": "Contre Attaque",
+      "category": "media",
+      "source": "https://contre-attaque.net/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "contre.attaque.media",
+      "displayName": "Contre Attaque",
+      "category": "media",
+      "source": "https://contre-attaque.net/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "_contreattaque",
+      "displayName": "Contre Attaque",
+      "category": "media",
+      "source": "https://contre-attaque.net/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "contreattaque1881",
+      "id": "UCTlSHe68QnKiZfj2kVi4XZA",
+      "displayName": "Contre Attaque",
+      "category": "media",
+      "source": "https://contre-attaque.net/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "contreattaque_",
+      "displayName": "Contre Attaque",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q110812161",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "salomesaque",
+      "displayName": "Salomé Saqué",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q110507860",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "salomesaque",
+      "displayName": "Salomé Saqué",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q110507860",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "salomesaque.bsky.social",
+      "id": "did:plc:josnciwjiylpgpwfhr6xdrvr",
+      "displayName": "Salomé Saqué",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q110507860",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "akimomiricomedie",
+      "displayName": "Akim Omiri",
+      "category": "influenceur",
+      "source": "https://www.wikidata.org/wiki/Q61951075",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "akimomiri",
+      "displayName": "Akim Omiri",
+      "category": "influenceur",
+      "source": "https://www.wikidata.org/wiki/Q61951075",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "akimomiri",
+      "displayName": "Akim Omiri",
+      "category": "influenceur",
+      "source": "https://www.wikidata.org/wiki/Q61951075",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "akimomiri",
+      "id": "UCbOdpYBG53zmFuDK0qaTSmw",
+      "displayName": "Akim Omiri",
+      "category": "influenceur",
+      "source": "https://www.wikidata.org/wiki/Q61951075",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "franceinsoumise",
+      "displayName": "La France insoumise",
+      "category": "parti",
+      "source": "https://lafranceinsoumise.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "lafranceinsoumise",
+      "displayName": "La France insoumise",
+      "category": "parti",
+      "source": "https://lafranceinsoumise.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "franceinsoumise",
+      "displayName": "La France insoumise",
+      "category": "parti",
+      "source": "https://lafranceinsoumise.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "franceinsoumise",
+      "id": "UCKHKSD-yanY2ZwwU_4Tgf0w",
+      "displayName": "La France insoumise",
+      "category": "parti",
+      "source": "https://lafranceinsoumise.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "threads",
+      "handle": "franceinsoumise",
+      "displayName": "La France insoumise",
+      "category": "parti",
+      "source": "https://www.wikidata.org/wiki/Q27978402",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "lfi.bsky.social",
+      "id": "did:plc:6iuhycofbisydvbvadlahyf7",
+      "displayName": "La France insoumise",
+      "category": "parti",
+      "source": "https://www.wikidata.org/wiki/Q27978402",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "eelvfr",
+      "displayName": "Les Écologistes",
+      "category": "parti",
+      "source": "https://www.wikidata.org/wiki/Q613786",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "51603470763",
+      "displayName": "Les Écologistes",
+      "category": "parti",
+      "source": "https://www.wikidata.org/wiki/Q613786",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "lesecologistes.fr",
+      "id": "did:plc:sdlol7kfpl4on4g6dooigtcb",
+      "displayName": "Les Écologistes",
+      "category": "parti",
+      "source": "https://www.wikidata.org/wiki/Q613786",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "eelv@mamot.fr",
+      "displayName": "Les Écologistes",
+      "category": "parti",
+      "source": "https://www.wikidata.org/wiki/Q613786",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "eelv",
+      "displayName": "Les Écologistes",
+      "category": "parti",
+      "source": "https://www.wikidata.org/wiki/Q613786",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "threads",
+      "handle": "eelvfr",
+      "displayName": "Les Écologistes",
+      "category": "parti",
+      "source": "https://www.wikidata.org/wiki/Q613786",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "jeunes_ecolos",
+      "displayName": "Jeunes Écologistes",
+      "category": "parti",
+      "source": "https://jeunes-ecologistes.org/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "jeunes.ecologistes",
+      "displayName": "Jeunes Écologistes",
+      "category": "parti",
+      "source": "https://jeunes-ecologistes.org/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "jeunesecologistes9219",
+      "id": "UCSvpexUdV5AnoFZcZu1m6vg",
+      "displayName": "Jeunes Écologistes",
+      "category": "parti",
+      "source": "https://www.wikidata.org/wiki/Q3178106",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "pcf",
+      "displayName": "Parti communiste français",
+      "category": "parti",
+      "source": "https://www.pcf.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "particommuniste",
+      "displayName": "Parti communiste français",
+      "category": "parti",
+      "source": "https://www.pcf.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "pcfparticommunistefrancais",
+      "displayName": "Parti communiste français",
+      "category": "parti",
+      "source": "https://www.pcf.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "cnpcf",
+      "displayName": "Parti communiste français",
+      "category": "parti",
+      "source": "https://www.pcf.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "_mjcf",
+      "displayName": "Jeunes Communistes",
+      "category": "parti",
+      "source": "https://www.jeunes-communistes.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "_mjcf",
+      "displayName": "Jeunes Communistes",
+      "category": "parti",
+      "source": "https://www.jeunes-communistes.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "jeunes.communistes",
+      "displayName": "Jeunes Communistes",
+      "category": "parti",
+      "source": "https://www.jeunes-communistes.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "npa_antica",
+      "displayName": "Nouveau Parti anticapitaliste",
+      "category": "parti",
+      "source": "https://npa-lanticapitaliste.org/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "npa.anticapitaliste",
+      "displayName": "Nouveau Parti anticapitaliste",
+      "category": "parti",
+      "source": "https://npa-lanticapitaliste.org/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "npa.anticapitaliste",
+      "displayName": "Nouveau Parti anticapitaliste",
+      "category": "parti",
+      "source": "https://npa-lanticapitaliste.org/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "union.etudiante__",
+      "displayName": "Union étudiante",
+      "category": "parti",
+      "source": "https://union-etudiante.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "threads",
+      "handle": "union.etudiante__",
+      "displayName": "Union étudiante",
+      "category": "parti",
+      "source": "https://union-etudiante.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "unionetudiante",
+      "displayName": "Union étudiante",
+      "category": "parti",
+      "source": "https://union-etudiante.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "unionetudiante_",
+      "displayName": "Union étudiante",
+      "category": "parti",
+      "source": "https://union-etudiante.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "unef",
+      "displayName": "UNEF",
+      "category": "parti",
+      "source": "https://unef.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "unef_",
+      "displayName": "UNEF",
+      "category": "parti",
+      "source": "https://unef.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "unef.fr",
+      "displayName": "UNEF",
+      "category": "parti",
+      "source": "https://unef.fr/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "alternatiba_",
+      "displayName": "Alternatiba",
+      "category": "association",
+      "source": "https://alternatiba.eu/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "alternatiba",
+      "displayName": "Alternatiba",
+      "category": "association",
+      "source": "https://alternatiba.eu/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "alternatiba.eu",
+      "displayName": "Alternatiba",
+      "category": "association",
+      "source": "https://alternatiba.eu/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "alternatibaeurope",
+      "id": "UCjjsC-0NuPc8YgqlmcrOMOw",
+      "displayName": "Alternatiba",
+      "category": "association",
+      "source": "https://www.wikidata.org/wiki/Q18599924",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "alternatiba_",
+      "displayName": "Alternatiba",
+      "category": "association",
+      "source": "https://www.wikidata.org/wiki/Q18599924",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "sos_racisme",
+      "displayName": "SOS Racisme",
+      "category": "association",
+      "source": "https://sos-racisme.org/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "sos_racisme",
+      "displayName": "SOS Racisme",
+      "category": "association",
+      "source": "https://sos-racisme.org/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "sosracisme_off",
+      "displayName": "SOS Racisme",
+      "category": "association",
+      "source": "https://sos-racisme.org/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "touchepasamonpoteofficiel",
+      "displayName": "SOS Racisme",
+      "category": "association",
+      "source": "https://sos-racisme.org/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "lacimade.org",
+      "id": "did:plc:crrrwqayonr2b7rpmetxkw27",
+      "displayName": "La Cimade",
+      "category": "association",
+      "source": "https://www.lacimade.org/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "lacimade",
+      "displayName": "La Cimade",
+      "category": "association",
+      "source": "https://www.lacimade.org/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "lacimade",
+      "displayName": "La Cimade",
+      "category": "association",
+      "source": "https://www.lacimade.org/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "la_cimade",
+      "displayName": "La Cimade",
+      "category": "association",
+      "source": "https://www.lacimade.org/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "ldh.fr",
+      "id": "did:plc:es43rm6sg46vhyv4j3ek5lid",
+      "displayName": "LDH",
+      "category": "association",
+      "source": "https://www.ldh-france.org/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "ldh_fr@piaille.fr",
+      "displayName": "LDH",
+      "category": "association",
+      "source": "https://www.ldh-france.org/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "ldh_fr",
+      "displayName": "LDH",
+      "category": "association",
+      "source": "https://www.ldh-france.org/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "facebook",
+      "handle": "ldhfrance",
+      "displayName": "LDH",
+      "category": "association",
+      "source": "https://www.ldh-france.org/",
+      "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "ldh_fr",
+      "displayName": "LDH",
+      "category": "association",
+      "source": "https://www.ldh-france.org/",
+      "addedAt": "2026-10-28"
+    }
+  ]
+}
