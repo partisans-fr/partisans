@@ -57,6 +57,8 @@ pyftsubset karla-400-800.ttf --unicodes="$U" --layout-features='kern,liga' --fla
 
 où `U='U+0020-007E,U+00A0-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2009,U+200B,U+2010-2011,U+2013,U+2018-2019,U+201C-201D,U+2026,U+202F,U+20AC,U+2190-2193'`.
 
+Dela Gothic One dessine ses flèches pour le japonais, trop bas pour nos capitales : `python3 scripts/recentrer-fleches.py site/polices/dela-gothic-one.woff2` les recentre. Karla n'a pas de flèches : dans le texte courant, elles viennent de la police du système.
+
 ## Licence
 
 Copyright (C) 2026 Les contributeurs de Partisans
