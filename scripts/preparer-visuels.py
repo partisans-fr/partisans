@@ -147,7 +147,7 @@ def main(handoff):
         save(open_clean(source(path)), icons / name, optimize=True)
     save(open_clean(source('assets/favicon/icon-512.png')).resize((192, 192), Image.LANCZOS), icons / 'icon-192.png', optimize=True)
 
-    preview = open_clean(source('complements/partage.png')).convert('RGB')
+    preview = open_clean(source('visuels-jpg-2/partage.jpg')).convert('RGB')
     save(preview.quantize(256, method=Image.Quantize.FASTOCTREE), SITE / 'partage.png', optimize=True)
 
     for path in outputs:
