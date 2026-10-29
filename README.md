@@ -13,7 +13,7 @@ Le site : https://soyonspartisans.fr/
 
 ## La liste
 
-`site/partisans.json` : comptes de gauche, LFI assumé, en six catégories (personnalités politiques, médias, journalistes, influenceurs, partis et mouvements, associations). Chaque compte a une source qui prouve qu'il appartient bien à la personne ou à l'organisation (site officiel, item Wikidata).
+`site/partisans.json` : comptes de gauche, LFI assumé, en six catégories (personnalités politiques, médias, journalistes, influenceur·ses, partis et mouvements, associations). Chaque compte a une source qui prouve qu'il appartient bien à la personne ou à l'organisation (site officiel, item Wikidata).
 
 Pour signaler ou suggérer un compte, ouvre un ticket avec le formulaire « Signaler un compte » ou « Suggérer un compte ». Une suggestion sans preuve d'appartenance n'est pas retenue.
 

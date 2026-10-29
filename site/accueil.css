@@ -52,8 +52,10 @@
   text-transform: uppercase;
 }
 
+/* « PARTISAN·ES. » mesure environ 9,3 fois la taille de la police : il tient dans la largeur, marges
+   de 20 px comprises, dès 320 px. */
 .hero h1 {
-  font-size: min(41px, 10.5vw);
+  font-size: min(41px, 9.3vw);
   line-height: 1.08;
 }
 
@@ -353,6 +355,11 @@
   font-size: 14px;
 }
 
+.pied-accueil .note a {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+
 /* Ordi (référence 1440 px) */
 
 @media (min-width: 900px) {
@@ -453,7 +460,8 @@
     height: 760px;
   }
 
-  /* Chaque phrase tient sur une ligne ; le retour n'est permis qu'entre les deux. */
+  /* Les deux phrases se suivent ; une phrase trop longue pour la largeur ne se coupe qu'entre ses
+     morceaux (« celles et ceux » reste entier). */
   .slogan {
     display: flex;
     flex-wrap: wrap;
@@ -463,12 +471,9 @@
     line-height: 1.15;
   }
 
-  .slogan .phrase {
-    white-space: nowrap;
-  }
-
   .slogan .phrase > span {
     display: inline;
+    white-space: nowrap;
   }
 
   .blocs {

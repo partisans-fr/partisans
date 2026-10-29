@@ -21,7 +21,7 @@ export const miniList = {
     politique: 'Personnalités politiques',
     media: 'Médias',
     journaliste: 'Journalistes',
-    influenceur: 'Influenceurs',
+    influenceur: 'Influenceur·ses',
     parti: 'Partis et mouvements',
     association: 'Associations',
   },

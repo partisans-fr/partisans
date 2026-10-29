@@ -20,21 +20,21 @@ test('l\'accueil porte les textes validés, dans l\'ordre', () => {
   const html = home();
   assertInOrder(html, [
     '<p class="surtitre">Contre l\'extrême droite, sur les réseaux</p>',
-    '<h1><span class="ligne"><span data-anim="line">Soyons</span></span> <span class="ligne"><span data-anim="line">partisans.</span></span></h1>',
-    '<p class="chapo">Abonne-toi en quelques minutes aux élus, médias et collectifs de gauche qui combattent l\'extrême droite.</p>',
+    '<h1><span class="ligne"><span data-anim="line">Soyons</span></span> <span class="ligne"><span data-anim="line">partisan·es.</span></span></h1>',
+    '<p class="chapo">Abonne-toi en quelques minutes aux élu·es, médias et collectifs de gauche qui combattent l\'extrême droite.</p>',
     '>Voir la liste →</a>',
     'Il ne te sera demandé aucun mot de passe, toutes tes données restent confidentielles.',
-    '<p class="slogan"><span class="phrase"><span>De la force pour</span> <span>ceux qui luttent.</span></span> <span class="phrase rouge"><span>Rien pour</span> <span>l\'extrême droite.</span></span></p>',
+    '<p class="slogan"><span class="phrase"><span>De la force pour</span> <span>celles et ceux</span> <span>qui luttent.</span></span> <span class="phrase rouge"><span>Rien pour</span> <span>l\'extrême droite.</span></span></p>',
     '<h2>Les algorithmes amplifient ce qui fait réagir.</h2>',
-    'Quand tu réponds à un post d\'extrême droite, même pour le dénoncer, tu le fais voir à plus de monde. Tes likes, partages et commentaires ont du poids : donne-les à ceux qui la combattent.',
+    'Quand tu réponds à un post d\'extrême droite, même pour le dénoncer, tu le fais voir à plus de monde. Tes likes, partages et commentaires ont du poids : donne-les à celles et ceux qui la combattent.',
     '<h2>Abonne-toi en quelques clics.</h2>',
     'Choisis tes réseaux. On t\'ouvre chaque compte de la liste, tu n\'as plus qu\'à cliquer sur «\u202fS\'abonner\u202f».',
     '<h2>Soutiens. <em>Ignore le reste.</em></h2>',
-    'Une fois abonné à ceux qui luttent, aime, partage et commente leurs posts. L\'extrême droite, ignore-la : ne réponds pas, ne cite pas, continue juste de scroller !',
+    'Une fois abonné·e à celles et ceux qui luttent, aime, partage et commente leurs posts. L\'extrême droite, ignore-la : ne réponds pas, ne cite pas, continue juste de scroller !',
     '<h2>La liste</h2>',
     'Fais passer le mot.',
     '<p class="adresse">soyonspartisans.fr</p>',
-    'Projet bénévole et anonyme.',
+    '<p class="note">Projet bénévole et anonyme. <a href="#mentions">Mentions légales</a></p>',
   ]);
 });
 
@@ -122,7 +122,7 @@ test('plural accorde comptes', () => {
 });
 
 test('le pied porte le poing et l\'adresse', () => {
-  assert.ok(home().includes('<footer class="pied-accueil"><span class="pied-poing" aria-hidden="true"></span><p class="mot">Fais passer le mot.</p><p class="adresse">soyonspartisans.fr</p><p class="note">Projet bénévole et anonyme.</p></footer>'));
+  assert.ok(home().includes('<footer class="pied-accueil"><span class="pied-poing" aria-hidden="true"></span><p class="mot">Fais passer le mot.</p><p class="adresse">soyonspartisans.fr</p><p class="note">Projet bénévole et anonyme. <a href="#mentions">Mentions légales</a></p></footer>'));
 });
 
 test('tout fichier appelé par l\'accueil existe', () => {
@@ -139,7 +139,7 @@ test('tout fichier appelé par l\'accueil existe', () => {
 
 test('la précision dit ce que le titre de colonne ne dit pas', () => {
   const html = home();
-  assert.ok(html.includes('<span class="nom">Chloé Vidéo</span> <span class="precision">Influenceur</span>'));
+  assert.ok(html.includes('<span class="nom">Chloé Vidéo</span> <span class="precision">Influenceur·se</span>'));
   assert.ok(html.includes('<span class="nom">Mouvement Commun</span> <span class="precision">Parti ou mouvement</span>'));
   assert.ok(html.includes('<span class="nom">Collectif Solidaire</span> <span class="precision">Association</span>'));
   assert.ok(html.includes('<span class="nom">Le Journal</span></p>'));

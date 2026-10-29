@@ -18,7 +18,7 @@ test('les six catégories sont déclarées dans l\'ordre', () => {
     ['politique', 'Personnalités politiques'],
     ['media', 'Médias'],
     ['journaliste', 'Journalistes'],
-    ['influenceur', 'Influenceurs'],
+    ['influenceur', 'Influenceur·ses'],
     ['parti', 'Partis et mouvements'],
     ['association', 'Associations'],
   ]);

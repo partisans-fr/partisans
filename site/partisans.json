@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "name": "Partisans",
-  "description": "Comptes de gauche, à suivre pour donner de la force à ceux qui combattent l'extrême droite.",
+  "description": "Comptes de gauche, à suivre pour donner de la force à celles et ceux qui combattent l'extrême droite.",
   "maintainer": {
     "name": "Partisans"
   },
@@ -13,7 +13,7 @@
     "politique": "Personnalités politiques",
     "media": "Médias",
     "journaliste": "Journalistes",
-    "influenceur": "Influenceurs",
+    "influenceur": "Influenceur·ses",
     "parti": "Partis et mouvements",
     "association": "Associations"
   },

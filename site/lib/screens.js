@@ -1,7 +1,7 @@
 // Les écrans du site, rendus en texte HTML, et l'écran à montrer pour une ancre donnée : l'accueil
-// (home.js) et les quatre écrans du parcours. Tout texte venu de la liste passe par escapeHtml.
-// app.js s'appuie sur les attributs name, data-* et les ancres (#reseaux, #categories,
-// #liste/<réseau>, #fin) produits ici.
+// (home.js), les quatre écrans du parcours et les mentions légales. Tout texte venu de la liste passe
+// par escapeHtml. app.js s'appuie sur les attributs name, data-* et les ancres (#reseaux, #categories,
+// #liste/<réseau>, #fin, #mentions) produits ici.
 
 import { PLATFORMS, accountGroups, categoryCounts, entryKey, followedCount, peopleCount, platformKeys, progress } from './catalog.js';
 import { homeScreen } from './home.js';
@@ -18,6 +18,7 @@ const selectionCount = (list, state) => peopleCount(list, state.platforms, selec
 
 export function resolveRoute(hash, list, state) {
   const [name, platform] = hash.replace(/^#/, '').split('/');
+  if (name === 'mentions') return { screen: 'mentions' };
   if (!['reseaux', 'categories', 'liste', 'fin'].includes(name)) return { screen: 'accueil' };
   if (name === 'reseaux' || !platformsReady(state)) return { screen: 'reseaux' };
   if (name === 'categories' || selectionCount(list, state) === 0) return { screen: 'categories' };
@@ -83,7 +84,7 @@ function accountRow(entry, state) {
   const action = followed
     ? `<button data-unfollow="${key}" aria-label="Annuler le suivi : ${name}">Annuler</button> <span class="suivi">✓ Suivi</span>`
     : `<a class="suivre" data-follow="${key}" href="${escapeHtml(followUrl(entry, { mastodonInstance }))}" ${EXTERNAL} aria-label="Suivre ${name}">Suivre</a>`;
-  const commentLabel = followed ? 'Commenter leur dernier post' : 'Déjà abonné\u202f? Commenter leur dernier post';
+  const commentLabel = followed ? 'Commenter leur dernier post' : 'Déjà abonné·e\u202f? Commenter leur dernier post';
   const comment = `<a class="commenter" data-comment="${key}" href="${escapeHtml(commentUrl(entry, { mastodonInstance }))}" ${EXTERNAL} aria-label="${commentLabel} : ${name}">${commentLabel} →</a>`;
   return `<li class="compte"><span class="nom">${name}</span><span class="action">${action}</span>${comment}</li>`;
 }
@@ -145,9 +146,26 @@ function endScreen({ list, state }) {
     <div class="fin-partage"><p class="mot">Fais passer le mot.</p><button class="btn" data-share>Partager le site</button><p class="statut" role="status"></p><p class="adresse">soyonspartisans.fr</p></div>`;
 }
 
+const REPO_URL = 'https://github.com/partisans-fr/partisans';
+
+// L'éditeur, particulier non professionnel, reste anonyme : la loi lui demande seulement de nommer
+// l'hébergeur, à qui il a donné son identité.
+function legalScreen({ list }) {
+  const suggest = list.suggestUrl ? ` Un compte à ajouter ? <a href="${escapeHtml(list.suggestUrl)}" ${EXTERNAL}>Suggère-le</a>.` : '';
+  return `${bar()}<div class="contenu mentions">
+    <h1>Mentions légales</h1>
+    <section><h2>Éditeur</h2><p>Soyons Partisans est un projet bénévole, édité à titre non professionnel par une personne qui reste anonyme, comme le permet l'article 1-1 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique. Son identité est connue de l'hébergeur.</p></section>
+    <section><h2>Hébergeur</h2><p>Netlify, Inc., 101 2nd Street, San Francisco, CA 94105, États-Unis.</p></section>
+    <section><h2>Contact</h2><p>Un compte erroné ? <a href="${escapeHtml(list.contestUrl)}" ${EXTERNAL}>Signale-le</a>.${suggest} Pour tout le reste, ouvre un ticket sur <a href="${REPO_URL}/issues" ${EXTERNAL}>le dépôt du projet</a>.</p></section>
+    <section><h2>Données personnelles</h2><p>Aucun cookie, aucun compte, aucun pistage. Tes choix (réseaux, catégories, comptes suivis) restent dans ton navigateur. Le site compte seulement, de façon anonyme, combien de personnes l'ont ouvert et combien de comptes y ont été ouverts : deux totaux, sans adresse IP ni identifiant. Comme tout hébergeur, Netlify reçoit l'adresse IP de chaque visite pour servir les pages.</p></section>
+    <section><h2>Code source</h2><p>Le code du site est libre, sous licence GPL v3 : <a href="${REPO_URL}" ${EXTERNAL}>github.com/partisans-fr/partisans</a>.</p></section>
+    <p class="liens"><a href="#">Retour à l'accueil</a></p>
+    </div>`;
+}
+
 const home = ({ list, state }) => homeScreen({ list, resume: resolveRoute('#liste', list, state).screen === 'liste' });
 
-const SCREENS = { accueil: home, reseaux: platformsScreen, categories: categoriesScreen, fin: endScreen };
+const SCREENS = { accueil: home, reseaux: platformsScreen, categories: categoriesScreen, fin: endScreen, mentions: legalScreen };
 
 export function renderScreen(route, { list, state, starterPackUrl = null }) {
   const context = { list, state, starterPackUrl };

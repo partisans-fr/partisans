@@ -26,6 +26,24 @@ test('une adresse sans choix ramène à l\'écran cohérent', () => {
   assert.deepEqual(resolveRoute('#liste/instagram', miniList, state({ platforms: ['x'] })), { screen: 'liste', platform: 'x' });
   assert.deepEqual(resolveRoute('#liste', miniList, state({ platforms: ['threads'], categories: ['politique'] })), { screen: 'categories' });
   assert.deepEqual(resolveRoute('#categories', miniList, state({ platforms: ['mastodon'], mastodonInstance: 'piaille' })), { screen: 'reseaux' });
+  assert.deepEqual(resolveRoute('#mentions', miniList, emptyState()), { screen: 'mentions' });
+});
+
+test('les mentions légales nomment l\'hébergeur et gardent l\'éditeur anonyme', () => {
+  const html = render('#mentions', {});
+  assertInOrder(html, [
+    '<header class="barre"><a class="logo" href="#">',
+    '<h1>Mentions légales</h1>',
+    '<h2>Éditeur</h2>',
+    'article 1-1 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l\'économie numérique',
+    '<h2>Hébergeur</h2>',
+    'Netlify, Inc., 101 2nd Street, San Francisco, CA 94105, États-Unis.',
+    '<h2>Contact</h2>',
+    `<a href="${miniList.contestUrl}" ${EXTERNAL}>`,
+    '<h2>Données personnelles</h2>',
+    '<a href="#">Retour à l\'accueil</a>',
+  ]);
+  assert.ok(!html.includes('class="btn"'));
 });
 
 test('Continuer attend un réseau et une instance valide', () => {
@@ -169,8 +187,8 @@ test('un « ? » suit toujours une espace insécable fine', () => {
 
 test('chaque compte propose de commenter son dernier post', () => {
   const html = render('#liste/instagram', { platforms: ['instagram'], followed: ['instagram:alicemartin'] });
-  assert.ok(html.includes(`<a class="commenter" data-comment="instagram:lejournal" href="https://www.instagram.com/lejournal/" ${EXTERNAL} aria-label="Déjà abonné\u202f? Commenter leur dernier post : Le Journal">Déjà abonné\u202f? Commenter leur dernier post →</a></li>`));
+  assert.ok(html.includes(`<a class="commenter" data-comment="instagram:lejournal" href="https://www.instagram.com/lejournal/" ${EXTERNAL} aria-label="Déjà abonné·e\u202f? Commenter leur dernier post : Le Journal">Déjà abonné·e\u202f? Commenter leur dernier post →</a></li>`));
   assert.ok(html.includes(`<a class="commenter" data-comment="instagram:alicemartin" href="https://www.instagram.com/alicemartin/" ${EXTERNAL} aria-label="Commenter leur dernier post : Alice Martin">Commenter leur dernier post →</a></li>`));
-  assert.ok(render('#liste/youtube', { platforms: ['youtube'] }).includes('aria-label="Déjà abonné\u202f? Commenter leur dernier post : L&#39;Écho &amp; &lt;Cie&gt;"'));
+  assert.ok(render('#liste/youtube', { platforms: ['youtube'] }).includes('aria-label="Déjà abonné·e\u202f? Commenter leur dernier post : L&#39;Écho &amp; &lt;Cie&gt;"'));
   assert.ok(render('#liste/bluesky', { platforms: ['bluesky'], categories: ['media'] }).includes('href="/.netlify/functions/dernier-post?compte=bluesky%3Alejournal.bsky.social"'));
 });

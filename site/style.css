@@ -739,6 +739,22 @@ input:checked + .case,
   overflow-wrap: anywhere;
 }
 
+/* Mentions légales */
+
+.mentions section {
+  display: grid;
+  gap: 6px;
+}
+
+.mentions h2 {
+  font-size: 1.05rem;
+}
+
+.mentions a {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+
 /* Chargement et erreurs */
 
 .chargement,
