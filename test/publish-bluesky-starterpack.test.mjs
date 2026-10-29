@@ -1,11 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { fakeFetch } from './helpers/fake-fetch.mjs';
-import { STARTER_PACK_MAX, publishStarterPack, slugify, starterPackRecords } from '../scripts/publish-bluesky-starterpack.mjs';
+import { STARTER_PACK_MAX, publishStarterPack, starterPackRecords, tid } from '../scripts/publish-bluesky-starterpack.mjs';
 
 const PDS = 'https://bsky.social';
-const LIST_URI = 'at://did:plc:projet/app.bsky.graph.list/liste-de-test';
-const PACK_URI = 'at://did:plc:projet/app.bsky.graph.starterpack/liste-de-test';
+const KEY = '3m4xk2abcdq2c'; // clé TID tirée pour un nouveau starter pack
+const LIST_URI = `at://did:plc:projet/app.bsky.graph.list/${KEY}`;
+const PACK_URI = `at://did:plc:projet/app.bsky.graph.starterpack/${KEY}`;
+const TID = /^[234567abcdefghij][234567abcdefghijklmnopqrstuvwxyz]{12}$/;
 
 const entry = (platform, handle) => ({
   platform,
@@ -27,8 +29,8 @@ const list = {
 };
 
 // Routes du PDS : getRecord répond selon la collection demandée ; getProfiles trouve tout compte
-// demandé sauf absent.example.com ; listRecords renvoie existingItems.
-function blueskyRoutes({ existing = {}, listPurpose = 'app.bsky.graph.defs#referencelist', existingItems = [] } = {}) {
+// demandé sauf absent.example.com ; listRecords renvoie existingPacks ou existingItems.
+function blueskyRoutes({ existing = {}, listPurpose = 'app.bsky.graph.defs#referencelist', existingPacks = [], existingItems = [] } = {}) {
   const writes = [];
   const routes = {
     [`POST ${PDS}/xrpc/com.atproto.server.createSession`]: {
@@ -50,7 +52,9 @@ function blueskyRoutes({ existing = {}, listPurpose = 'app.bsky.graph.defs#refer
           .map((handle) => ({ did: `did:plc:${handle.split('.')[0]}`, handle })),
       },
     }),
-    [`GET ${PDS}/xrpc/com.atproto.repo.listRecords`]: { body: { records: existingItems } },
+    [`GET ${PDS}/xrpc/com.atproto.repo.listRecords`]: ({ url }) => ({
+      body: { records: url.searchParams.get('collection') === 'app.bsky.graph.starterpack' ? existingPacks : existingItems },
+    }),
     [`POST ${PDS}/xrpc/com.atproto.repo.putRecord`]: ({ body }) => {
       writes.push({ put: body });
       return { body: {} };
@@ -63,6 +67,11 @@ function blueskyRoutes({ existing = {}, listPurpose = 'app.bsky.graph.defs#refer
   return { routes, writes };
 }
 
+const pack = (rkey, name) => ({
+  uri: `at://did:plc:projet/app.bsky.graph.starterpack/${rkey}`,
+  value: { $type: 'app.bsky.graph.starterpack', name },
+});
+
 const item = (rkey, subject, listUri = LIST_URI) => ({
   uri: `at://did:plc:projet/app.bsky.graph.listitem/${rkey}`,
   value: { $type: 'app.bsky.graph.listitem', subject, list: listUri },
@@ -74,12 +83,15 @@ const options = (fetch, extra = {}) => ({
   password: 'abcd-efgh-ijkl-mnop',
   fetch,
   log: () => {},
+  newKey: () => KEY,
   ...extra,
 });
 
-test('la clé est dérivée du nom de la liste', () => {
-  assert.equal(slugify('Liste exemple (fictive)'), 'liste-exemple-fictive');
-  assert.equal(slugify('Comptes à découvrir'), 'comptes-a-decouvrir');
+test('les clés sont des TID : horodatage en microsecondes et identifiant d\'horloge', () => {
+  assert.equal(tid(0n, 0n), '2222222222222');
+  assert.equal(tid(0n, 1n), '2222222222223');
+  assert.match(tid(), TID);
+  assert.ok(tid(2n ** 50n) > tid(2n ** 49n)); // l'ordre alphabétique suit l'ordre chronologique
 });
 
 test('les enregistrements forment une liste de référence et un starter pack qui la vise', () => {
@@ -107,14 +119,15 @@ test('une première publication crée la liste, ses comptes, puis le starter pac
   assert.deepEqual(report, {
     listUri: LIST_URI,
     starterPackUri: PACK_URI,
-    url: 'https://bsky.app/starter-pack/projet.example.com/liste-de-test',
+    url: `https://bsky.app/starter-pack/projet.example.com/${KEY}`,
+    created: true,
     added: 2,
     removed: 0,
     notFound: ['absent.example.com'],
   });
   assert.deepEqual(
     writes.map((w) => (w.put ? `putRecord ${w.put.collection} ${w.put.rkey}` : 'applyWrites')),
-    ['putRecord app.bsky.graph.list liste-de-test', 'applyWrites', 'putRecord app.bsky.graph.starterpack liste-de-test'],
+    [`putRecord app.bsky.graph.list ${KEY}`, 'applyWrites', `putRecord app.bsky.graph.starterpack ${KEY}`],
   );
   assert.deepEqual(writes[1].applyWrites.map((w) => [w.value.subject, w.value.list]), [
     ['did:plc:a', LIST_URI],
@@ -123,9 +136,25 @@ test('une première publication crée la liste, ses comptes, puis le starter pac
   assert.equal(writes[2].put.record.list, LIST_URI);
 });
 
+test('une relance retrouve le starter pack du compte par son nom et réutilise sa clé', async () => {
+  const oldKey = '3kzzzzzzzzzz2';
+  const { routes, writes } = blueskyRoutes({
+    existing: { 'app.bsky.graph.list': '2025-01-01T00:00:00.000Z', 'app.bsky.graph.starterpack': '2025-02-01T00:00:00.000Z' },
+    existingPacks: [pack('3kaaaaaaaaaa2', 'Autre pack'), pack(oldKey, 'Liste de test')],
+  });
+  const { fetch } = fakeFetch(routes);
+
+  const report = await publishStarterPack(options(fetch, { newKey: () => assert.fail('aucune clé ne doit être tirée') }));
+
+  assert.equal(report.created, false);
+  assert.equal(report.url, `https://bsky.app/starter-pack/projet.example.com/${oldKey}`);
+  assert.deepEqual(writes.filter((w) => w.put).map((w) => w.put.rkey), [oldKey, oldKey]);
+});
+
 test('une republication garde les dates de création', async () => {
   const { routes, writes } = blueskyRoutes({
     existing: { 'app.bsky.graph.list': '2025-01-01T00:00:00.000Z', 'app.bsky.graph.starterpack': '2025-02-01T00:00:00.000Z' },
+    existingPacks: [pack(KEY, 'Liste de test')],
   });
   const { fetch } = fakeFetch(routes);
 
@@ -173,7 +202,7 @@ test('une clé déjà prise par une liste d\'un autre type est refusée avant to
   });
   const { fetch } = fakeFetch(routes);
 
-  await assert.rejects(publishStarterPack(options(fetch)), /liste-de-test désigne déjà une liste d'un autre type/);
+  await assert.rejects(publishStarterPack(options(fetch, { rkey: KEY })), new RegExp(`${KEY} désigne déjà une liste d'un autre type`));
   assert.deepEqual(writes, []);
 });
 
@@ -184,5 +213,6 @@ test('en simulation, rien n\'est écrit', async () => {
   const report = await publishStarterPack(options(fetch, { dryRun: true }));
 
   assert.equal(report.added, 2);
+  assert.equal(report.created, true);
   assert.deepEqual(writes, []);
 });

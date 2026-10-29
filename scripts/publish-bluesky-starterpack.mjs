@@ -7,9 +7,12 @@
 //
 // Identifiants dans .env (jamais commité) : BLUESKY_IDENTIFIER et BLUESKY_APP_PASSWORD.
 // Le starter pack appartient au compte qui le publie : utilise le compte du projet, jamais un
-// compte personnel. La liste et le starter pack partagent la même clé (--rkey, sinon dérivée du nom).
+// compte personnel. La liste et le starter pack partagent la même clé, au format TID imposé par
+// Bluesky : celle du starter pack du compte qui porte le nom de la liste, sinon une nouvelle
+// (--rkey pour en forcer une).
 // L'adresse affichée à la fin va dans STARTER_PACK_URL (site/config.js).
 
+import { randomInt } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import { parseArgs } from 'node:util';
@@ -29,13 +32,21 @@ export function truncate(text, max) {
   return characters.length <= max ? text : `${characters.slice(0, max - 1).join('')}…`;
 }
 
-export const slugify = (name) =>
-  name
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '');
+const BASE32_SORTABLE = '234567abcdefghijklmnopqrstuvwxyz';
+
+// Clé d'enregistrement au format TID : 13 caractères en base 32 triable, qui codent les
+// microsecondes depuis 1970 suivies d'un identifiant d'horloge sur 10 bits.
+export function tid(micros = BigInt(Date.now()) * 1000n, clockId = BigInt(randomInt(1024))) {
+  let value = (micros << 10n) | clockId;
+  let key = '';
+  for (let i = 0; i < 13; i += 1) {
+    key = BASE32_SORTABLE[Number(value & 31n)] + key;
+    value >>= 5n;
+  }
+  return key;
+}
+
+const rkeyOf = (uri) => uri.split('/').pop();
 
 // Enregistrement du compte connecté, ou null s'il n'existe pas.
 async function findRecord(client, collection, rkey) {
@@ -55,23 +66,33 @@ function checkPurpose(existing, purpose, key) {
   }
 }
 
-// Les éléments de la liste sont lus dans le dépôt du compte (et non via l'AppView, qui peut être en retard).
-async function listItems(client, listUri) {
-  const items = [];
+// Les enregistrements sont lus dans le dépôt du compte (et non via l'AppView, qui peut être en retard).
+async function listRecords(client, collection) {
+  const records = [];
   let cursor;
   do {
     const page = await client.get('com.atproto.repo.listRecords', {
       repo: client.did,
-      collection: 'app.bsky.graph.listitem',
+      collection,
       limit: 100,
       ...(cursor && { cursor }),
     });
-    for (const { uri, value } of page.records) {
-      if (value.list === listUri) items.push({ rkey: uri.split('/').pop(), subject: value.subject });
-    }
+    records.push(...page.records);
     cursor = page.records.length ? page.cursor : undefined;
   } while (cursor);
-  return items;
+  return records;
+}
+
+// Clé du starter pack du compte qui porte ce nom, ou null s'il n'existe pas encore.
+async function findPackKey(client, name) {
+  const pack = (await listRecords(client, 'app.bsky.graph.starterpack')).find(({ value }) => value.name === name);
+  return pack ? rkeyOf(pack.uri) : null;
+}
+
+async function listItems(client, listUri) {
+  return (await listRecords(client, 'app.bsky.graph.listitem'))
+    .filter(({ value }) => value.list === listUri)
+    .map(({ uri, value }) => ({ rkey: rkeyOf(uri), subject: value.subject }));
 }
 
 // Garde un élément par compte voulu, retire les autres (comptes sortis de la liste, doublons).
@@ -143,6 +164,7 @@ export async function publishStarterPack({
   password,
   rkey,
   dryRun = false,
+  newKey = tid,
   fetch = globalThis.fetch,
   log = console.log,
   sleep = wait,
@@ -151,11 +173,9 @@ export async function publishStarterPack({
   const problems = [...errors, ...rejected.map((r) => r.message)];
   if (problems.length) throw new Error(`liste invalide :\n  - ${problems.join('\n  - ')}`);
 
-  const key = rkey ?? slugify(list.name);
-  if (!key) throw new Error('impossible de dériver une clé du nom de la liste : passe --rkey.');
-
   const account = await login(identifier, password, { fetch });
   const client = createClient(account, { fetch });
+  const key = rkey ?? (await findPackKey(client, truncate(list.name, PACK_NAME_MAX))) ?? newKey();
   const listUri = `at://${client.did}/app.bsky.graph.list/${key}`;
   const starterPackUri = `at://${client.did}/app.bsky.graph.starterpack/${key}`;
   const existingList = await findRecord(client, 'app.bsky.graph.list', key);
@@ -171,7 +191,7 @@ export async function publishStarterPack({
   log(`${dids.length} comptes trouvés, ${toAdd.length} à ajouter, ${toRemove.length} à retirer.`);
   for (const handle of notFound) log(`  introuvable, ignoré : ${handle}`);
   const url = `https://bsky.app/starter-pack/${account.handle}/${key}`;
-  const report = { listUri, starterPackUri, url, added: toAdd.length, removed: toRemove.length, notFound };
+  const report = { listUri, starterPackUri, url, created: !existingPack, added: toAdd.length, removed: toRemove.length, notFound };
   if (dryRun) return report;
 
   const now = new Date().toISOString();
@@ -200,7 +220,10 @@ async function main() {
   }
   const list = JSON.parse(readFileSync(positionals[0], 'utf8'));
   const report = await publishStarterPack({ list, identifier, password, rkey: values.rkey, dryRun: values['dry-run'] });
-  if (values['dry-run']) console.log('Simulation terminée, rien n\'a été écrit.');
+  if (values['dry-run']) {
+    console.log('Simulation terminée, rien n\'a été écrit.');
+    if (report.created) return console.log('Nouveau starter pack : sa clé sera tirée à la publication.');
+  }
   console.log(`Adresse du starter pack, à reporter dans STARTER_PACK_URL (site/config.js) : ${report.url}`);
 }
 
