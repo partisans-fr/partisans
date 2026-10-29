@@ -90,12 +90,6 @@ input,
   font-family: var(--font-titre);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
-}
-
 /* Moins d'animations demandées : l'état final s'affiche directement. */
 @media (prefers-reduced-motion: reduce) {
   *,

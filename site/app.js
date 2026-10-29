@@ -10,6 +10,7 @@ import { loadState, saveState, selectedCategories, setFollowed, toggle } from '.
 const SHARE_TEXT = 'Abonne-toi en quelques minutes aux comptes qui combattent l\'extrême droite.';
 
 const app = document.getElementById('app');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 // localStorage peut lever une exception (navigation privée, navigateur intégré) : le site marche sans.
 let storage = null;
@@ -175,12 +176,13 @@ app.addEventListener('input', (event) => {
 
 app.addEventListener('click', (event) => {
   // Liens internes de l'accueil : l'ancre commande l'écran affiché, on ne la touche pas ; la page
-  // défile jusqu'à la section (en douceur d'après la feuille), qui reçoit le focus.
+  // défile en douceur jusqu'à la section, qui reçoit le focus. Seul défilement doux du site : un
+  // changement d'écran remonte d'un coup.
   const internal = event.target.closest('[data-defiler]');
   if (internal) {
     event.preventDefault();
     const section = document.querySelector(internal.getAttribute('href'));
-    section.scrollIntoView();
+    section.scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth' });
     section.focus({ preventScroll: true });
     return;
   }
