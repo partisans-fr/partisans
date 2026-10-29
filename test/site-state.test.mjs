@@ -1,24 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { STORAGE_KEY, emptyState, loadState, saveState, selectedCategories, setFollowed, toggle } from '../site/lib/state.js';
+import { fakeStorage, hostile } from './helpers/fake-storage.mjs';
 import { miniList } from './helpers/partisans-fixture.mjs';
-
-// Faux localStorage sur un objet, et stockage qui refuse tout accès (navigation privée, navigateur intégré).
-const fakeStorage = (data = {}) => ({
-  data,
-  getItem: (key) => (Object.hasOwn(data, key) ? data[key] : null),
-  setItem: (key, value) => {
-    data[key] = String(value);
-  },
-});
-const hostile = {
-  getItem: () => {
-    throw new Error('SecurityError');
-  },
-  setItem: () => {
-    throw new Error('SecurityError');
-  },
-};
 
 test('sans rien d\'enregistré, l\'état est vide', () => {
   assert.deepEqual(loadState(fakeStorage()), emptyState());

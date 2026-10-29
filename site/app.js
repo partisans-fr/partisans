@@ -2,6 +2,7 @@
 
 import { STARTER_PACK_URL } from './config.js';
 import { platformKeys } from './lib/catalog.js';
+import { COUNTER_URL, commitRecord, loadCounter, recordOpened, recordVisit } from './lib/counter.js';
 import { siteUrl } from './lib/links.js';
 import { renderScreen, resolveRoute } from './lib/screens.js';
 import { loadState, saveState, selectedCategories, setFollowed, toggle } from './lib/state.js';
@@ -17,6 +18,8 @@ try {
 } catch {}
 
 let state = loadState(storage);
+let counter = loadCounter(storage);
+count(recordVisit(counter));
 let list = null;
 let shownHash = null;
 
@@ -110,6 +113,17 @@ function render(changedKey = null) {
   raiseFists();
 }
 
+// Les additions partent sans qu'on attende de réponse : l'ouverture d'un compte n'est jamais retardée,
+// et un échec reste silencieux.
+function count(record) {
+  const increments = commitRecord(storage, record);
+  if (!increments) return;
+  counter = record.counter;
+  try {
+    navigator.sendBeacon(COUNTER_URL, JSON.stringify(increments));
+  } catch {}
+}
+
 function update(changes) {
   state = { ...state, ...changes };
   saveState(storage, state);
@@ -169,16 +183,20 @@ app.addEventListener('click', (event) => {
     section.focus({ preventScroll: true });
     return;
   }
-  const target = event.target.closest('[data-follow], [data-follow-all], [data-unfollow], [data-share]');
+  const target = event.target.closest('[data-follow], [data-follow-all], [data-unfollow], [data-share], [data-open]');
   if (!target) return;
-  const { follow, followAll, unfollow } = target.dataset;
+  const { follow, followAll, unfollow, open } = target.dataset;
   if (target.hasAttribute('data-share')) return share(app.querySelector('.statut'));
+  // Lien de la vitrine : le compte s'ouvre et compte, sans être marqué suivi dans le parcours.
+  if (open) return count(recordOpened(counter, [open]));
   if (unfollow) {
     update(setFollowed(state, [unfollow], false));
     return render(unfollow);
   }
   // Le lien s'ouvre normalement ; l'écran est refait juste après, pour ne pas retirer le lien pendant le clic.
-  update(setFollowed(state, follow ? [follow] : platformKeys(list, followAll), true));
+  const keys = follow ? [follow] : platformKeys(list, followAll);
+  update(setFollowed(state, keys, true));
+  count(recordOpened(counter, keys));
   setTimeout(() => render(follow ?? null));
 });
 
