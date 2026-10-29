@@ -11,7 +11,7 @@ test('chaque réseau a son lien d\'abonnement', () => {
   assert.equal(linkOf('instagram'), 'https://www.instagram.com/alicemartin/');
   assert.equal(linkOf('tiktok'), 'https://www.tiktok.com/@chloevideo');
   assert.equal(linkOf('youtube'), 'https://www.youtube.com/@echo-cie?sub_confirmation=1');
-  assert.equal(linkOf('threads'), 'https://www.threads.com/@mouvementcommun');
+  assert.equal(linkOf('threads'), 'https://www.threads.com/intent/follow?username=mouvementcommun');
   assert.equal(linkOf('bluesky'), 'https://bsky.app/profile/lejournal.bsky.social');
   assert.equal(linkOf('mastodon'), 'https://piaille.fr/authorize_interaction?uri=echo%40exemple.social');
   assert.equal(linkOf('facebook'), 'https://www.facebook.com/collectifsolidaire');

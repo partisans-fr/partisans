@@ -1,6 +1,6 @@
 // Liens d'abonnement par réseau, et adresse du site à partager.
-// Liens candidats de la conception (docs/superpowers/specs/2026-10-28-partisans-design.md) : chaque
-// réseau gardera le lien qui fait gagner un appui sur téléphone, d'après l'essai réel (plan, Task 10).
+// Chaque réseau garde le lien qui fait gagner un appui sur téléphone, d'après l'essai sur Android du
+// 2026-10-29 : fenêtre « Suivre ? » dans l'appli pour X, YouTube et Threads, profil ailleurs.
 
 import { entryKey } from './catalog.js';
 
@@ -24,7 +24,7 @@ const FOLLOW_URLS = {
   instagram: (handle) => `https://www.instagram.com/${handle}/`,
   tiktok: (handle) => `https://www.tiktok.com/@${handle}`,
   youtube: (handle) => `https://www.youtube.com/@${encodeURIComponent(handle)}?sub_confirmation=1`,
-  threads: (handle) => `https://www.threads.com/@${handle}`,
+  threads: (handle) => `https://www.threads.com/intent/follow?username=${handle}`,
   bluesky: (handle) => `https://bsky.app/profile/${handle}`,
   mastodon: (handle, instance) => `https://${instance}/authorize_interaction?uri=${encodeURIComponent(handle)}`,
   facebook: (handle) => `https://www.facebook.com/${handle}`,
@@ -38,6 +38,7 @@ export const followUrl = (entry, { mastodonInstance }) => FOLLOW_URLS[entry.plat
 const PROFILE_URLS = {
   x: (handle) => `https://x.com/${handle}`,
   youtube: (handle) => `https://www.youtube.com/@${encodeURIComponent(handle)}`,
+  threads: (handle) => `https://www.threads.com/@${handle}`,
   mastodon: (handle) => {
     const [name, instance] = handle.replace(/^@/, '').split('@');
     return `https://${instance}/@${name}`;
