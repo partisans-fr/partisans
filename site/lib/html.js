@@ -13,7 +13,7 @@ export function button(label, href, { secondary = false } = {}) {
 }
 
 export const bar = (extra = '') =>
-  `<header class="barre"><span class="symbole" aria-hidden="true"></span><span class="logotype">partisans</span>${extra}</header>`;
+  `<header class="barre"><span class="logo"><span class="logo-poing" aria-hidden="true"></span><span class="logo-mots"><span class="logo-soyons">Soyons</span> <span class="logo-partisans">Partisans</span></span></span>${extra}</header>`;
 
 // Couleurs des collections de la charte, par catégorie de la liste.
 export const TINTS = { politique: 'ardoise', media: 'ocre', journaliste: 'ocre', influenceur: 'ocre', parti: 'sauge', association: 'sauge' };

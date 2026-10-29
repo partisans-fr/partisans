@@ -65,19 +65,31 @@ test('les feuilles de style ne chargent que des fichiers du site', () => {
 });
 
 test('les polices sont servies par le site, avec leur licence', () => {
-  for (const font of ['bricolage-grotesque', 'newsreader', 'newsreader-italique']) {
-    assert.equal(readFileSync(siteFile(`polices/${font}.woff2`)).toString('latin1', 0, 4), 'wOF2', font);
+  for (const font of ['dela-gothic-one', 'karla']) {
+    const bytes = readFileSync(siteFile(`polices/${font}.woff2`));
+    assert.equal(bytes.toString('latin1', 0, 4), 'wOF2', font);
+    assert.ok(bytes.length <= 25 * 1024, `${font} : ${bytes.length} octets`);
+    assert.match(readFileSync(siteFile(`polices/OFL-${font}.txt`), 'utf8'), /SIL Open Font License/);
   }
-  for (const license of ['OFL-bricolage-grotesque.txt', 'OFL-newsreader.txt']) {
-    assert.match(readFileSync(siteFile(`polices/${license}`), 'utf8'), /SIL Open Font License/);
+  for (const old of ['bricolage-grotesque.woff2', 'newsreader.woff2', 'newsreader-italique.woff2', 'OFL-bricolage-grotesque.txt', 'OFL-newsreader.txt']) {
+    assert.ok(!existsSync(siteFile(`polices/${old}`)), old);
   }
 });
 
 test('les couleurs du navigateur sont celles de la charte', () => {
   const manifest = JSON.parse(readFileSync(siteFile('manifest.webmanifest'), 'utf8'));
-  assert.equal(manifest.theme_color, '#C2341F');
-  assert.equal(manifest.background_color, '#EFEBE3');
-  assert.ok(page.includes('<meta name="theme-color" content="#C2341F">'));
+  assert.equal(manifest.theme_color, '#D7261E');
+  assert.equal(manifest.background_color, '#EADFC8');
+  assert.ok(page.includes('<meta name="theme-color" content="#D7261E">'));
+});
+
+test('la page annonce ses favicons et précharge ses polices', () => {
+  assert.ok(page.includes('<link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">'));
+  assert.ok(page.includes('<link rel="icon" href="icons/favicon-16.png" sizes="16x16" type="image/png">'));
+  for (const font of ['dela-gothic-one', 'karla']) {
+    assert.ok(page.includes(`<link rel="preload" href="polices/${font}.woff2" as="font" type="font/woff2" crossorigin>`), font);
+  }
+  assert.ok(!existsSync(siteFile('icons/icon.svg')));
 });
 
 test('les images vectorielles n\'embarquent aucune métadonnée', () => {

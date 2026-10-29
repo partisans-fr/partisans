@@ -1,44 +1,34 @@
-/* Partisans : identité définitive (piste C v3), pensée d'abord pour le téléphone. */
+/* Partisans : identité « Soyons Partisans », pensée d'abord pour le téléphone. */
 
-/* Identité définitive (piste C v3) : jetons et polices hébergées sur le site. */
+/* Jetons de la charte et polices hébergées sur le site. */
 :root {
-  --rouge: #C2341F;
-  --rouge-clair: #E8624B;
-  --rouge-fantome: #AD2D1A;
-  --encre: #24221F;
-  --papier: #EFEBE3;
-  --papier-carte: #F6F3EC;
-  --filet-clair: #CFC9BD;
-  --gris-meta: #6B665D;
-  --ardoise: #4E5D70;
-  --ocre: #C49A4E;
-  --sauge: #8E9C80;
-  --sortie: cubic-bezier(.2, .7, .1, 1);
-  --levee: cubic-bezier(.16, .8, .2, 1);
-  --font-titre: 'Bricolage Grotesque', system-ui, sans-serif;
-  --font-texte: 'Newsreader', Georgia, serif;
+  --rouge: #D7261E;
+  --noir: #17120E;
+  --papier: #EADFC8;
+  --carte: #F3ECDD;
+  --filet-clair: #CDBFA5;
+  --gris: #5E5548;
+  --gris-clair: #B9AE9C;
+  --filet: 3px solid var(--noir);
+  --sortie: cubic-bezier(.2, .8, .2, 1);
+  --levee: cubic-bezier(.2, .8, .3, 1);
+  --balayage: cubic-bezier(.7, 0, .3, 1);
+  --rebond: cubic-bezier(.3, 1.4, .5, 1);
+  --font-titre: 'Dela Gothic One', system-ui, sans-serif;
+  --font-texte: 'Karla', system-ui, sans-serif;
 }
 
 @font-face {
-  font-family: 'Bricolage Grotesque';
-  src: url(polices/bricolage-grotesque.woff2) format('woff2');
-  font-weight: 400 700;
+  font-family: 'Dela Gothic One';
+  src: url(polices/dela-gothic-one.woff2) format('woff2');
+  font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Newsreader';
-  src: url(polices/newsreader.woff2) format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Newsreader';
-  src: url(polices/newsreader-italique.woff2) format('woff2');
-  font-weight: 400;
-  font-style: italic;
+  font-family: 'Karla';
+  src: url(polices/karla.woff2) format('woff2');
+  font-weight: 400 800;
   font-display: swap;
 }
 
@@ -59,14 +49,14 @@ html {
 
 body {
   margin: 0;
-  background: var(--papier);
-  color: var(--encre);
-  font: 400 1.0625rem/1.45 var(--font-texte);
+  background: var(--papier) url(img/grain.png);
+  color: var(--noir);
+  font: 400 17px/1.5 var(--font-texte);
   -webkit-tap-highlight-color: transparent;
 }
 
 :focus-visible {
-  outline: 3px solid var(--encre);
+  outline: 3px solid var(--noir);
   outline-offset: 2px;
 }
 
@@ -79,15 +69,21 @@ fieldset {
   margin: 0;
 }
 
+/* Dela Gothic One : un seul poids, toujours en capitales, interligne jamais sous 1,05. */
 h1,
 h2,
 h3,
 legend,
-button,
-input,
-.btn,
-.meta {
+.btn {
   font-family: var(--font-titre);
+  font-weight: 400;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+button,
+input {
+  font-family: var(--font-texte);
 }
 
 /* Moins d'animations demandées : l'état final s'affiche directement. */
@@ -100,71 +96,103 @@ input,
   }
 }
 
-/* Barre au logo */
+/* Barre au logo : poing, puis « Soyons » au-dessus de « Partisans ». */
 
 .barre {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 14px max(20px, env(safe-area-inset-right)) 14px max(20px, env(safe-area-inset-left));
-  border-bottom: 1px solid var(--encre);
+  border-bottom: var(--filet);
 }
 
-.barre .symbole {
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Silhouette pleine sous 40 px de haut, poing gravé au-dessus. */
+.logo-poing {
   flex: none;
-  width: 30px;
-  height: 30px;
-  background: var(--rouge);
-  -webkit-mask: url(img/symbole-reduit.svg) center / contain no-repeat;
-  mask: url(img/symbole-reduit.svg) center / contain no-repeat;
+  width: 18px;
+  height: 38px;
+  background: url(img/silhouette-rouge.png) center / contain no-repeat;
 }
 
-.logotype {
-  font: 700 23px/1 var(--font-titre);
-  letter-spacing: -0.045em;
+.ecran-fin .logo-poing {
+  background-image: url(img/silhouette-papier.png);
 }
 
-/* Boutons */
+.logo-mots {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.logo-soyons {
+  font: 800 8px/1 var(--font-texte);
+  letter-spacing: .32em;
+  text-transform: uppercase;
+}
+
+.logo-partisans {
+  font: 400 19px/1 var(--font-titre);
+  text-transform: uppercase;
+}
+
+/* Indicateur d'étape du parcours (« 1 / 3 »). */
+.etape {
+  margin-left: auto;
+  font: 800 13px/1 var(--font-texte);
+}
+
+/* Boutons : principal rouge à texte noir, secondaire cadré. */
 
 .btn {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 16px 20px;
+  min-height: 44px;
+  padding: 17px 20px;
   border: 0;
   border-radius: 0;
   background: var(--rouge);
-  color: var(--papier);
-  font: 600 18px/1.2 var(--font-titre);
+  color: var(--noir);
+  font-size: 18px;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 160ms, color 160ms;
+  transition: background-color 160ms, color 160ms, transform 80ms;
 }
 
-.btn:hover,
+.btn:hover {
+  background: var(--noir);
+  color: var(--papier);
+}
+
 .btn:active {
-  background: var(--encre);
+  transform: scale(.97);
 }
 
 .btn.secondaire {
-  padding: 15px 19px;
-  border: 1px solid var(--encre);
+  padding: 14px 17px;
+  border: var(--filet);
   background: transparent;
-  color: var(--encre);
+  color: var(--noir);
 }
 
-.btn.secondaire:hover,
-.btn.secondaire:active {
-  background: var(--encre);
+.btn.secondaire:hover {
+  background: var(--noir);
   color: var(--papier);
 }
 
 .btn:disabled {
   background: var(--filet-clair);
-  color: var(--gris-meta);
+  color: var(--gris);
   cursor: not-allowed;
+  transform: none;
 }
 
 /* Écrans du parcours */
@@ -587,21 +615,36 @@ legend {
 
 /* Ordi : barre plus large, parcours en une colonne centrée. */
 @media (min-width: 900px) {
+  body {
+    font-size: 18px;
+    line-height: 1.55;
+  }
+
   .barre {
+    gap: 14px;
+    padding: 22px 56px;
+  }
+
+  .logo {
     gap: 12px;
-    padding: 20px 56px;
   }
 
-  .barre .symbole {
-    width: 38px;
-    height: 38px;
-    -webkit-mask-image: url(img/symbole.svg);
-    mask-image: url(img/symbole.svg);
+  .logo-poing {
+    width: 24px;
+    height: 50px;
+    background-image: url(img/poing-rouge-180.webp);
   }
 
-  .logotype {
-    font-size: 28px;
-    letter-spacing: -0.04em;
+  .ecran-fin .logo-poing {
+    background-image: url(img/poing-papier-180.webp);
+  }
+
+  .logo-soyons {
+    font-size: 10px;
+  }
+
+  .logo-partisans {
+    font-size: 24px;
   }
 
   .contenu,
