@@ -3,3 +3,9 @@
 
 [functions]
   directory = "netlify/functions"
+
+# Netlify sert le manifeste en application/octet-stream sans cette précision.
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
