@@ -3,9 +3,9 @@
 // app.js s'appuie sur les attributs name, data-* et les ancres (#reseaux, #categories,
 // #liste/<réseau>, #fin) produits ici.
 
-import { PLATFORMS, accountGroups, categoryCounts, entryKey, followedCount, peopleCount, progress } from './catalog.js';
+import { PLATFORMS, accountGroups, categoryCounts, entryKey, followedCount, peopleCount, platformKeys, progress } from './catalog.js';
 import { homeScreen } from './home.js';
-import { EXTERNAL, TINTS, bar, button, escapeHtml } from './html.js';
+import { EXTERNAL, TINTS, bar, button, escapeHtml, plural } from './html.js';
 import { commentUrl, followUrl, normalizeInstance } from './links.js';
 import { selectedCategories } from './state.js';
 
@@ -26,12 +26,19 @@ export function resolveRoute(hash, list, state) {
   return { screen: 'liste', platform: chosen.includes(platform) ? platform : chosen[0] };
 }
 
+// La case native reste dans le label, invisible ; la case dessinée porte la coche.
 const checkbox = (name, value, { checked, disabled = false }) =>
-  `<input type="checkbox" name="${name}" value="${value}"${checked ? ' checked' : ''}${disabled ? ' disabled' : ''}>`;
+  `<input type="checkbox" name="${name}" value="${value}"${checked ? ' checked' : ''}${disabled ? ' disabled' : ''}><span class="case" aria-hidden="true">${checked ? '<span class="coche">✓</span>' : ''}</span>`;
 
-function platformsScreen({ state }) {
-  const chips = Object.entries(PLATFORMS)
-    .map(([slug, label]) => `<label class="puce">${checkbox('platform', slug, { checked: state.platforms.includes(slug) })}<span>${label}</span></label>`)
+const step = (number) => `<span class="etape">${number} / 3</span>`;
+
+function platformsScreen({ list, state }) {
+  const rows = Object.entries(PLATFORMS)
+    .map(([slug, label]) => {
+      const checked = state.platforms.includes(slug);
+      const count = checked ? `<span class="nombre">${plural(platformKeys(list, slug).length, 'compte')}</span>` : '';
+      return `<label class="reseau">${checkbox('platform', slug, { checked })}<span class="nom">${label}</span>${count}</label>`;
+    })
     .join('\n');
   const instance = state.platforms.includes('mastodon')
     ? `<label class="champ">Ton instance Mastodon
@@ -39,9 +46,9 @@ function platformsScreen({ state }) {
       </label>
       ${normalizeInstance(state.mastodonInstance) ? '' : '<p class="aide">Indique ton instance, par exemple mastodon.social.</p>'}`
     : '';
-  return `${bar()}<div class="contenu">
+  return `${bar(step(1))}<div class="contenu">
     <h1>Sur quels réseaux es-tu ?</h1>
-    <fieldset class="puces"><legend>Coche tes réseaux</legend>${chips}</fieldset>
+    <fieldset class="reseaux"><legend>Coche tes réseaux</legend>${rows}</fieldset>
     ${instance}
     <div class="actions">${button('Continuer', platformsReady(state) ? '#categories' : null)}</div>
     </div>`;
@@ -57,10 +64,10 @@ function categoriesScreen({ list, state }) {
   const rows = categoryCounts(list, state.platforms)
     .map(({ slug, label, count, empty }) => {
       const box = checkbox('category', escapeHtml(slug), { checked: count > 0 && selected.includes(slug), disabled: count === 0 });
-      return `<label class="categorie">${box}<span class="nom">${escapeHtml(label)}</span><span class="nombre">${empty ? 'à venir' : count}</span></label>`;
+      return `<label class="categorie">${box}<span class="nom">${escapeHtml(label)}</span><span class="nombre">${empty ? 'à venir' : plural(count, 'compte')}</span></label>`;
     })
     .join('\n');
-  return `${bar()}<div class="contenu">
+  return `${bar(step(2))}<div class="contenu">
     <h1>Qui veux-tu suivre ?</h1>
     <fieldset class="categories"><legend>Coche ce qui t'intéresse</legend>${rows}</fieldset>
     <div class="actions">${seeAccountsButton(selectionCount(list, state))}</div>
@@ -103,7 +110,7 @@ function listScreen({ list, state, starterPackUrl }, platform) {
     .map(({ slug, label, entries }) => `<section class="groupe teinte-${TINTS[slug]}"><h2>${escapeHtml(label)}</h2>
       <ul class="comptes">${entries.map((entry) => accountRow(entry, state)).join('\n')}</ul></section>`)
     .join('\n');
-  return `${bar()}<nav class="onglets" aria-label="Tes réseaux">${tabs}</nav><div class="contenu">
+  return `${bar(step(3))}<nav class="onglets" aria-label="Tes réseaux">${tabs}</nav><div class="contenu">
     <h1 class="titre-liste" id="titre-liste">Ta liste ${PLATFORMS[platform]}</h1>
     ${progression}
     ${total ? '<p class="discret">Appuie sur Suivre, puis confirme dans l\'appli ou la page qui s\'ouvre.</p>' : ''}

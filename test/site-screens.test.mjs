@@ -40,9 +40,29 @@ test('Continuer attend un réseau et une instance valide', () => {
   assert.ok(!render('#reseaux', { platforms: ['x'] }).includes('name="instance"'));
 });
 
+test('chaque réseau est une ligne à cocher, qui compte ses comptes une fois cochée', () => {
+  const html = render('#reseaux', { platforms: ['instagram', 'bluesky'] });
+  assert.ok(html.includes('<h1>Sur quels réseaux es-tu ?</h1>'));
+  assert.ok(html.includes('<fieldset class="reseaux"><legend>Coche tes réseaux</legend>'));
+  assert.ok(html.includes('<label class="reseau"><input type="checkbox" name="platform" value="instagram" checked><span class="case" aria-hidden="true"><span class="coche">✓</span></span><span class="nom">Instagram</span><span class="nombre">3 comptes</span></label>'));
+  assert.ok(html.includes('<label class="reseau"><input type="checkbox" name="platform" value="bluesky" checked><span class="case" aria-hidden="true"><span class="coche">✓</span></span><span class="nom">Bluesky</span><span class="nombre">1 compte</span></label>'));
+  assert.ok(html.includes('<label class="reseau"><input type="checkbox" name="platform" value="x"><span class="case" aria-hidden="true"></span><span class="nom">X</span></label>'));
+  assertInOrder(html, ['value="instagram"', 'value="x"', 'value="tiktok"', 'value="youtube"', 'value="threads"', 'value="bluesky"', 'value="mastodon"', 'value="facebook"']);
+  assert.equal(html.match(/<label class="reseau">/g).length, 8);
+});
+
+test('la barre dit l\'étape', () => {
+  const fields = { platforms: ['x'] };
+  assert.ok(render('#reseaux', fields).includes('<span class="etape">1 / 3</span>'));
+  assert.ok(render('#categories', fields).includes('<span class="etape">2 / 3</span>'));
+  assert.ok(render('#liste/x', fields).includes('<span class="etape">3 / 3</span>'));
+  assert.ok(!render('#fin', fields).includes('class="etape"'));
+});
+
 test('l\'écran des catégories compte les personnes', () => {
   const platforms = ['instagram', 'x'];
   const all = render('#categories', { platforms });
+  assert.ok(all.includes('<label class="categorie"><input type="checkbox" name="category" value="politique" checked><span class="case" aria-hidden="true"><span class="coche">✓</span></span><span class="nom">Personnalités politiques</span><span class="nombre">2 comptes</span></label>'));
   assert.ok(all.includes('Voir les 4 comptes'));
   assert.match(all, /Journalistes<\/span>\s*<span class="nombre">à venir</);
   assert.match(all, /name="category" value="journaliste"[^>]*\bdisabled\b/);

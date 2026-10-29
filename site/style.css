@@ -73,7 +73,6 @@ fieldset {
 h1,
 h2,
 h3,
-legend,
 .btn {
   font-family: var(--font-titre);
   font-weight: 400;
@@ -208,21 +207,17 @@ input {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  padding: 24px max(20px, env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+  gap: 16px;
+  padding: 26px max(20px, env(safe-area-inset-right)) calc(26px + env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
 }
 
 .contenu h1 {
-  font-weight: 700;
-  font-size: 44px;
-  line-height: 0.95;
-  letter-spacing: -0.045em;
+  font-size: min(2rem, 8.5vw);
 }
 
 .discret {
-  color: var(--gris-meta);
-  font-style: italic;
-  font-size: 16px;
+  color: var(--gris);
+  font-size: 15px;
   line-height: 1.4;
 }
 
@@ -250,14 +245,15 @@ input {
 }
 
 .liens a {
-  font: 500 15px var(--font-titre);
+  font-weight: 700;
+  font-size: 15px;
 }
 
 .pied {
   margin-top: 8px;
   padding-top: 8px;
   border-top: 1px solid var(--filet-clair);
-  color: var(--gris-meta);
+  color: var(--gris);
   font-size: 15px;
 }
 
@@ -267,130 +263,191 @@ fieldset {
   min-width: 0;
 }
 
+/* La légende est une consigne, pas un titre : Karla, en gris. */
 legend {
   margin-bottom: 12px;
   padding: 0;
-  color: var(--gris-meta);
+  color: var(--gris);
   font-size: 15px;
+  line-height: 1.4;
 }
 
-/* Réseaux : puces à cocher */
+/* Cases à cocher : la case native, invisible, reste dans le label ; la case dessinée la remplace.
+   Cochée, la ligne se remplit de noir de gauche à droite. .bascule rend l'aspect de l'état inverse
+   (app.js la pose un instant pour que la transition parte de l'ancien aspect). */
 
-.puces {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.puces legend {
-  width: 100%;
-}
-
-.puce {
-  position: relative;
-}
-
-.puce input {
+.reseau input,
+.categorie input {
   position: absolute;
-  opacity: 0;
   width: 1px;
   height: 1px;
+  margin: 0;
+  opacity: 0;
 }
 
-.puce span {
-  display: inline-flex;
+.reseau,
+.categorie {
+  position: relative;
   align-items: center;
-  min-height: 44px;
-  padding: 8px 16px;
-  border: 1px solid var(--encre);
-  background: var(--papier-carte);
-  font: 500 16px var(--font-titre);
+  background: linear-gradient(var(--noir), var(--noir)) left center / 0 200% no-repeat var(--carte);
   cursor: pointer;
+  transition: background-size 180ms var(--balayage), color 120ms;
 }
 
-.puce input:checked + span {
-  background: var(--encre);
+.reseau:has(input:checked),
+.categorie:has(input:checked),
+.reseau.bascule:not(:has(input:checked)),
+.categorie.bascule:not(:has(input:checked)) {
+  background-size: 100% 200%;
   color: var(--papier);
 }
 
-.puce input:checked + span::before {
-  content: '✓';
-  margin-right: 6px;
+.reseau.bascule:has(input:checked),
+.categorie.bascule:has(input:checked) {
+  background-size: 0 200%;
+  color: var(--noir);
 }
 
-.puce input:focus-visible + span {
-  outline: 3px solid var(--encre);
-  outline-offset: 2px;
+/* Le contour se dessine à l'intérieur, pour rester visible sur une ligne noire comme sur papier. */
+.reseau:has(input:focus-visible),
+.categorie:has(input:focus-visible) {
+  outline: 3px solid var(--noir);
+  outline-offset: -7px;
+}
+
+.reseau:has(input:checked:focus-visible),
+.categorie:has(input:checked:focus-visible) {
+  outline-color: var(--papier);
+}
+
+.case {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: var(--filet);
+  background: transparent;
+}
+
+input:checked + .case,
+.bascule input:not(:checked) + .case {
+  border-color: var(--rouge);
+  background: var(--rouge);
+}
+
+.bascule input:checked + .case {
+  border-color: var(--noir);
+  background: transparent;
+}
+
+.bascule input:checked + .case .coche {
+  visibility: hidden;
+}
+
+/* « ✓ » vient de la police système : ni Karla ni Dela ne l'ont. */
+.coche {
+  color: var(--noir);
+  font: 800 15px/1 var(--font-texte);
+}
+
+.nombre {
+  margin-left: auto;
+  font-size: 14px;
+}
+
+.reseau:has(input:checked) .nombre,
+.categorie:has(input:checked) .nombre {
+  color: var(--gris-clair);
+}
+
+/* Réseaux : une ligne par réseau, dans un cadre. */
+
+.reseau {
+  display: flex;
+  gap: 14px;
+  min-height: 56px;
+  padding: 0 16px;
+  border: var(--filet);
+  border-top: 1px solid var(--filet-clair);
+}
+
+.reseaux legend + .reseau {
+  border-top: var(--filet);
+}
+
+.reseau:not(:last-of-type) {
+  border-bottom: 0;
+}
+
+.reseau .nom {
+  font: 800 18px/1.2 var(--font-texte);
 }
 
 .champ {
   display: grid;
   gap: 6px;
-  font: 600 16px var(--font-titre);
+  font-weight: 700;
+  font-size: 16px;
 }
 
 .champ input {
   width: 100%;
   min-height: 48px;
   padding: 10px 12px;
-  border: 1px solid var(--encre);
+  border: var(--filet);
   border-radius: 0;
-  background: var(--papier-carte);
-  color: var(--encre);
-  font: 400 17px var(--font-titre);
+  background: var(--carte);
+  color: var(--noir);
+  font: 400 17px var(--font-texte);
 }
 
 .aide {
-  color: var(--gris-meta);
-  font-style: italic;
+  color: var(--gris);
   font-size: 15px;
 }
 
-/* Catégories */
+/* Catégories : une carte par catégorie. */
 
 .categories {
   display: grid;
-  gap: 8px;
+  gap: 12px;
 }
 
+/* Le nombre passe sous le nom : « PERSONNALITÉS » ne tiendrait pas à côté sur un téléphone. */
 .categorie {
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 12px;
-  min-height: 52px;
-  padding: 8px 16px;
-  border: 1px solid var(--encre);
-  background: var(--papier-carte);
-  font: 600 17px var(--font-titre);
-  cursor: pointer;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 4px 14px;
+  padding: 18px 16px;
+  border: var(--filet);
 }
 
-.categorie input {
-  width: 20px;
-  height: 20px;
-  margin: 0;
-  accent-color: var(--rouge);
+.categorie .case {
+  grid-row: span 2;
+  width: 28px;
+  height: 28px;
 }
 
-.categorie:has(input:checked) {
-  background: var(--encre);
-  color: var(--papier);
-}
-
-.categorie:has(input:disabled) {
-  color: var(--gris-meta);
-  cursor: default;
+.categorie .nom {
+  font: 400 min(1.25rem, 5.4vw)/1.15 var(--font-titre);
+  text-transform: uppercase;
+  overflow-wrap: break-word;
 }
 
 .categorie .nombre {
-  color: var(--gris-meta);
-  font-weight: 400;
-  font-size: 14px;
+  grid-column: 2;
+  margin-left: 0;
+  font-size: 15px;
 }
 
-.categorie:has(input:checked) .nombre {
-  color: var(--filet-clair);
+.categorie:has(input:disabled) {
+  color: var(--gris);
+  cursor: default;
+}
+
+.categorie:has(input:disabled) .case {
+  border-color: var(--filet-clair);
 }
 
 /* La liste */
