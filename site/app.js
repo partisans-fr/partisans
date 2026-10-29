@@ -54,6 +54,23 @@ function centerCurrentTab() {
   tabs.scrollLeft = tab.offsetLeft - (tabs.clientWidth - tab.offsetWidth) / 2;
 }
 
+// Le poing se lève la première fois que son bloc rouge entre à l'écran : au chargement sur ordi, à
+// l'arrivée du bandeau sur téléphone (sinon l'animation se jouerait hors de l'écran).
+let fistObserver = null;
+function raiseFists() {
+  fistObserver?.disconnect();
+  fistObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries.filter((e) => e.isIntersecting)) {
+        entry.target.classList.add('leve');
+        fistObserver.unobserve(entry.target);
+      }
+    },
+    { threshold: 0.3 },
+  );
+  app.querySelectorAll('.panneau, .bandeau').forEach((block) => fistObserver.observe(block));
+}
+
 function render() {
   const { route, html } = currentScreen();
   const hash = hashOf(route);
@@ -65,6 +82,7 @@ function render() {
   if (hash !== shownHash) window.scrollTo(0, 0);
   shownHash = hash;
   drawProgress();
+  raiseFists();
 }
 
 function update(changes) {
@@ -116,6 +134,16 @@ app.addEventListener('input', (event) => {
 });
 
 app.addEventListener('click', (event) => {
+  // Liens internes de l'accueil : l'ancre commande l'écran affiché, on ne la touche pas ; la page
+  // défile jusqu'à la section (en douceur d'après la feuille), qui reçoit le focus.
+  const internal = event.target.closest('[data-defiler]');
+  if (internal) {
+    event.preventDefault();
+    const section = document.querySelector(internal.getAttribute('href'));
+    section.scrollIntoView();
+    section.focus({ preventScroll: true });
+    return;
+  }
   const target = event.target.closest('[data-follow], [data-follow-all], [data-unfollow], [data-share]');
   if (!target) return;
   const { follow, followAll, unfollow } = target.dataset;

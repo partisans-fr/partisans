@@ -1,0 +1,518 @@
+/* Accueil : une page, deux mises en page. Téléphone d'abord (référence 390 px), ordi à partir de
+   900 px. Le balisage contient les deux : ce qui n'appartient pas à la largeur courante est caché. */
+
+.barre-liens,
+.barre .btn,
+.panneau,
+.vitrine,
+.hero-boutons [data-defiler] {
+  display: none;
+}
+
+.bloc-encre :focus-visible,
+.bandeau :focus-visible,
+.pied-accueil :focus-visible {
+  outline-color: var(--papier);
+}
+
+/* Hero */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 28px max(20px, env(safe-area-inset-right)) 28px max(20px, env(safe-area-inset-left));
+}
+
+.hero-texte {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.surtitre {
+  color: var(--rouge);
+  font: 400 12px var(--font-titre);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Le grand titre monte depuis un masque. Sa marge basse garde les jambages hors du masque. */
+.masque-titre {
+  overflow: hidden;
+}
+
+.hero h1 {
+  padding-bottom: 0.1em;
+  font-weight: 700;
+  font-size: clamp(3rem, 16.4vw, 4rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  animation: monte 900ms var(--levee) 150ms both;
+}
+
+@keyframes monte {
+  from {
+    transform: translateY(105%);
+  }
+}
+
+.chapo {
+  font-size: 19px;
+  line-height: 1.45;
+}
+
+.hero-boutons {
+  display: grid;
+  gap: 12px;
+}
+
+/* Les trois blocs */
+
+.bloc {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px max(20px, env(safe-area-inset-right)) 24px max(20px, env(safe-area-inset-left));
+  border-top: 1px solid var(--encre);
+}
+
+.bloc h2 {
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.bloc p {
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.bloc-encre {
+  background: var(--encre);
+  color: var(--papier);
+}
+
+.bloc-encre em {
+  font-style: normal;
+  color: var(--rouge-clair);
+}
+
+.bloc .coin-blocage {
+  margin-top: 6px;
+  padding-top: 12px;
+  border-top: 1px solid var(--gris-meta);
+  color: var(--filet-clair);
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.coin-blocage a {
+  color: var(--rouge-clair);
+  text-underline-offset: 3px;
+}
+
+/* Bandeau rouge du téléphone : le poing ton sur ton, et de quoi agir sans remonter. */
+
+.bandeau {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+  background: var(--rouge);
+}
+
+.poing {
+  position: absolute;
+  background: var(--rouge-fantome);
+  -webkit-mask: url(img/symbole.svg) center / contain no-repeat;
+  mask: url(img/symbole.svg) center / contain no-repeat;
+}
+
+/* Le disque déborde en haut et à droite ; le poing, entier, s'arrête au-dessus du bouton. */
+.bandeau .poing {
+  top: -68px;
+  right: -60px;
+  width: 300px;
+  height: 300px;
+  transform: translateY(90px);
+}
+
+.bandeau.leve .poing {
+  transform: none;
+  transition: transform 1300ms var(--levee) 300ms;
+}
+
+.btn.papier {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  width: auto;
+  background: var(--papier);
+  color: var(--encre);
+}
+
+.btn.papier:hover,
+.btn.papier:active {
+  background: var(--encre);
+  color: var(--papier);
+}
+
+/* Pied */
+
+.pied-accueil {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 28px max(20px, env(safe-area-inset-right)) calc(28px + env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+  border-top: 1px solid var(--rouge);
+  background: var(--encre);
+  color: var(--papier);
+}
+
+.pied-accueil .symbole {
+  width: 44px;
+  height: 44px;
+  background: var(--rouge-clair);
+  -webkit-mask: url(img/symbole.svg) center / contain no-repeat;
+  mask: url(img/symbole.svg) center / contain no-repeat;
+}
+
+.mot {
+  font: 600 30px/1 var(--font-titre);
+  letter-spacing: -0.035em;
+}
+
+.note {
+  color: var(--filet-clair);
+  font-style: italic;
+  font-size: 15px;
+}
+
+/* Ordi (référence 1440 px) */
+
+@media (min-width: 900px) {
+  .barre-liens {
+    display: flex;
+    gap: 30px;
+    margin-left: auto;
+    font: 400 16px var(--font-titre);
+  }
+
+  .barre-liens a {
+    color: var(--encre);
+    text-decoration: none;
+  }
+
+  .barre-liens a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .barre .btn {
+    display: flex;
+    width: auto;
+    margin-left: 24px;
+    padding: 11px 19px;
+    font: 600 16px/1.2 var(--font-titre);
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 24px;
+    padding: 64px 56px 72px;
+  }
+
+  .hero-texte {
+    grid-column: span 7;
+    gap: 28px;
+  }
+
+  .surtitre {
+    font-size: 14px;
+  }
+
+  .hero h1 {
+    font-size: clamp(5.5rem, 10.4vw, 9.375rem);
+    line-height: 0.88;
+    animation-duration: 1000ms;
+  }
+
+  .chapo {
+    max-width: 640px;
+    font-size: 25px;
+    line-height: 1.45;
+  }
+
+  .hero-boutons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .hero-boutons .btn {
+    width: auto;
+    padding: 17px 28px;
+    font-size: 19px;
+  }
+
+  .hero-boutons .btn.secondaire {
+    padding: 16px 27px;
+    font-weight: 500;
+  }
+
+  .hero-boutons [data-defiler] {
+    display: flex;
+  }
+
+  .hero .discret {
+    font-size: 18px;
+    line-height: 1.4;
+  }
+
+  .bandeau {
+    display: none;
+  }
+
+  /* Le poing doit rester entier et lisible : il déborde du disque, pas du poing. */
+  .panneau {
+    display: block;
+    grid-column: span 5;
+    position: relative;
+    min-height: 560px;
+    overflow: hidden;
+    background: var(--rouge);
+  }
+
+  .panneau .poing {
+    left: -90px;
+    bottom: -150px;
+    width: 760px;
+    height: 760px;
+    opacity: 0;
+    transform: translateY(120px);
+  }
+
+  .panneau.leve .poing {
+    opacity: 1;
+    transform: none;
+    transition: transform 1400ms var(--levee) 250ms, opacity 900ms ease-out 250ms;
+  }
+
+  .blocs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--encre);
+    border-bottom: 1px solid var(--encre);
+  }
+
+  .bloc {
+    gap: 14px;
+    padding: 40px 40px 48px;
+    border-top: 0;
+  }
+
+  .bloc:first-child {
+    padding-left: 56px;
+  }
+
+  .bloc:last-child {
+    padding-right: 56px;
+  }
+
+  .bloc + .bloc {
+    border-left: 1px solid var(--encre);
+  }
+
+  .bloc h2 {
+    font-size: 40px;
+  }
+
+  .bloc p {
+    font-size: 19px;
+  }
+
+  .bloc .coin-blocage {
+    font-size: 16px;
+  }
+
+  /* La vitrine de la liste */
+
+  .vitrine {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    padding: 56px;
+  }
+
+  .vitrine-tete {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 24px;
+  }
+
+  .vitrine-tete h2 {
+    font-weight: 700;
+    font-size: 88px;
+    line-height: 0.9;
+    letter-spacing: -0.045em;
+  }
+
+  .vitrine-tete p {
+    padding-bottom: 10px;
+    font-style: italic;
+    font-size: 20px;
+  }
+
+  .vitrine-tete .btn {
+    width: auto;
+    margin-left: auto;
+    padding: 14px 22px;
+    font-size: 17px;
+  }
+
+  .colonnes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+    align-items: start;
+    gap: 24px;
+  }
+
+  .colonne {
+    border: 1px solid var(--encre);
+  }
+
+  .colonne-tete {
+    padding: 18px 20px;
+    background: var(--teinte);
+    color: var(--sur-teinte);
+  }
+
+  .colonne-tete p {
+    font: 400 13px var(--font-titre);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .colonne-tete h3 {
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+  }
+
+  .cartes {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .carte {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 18px 16px;
+    border-top: 1px solid var(--filet-clair);
+    background: var(--papier-carte);
+  }
+
+  .carte-nom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .carte .nom {
+    font: 600 18px/1.2 var(--font-titre);
+  }
+
+  .precision {
+    color: var(--gris-meta);
+    font-style: italic;
+    font-size: 15px;
+  }
+
+  /* Réglette : les huit réseaux toujours aux mêmes places ; présents en encre, absents en filet clair. */
+  .reglette {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 7px 8px;
+    font: 400 11px/1.3 var(--font-titre);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .reglette a {
+    color: var(--encre);
+    text-decoration-color: var(--filet-clair);
+    text-underline-offset: 3px;
+    transition: color 180ms;
+  }
+
+  .reglette a:hover {
+    color: var(--rouge);
+    text-decoration-color: var(--rouge);
+  }
+
+  .reglette span {
+    color: var(--filet-clair);
+  }
+
+  .suite summary {
+    padding: 14px 18px;
+    border-top: 1px solid var(--encre);
+    font: 600 15px var(--font-titre);
+    list-style: none;
+    cursor: pointer;
+    transition: background-color 160ms, color 160ms;
+  }
+
+  .suite summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .suite summary:hover {
+    background: var(--encre);
+    color: var(--papier);
+  }
+
+  .suite[open] summary {
+    display: none;
+  }
+
+  .pied-accueil {
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    padding: 40px 56px;
+    border-top: 0;
+  }
+
+  .pied-accueil .symbole {
+    width: 52px;
+    height: 52px;
+  }
+
+  .mot {
+    font-size: 40px;
+  }
+
+  .note {
+    margin-left: auto;
+    font-size: 16px;
+    text-align: right;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bandeau .poing,
+  .panneau .poing {
+    opacity: 1;
+    transform: none;
+  }
+}
