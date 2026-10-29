@@ -58,7 +58,7 @@ export function homeScreen({ list, resume }) {
       <p class="surtitre">Contre l'extrême droite, sur les réseaux</p>
       <h1><span class="ligne"><span data-anim="line">Soyons</span></span> <span class="ligne"><span data-anim="line">partisans.</span></span></h1>
       <p class="chapo">Abonne-toi en quelques minutes aux élus, médias et collectifs de gauche qui combattent l'extrême droite.</p>
-      <div class="hero-boutons">${button('Voir la liste →', '#reseaux')}${resume ? button('Reprendre ma liste', '#liste', { secondary: true }) : ''}<a class="btn secondaire" href="#la-consigne" data-defiler>Lire la consigne</a></div>
+      <div class="hero-boutons">${button('Voir la liste →', '#reseaux')}${resume ? button('Reprendre ma liste', '#liste', { secondary: true }) : ''}</div>
       <p class="discret">Il ne te sera demandé aucun mot de passe, toutes tes données restent confidentielles.</p>
     </div>
   </div>

@@ -74,7 +74,7 @@ test('les boutons de l\'accueil ouvrent le parcours ou défilent dans la page', 
   assert.ok(html.includes('<a class="btn" href="#reseaux">Tout suivre sur mes réseaux →</a>'));
   assert.ok(html.includes('<a href="#la-liste" data-defiler>La liste</a>'));
   assert.ok(html.includes('<a href="#la-consigne" data-defiler>La consigne</a>'));
-  assert.ok(html.includes('<a class="btn secondaire" href="#la-consigne" data-defiler>Lire la consigne</a>'));
+  assert.ok(!html.includes('Lire la consigne'));
   assert.ok(html.includes('id="la-consigne"') && html.includes('id="la-liste"'));
 });
 

@@ -6,8 +6,7 @@
 .vitrine,
 .tout-telecharger,
 .action-mot,
-.pied-accueil .adresse,
-.hero-boutons [data-defiler] {
+.pied-accueil .adresse {
   display: none;
 }
 
@@ -434,10 +433,6 @@
 
   .hero-boutons .btn.secondaire {
     padding: 15px 26px;
-  }
-
-  .hero-boutons [data-defiler] {
-    display: flex;
   }
 
   .hero .discret {
