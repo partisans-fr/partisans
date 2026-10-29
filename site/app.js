@@ -7,6 +7,7 @@ import { siteUrl } from './lib/links.js';
 import { renderScreen, resolveRoute } from './lib/screens.js';
 import { loadState, saveState, selectedCategories, setFollowed, toggle } from './lib/state.js';
 import { isAppleMobile } from './lib/visuals.js';
+import { playFollowed, playToggle, revealOnEntry, startFrom } from './motion.js';
 
 const SHARE_TEXT = 'Abonne-toi en quelques minutes aux comptes qui combattent l\'extrême droite.';
 
@@ -44,14 +45,6 @@ function focusSelector(element) {
   return key ? `[data-follow="${CSS.escape(key)}"], [data-unfollow="${CSS.escape(key)}"]` : null;
 }
 
-// Pose l'ancien aspect d'un élément refait, sans transition, avant de le laisser glisser vers le nouveau.
-function startFrom(element, applyOldLook) {
-  element.style.transition = 'none';
-  applyOldLook();
-  element.getBoundingClientRect();
-  element.style.transition = '';
-}
-
 // La CSP interdit l'attribut style dans le HTML : la largeur remplie se pose ici. Sur le même réseau,
 // la barre repart de sa largeur précédente pour que sa transition se joue.
 let lastProgress = null;
@@ -68,14 +61,6 @@ function drawProgress(hash) {
   lastProgress = { hash, part };
 }
 
-// La ligne refaite reprend un instant son ancien aspect, puis glisse vers le nouveau (fondu de la feuille).
-function fadeRow(key) {
-  const row = app.querySelector(`[data-follow="${CSS.escape(key)}"], [data-unfollow="${CSS.escape(key)}"]`)?.closest('.compte');
-  if (!row) return;
-  startFrom(row, () => row.classList.toggle('est-suivi'));
-  row.classList.toggle('est-suivi');
-}
-
 // L'onglet du réseau affiché est centré dans sa rangée, sans faire défiler la page.
 function centerCurrentTab() {
   const tab = app.querySelector('.onglet[aria-current="page"]');
@@ -84,24 +69,7 @@ function centerCurrentTab() {
   tabs.scrollLeft = tab.offsetLeft - (tabs.clientWidth - tab.offsetWidth) / 2;
 }
 
-// Le poing se lève la première fois que son bloc rouge entre à l'écran : au chargement sur ordi, à
-// l'arrivée du bandeau sur téléphone (sinon l'animation se jouerait hors de l'écran).
-let fistObserver = null;
-function raiseFists() {
-  fistObserver?.disconnect();
-  fistObserver = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries.filter((e) => e.isIntersecting)) {
-        entry.target.classList.add('leve');
-        fistObserver.unobserve(entry.target);
-      }
-    },
-    { threshold: 0.3 },
-  );
-  app.querySelectorAll('.panneau, .bandeau').forEach((block) => fistObserver.observe(block));
-}
-
-function render(changedKey = null) {
+function render() {
   const { route, html } = currentScreen();
   const hash = hashOf(route);
   const focused = focusSelector(document.activeElement);
@@ -111,9 +79,8 @@ function render(changedKey = null) {
   centerCurrentTab();
   if (hash !== shownHash) window.scrollTo(0, 0);
   shownHash = hash;
-  if (changedKey) fadeRow(changedKey);
   drawProgress(hash);
-  raiseFists();
+  revealOnEntry(app);
 }
 
 // Les additions partent sans qu'on attende de réponse : l'ouverture d'un compte n'est jamais retardée,
@@ -204,6 +171,7 @@ app.addEventListener('change', (event) => {
   else if (name === 'category') update({ categories: toggle(selectedCategories(list, state), value) });
   else return;
   render();
+  playToggle(app.querySelector(`input[name="${name}"][value="${CSS.escape(value)}"]`)?.closest('label'));
 });
 
 app.addEventListener('input', (event) => {
@@ -241,7 +209,7 @@ app.addEventListener('click', (event) => {
   if (open) return count(recordOpened(counter, [open]));
   if (unfollow) {
     update(setFollowed(state, [unfollow], false));
-    return render(unfollow);
+    return render();
   }
   // Déjà abonné : commenter marque le compte comme suivi, comme Suivre ; s'il l'est déjà, il compte seulement.
   if (comment && state.followed.includes(comment)) return count(recordOpened(counter, [comment]));
@@ -250,7 +218,10 @@ app.addEventListener('click', (event) => {
   const keys = key ? [key] : platformKeys(list, followAll);
   update(setFollowed(state, keys, true));
   count(recordOpened(counter, keys));
-  setTimeout(() => render(key ?? null));
+  setTimeout(() => {
+    render();
+    if (key) playFollowed(app.querySelector(`[data-unfollow="${CSS.escape(key)}"]`)?.closest('.compte'));
+  });
 });
 
 async function loadList() {
