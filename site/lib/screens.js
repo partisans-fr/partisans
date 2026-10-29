@@ -1,8 +1,10 @@
-// Les cinq écrans du parcours, rendus en texte HTML, et l'écran à montrer pour une ancre donnée.
-// Tout texte venu de la liste passe par escapeHtml. app.js s'appuie sur les attributs name, data-*
-// et les ancres (#reseaux, #categories, #liste/<réseau>, #fin) produits ici.
+// Les écrans du site, rendus en texte HTML, et l'écran à montrer pour une ancre donnée : l'accueil
+// (home.js) et les quatre écrans du parcours. Tout texte venu de la liste passe par escapeHtml.
+// app.js s'appuie sur les attributs name, data-* et les ancres (#reseaux, #categories,
+// #liste/<réseau>, #fin) produits ici.
 
 import { PLATFORMS, accountGroups, categoryCounts, entryKey, followedCount, peopleCount, progress } from './catalog.js';
+import { homeScreen } from './home.js';
 import { EXTERNAL, TINTS, bar, button, escapeHtml } from './html.js';
 import { followUrl, normalizeInstance } from './links.js';
 import { selectedCategories } from './state.js';
@@ -26,19 +28,6 @@ export function resolveRoute(hash, list, state) {
 
 const checkbox = (name, value, { checked, disabled = false }) =>
   `<input type="checkbox" name="${name}" value="${value}"${checked ? ' checked' : ''}${disabled ? ' disabled' : ''}>`;
-
-function home({ list, state }) {
-  const resume = resolveRoute('#liste', list, state).screen === 'liste';
-  return `${bar()}<div class="contenu">
-    <h1>Donne de la force à ceux qui combattent l'extrême droite</h1>
-    <p>Abonne-toi en quelques minutes aux élus, médias et collectifs de gauche : chaque abonnement leur donne de l'audience.</p>
-    <p class="discret">Rien à installer, aucun mot de passe. Tes choix restent dans ce téléphone.</p>
-    <div class="actions">
-      ${resume ? button('Reprendre ma liste', '#liste') : ''}
-      ${button('Commencer', '#reseaux')}
-    </div>
-    </div>`;
-}
 
 function platformsScreen({ state }) {
   const chips = Object.entries(PLATFORMS)
@@ -145,6 +134,8 @@ function endScreen({ list, state }) {
     <p class="liens"><a href="#liste">Revenir à ma liste</a></p>
     </div>`;
 }
+
+const home = ({ list, state }) => homeScreen({ list, resume: resolveRoute('#liste', list, state).screen === 'liste' });
 
 const SCREENS = { accueil: home, reseaux: platformsScreen, categories: categoriesScreen, fin: endScreen };
 
