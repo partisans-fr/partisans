@@ -2,7 +2,7 @@
   "name": "partisans",
   "version": "0.1.0",
   "private": true,
-  "description": "Site pour téléphone qui abonne à des comptes de gauche qui combattent l'extrême droite.",
+  "description": "Site pour téléphone et pour ordi qui abonne à des comptes de gauche qui combattent l'extrême droite.",
   "license": "GPL-3.0-only",
   "type": "module",
   "scripts": {

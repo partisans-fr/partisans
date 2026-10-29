@@ -2,7 +2,7 @@
 
 Un site, pour téléphone et pour ordi, qui abonne la personne, réseau par réseau, à des comptes de gauche qui combattent l'extrême droite. Un appui sur « Suivre » ouvre la page ou l'appli de la plateforme ; la progression reste dans le navigateur.
 
-> **Statut : en développement.** Le site n'est pas encore en ligne.
+Le site : https://partisans.netlify.app/
 
 ## Principes
 
@@ -32,11 +32,6 @@ Il refuse tout commit qui contiendrait une identité non anonyme, un chemin abso
 - **Dernier post** : `netlify/functions/dernier-post.mjs` mène au dernier post Bluesky d'un compte de la liste, cherché côté serveur.
 
 Le site est servi par Netlify depuis le dossier `site/` (voir `netlify.toml`), à l'adresse https://partisans.netlify.app/.
-
-À la mise en ligne :
-
-1. Renseigner `STARTER_PACK_URL` dans `site/config.js`.
-2. Essayer, depuis un iPhone et un Android : l'ajout à l'écran d'accueil, l'aperçu du lien partagé, et les liens « Suivre » ouverts depuis Instagram et WhatsApp.
 
 ## Licence
 
