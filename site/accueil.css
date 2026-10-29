@@ -768,6 +768,13 @@
   }
 }
 
+/* Ordi étroit : « Télécharger » prendrait la moitié de la carte, la flèche seule suffit (comme sur téléphone). */
+@media (min-width: 900px) and (max-width: 1199px) {
+  .action-mot {
+    display: none;
+  }
+}
+
 /* La carte se soulève au survol d'une souris, pas au toucher. */
 @media (min-width: 900px) and (hover: hover) and (pointer: fine) {
   .visuel a:hover {
