@@ -58,7 +58,7 @@ export function homeScreen({ list, resume }) {
       <p class="discret">Il ne te sera demandé aucun mot de passe, toutes tes données restent confidentielles.</p>
     </div>
   </div>
-  <p class="slogan"><span class="phrase"><span>De la force pour</span> <span>ceux qui luttent.</span></span> <span class="phrase rouge">Rien pour eux.</span></p>
+  <p class="slogan"><span class="phrase"><span>De la force pour</span> <span>ceux qui luttent.</span></span> <span class="phrase rouge"><span>Rien pour</span> <span>l'extrême droite.</span></span></p>
   <div class="blocs">
     <section class="bloc" data-anim="drop"><h2>Les algorithmes amplifient ce qui fait réagir.</h2><p>Quand tu réponds à un post d'extrême droite, même pour le dénoncer, tu le fais voir à plus de monde. Tes likes, partages et commentaires ont du poids : donne-les à ceux qui la combattent.</p></section>
     <section class="bloc" data-anim="drop"><h2>Abonne-toi en quelques clics.</h2><p>Choisis tes réseaux. On t'ouvre chaque compte de la liste, tu n'as plus qu'à cliquer sur « S'abonner ».</p></section>

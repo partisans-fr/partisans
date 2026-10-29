@@ -24,7 +24,7 @@ test('l\'accueil porte les textes validés, dans l\'ordre', () => {
     'Abonne-toi en quelques minutes aux élus, médias et collectifs de gauche qui combattent l\'extrême droite. Chaque abonné de plus, c\'est plus de monde qui voit leurs posts.',
     '>Voir la liste →</a>',
     'Il ne te sera demandé aucun mot de passe, toutes tes données restent confidentielles.',
-    '<p class="slogan"><span class="phrase"><span>De la force pour</span> <span>ceux qui luttent.</span></span> <span class="phrase rouge">Rien pour eux.</span></p>',
+    '<p class="slogan"><span class="phrase"><span>De la force pour</span> <span>ceux qui luttent.</span></span> <span class="phrase rouge"><span>Rien pour</span> <span>l\'extrême droite.</span></span></p>',
     '<h2>Les algorithmes amplifient ce qui fait réagir.</h2>',
     'Quand tu réponds à un post d\'extrême droite, même pour le dénoncer, tu le fais voir à plus de monde. Tes likes, partages et commentaires ont du poids : donne-les à ceux qui la combattent.',
     '<h2>Abonne-toi en quelques clics.</h2>',
@@ -55,6 +55,7 @@ test('Fais tourner suit la liste et précède le pied', () => {
 
 test('l\'ancien bandeau et l\'ancien titre ont disparu', () => {
   const html = home();
+  assert.ok(!html.includes('Rien pour eux.'));
   assert.ok(!html.includes('btn papier'));
   assert.ok(!html.includes('Rejoins les partisans.'));
 });
