@@ -1,6 +1,8 @@
 // Visuels de « Fais tourner » : chaque fichier à télécharger, sa vignette (taille réelle) et sa légende.
 // scripts/preparer-visuels.py produit ces fichiers ; le zip les reprend dans cet ordre.
 
+import { escapeHtml } from './html.js';
+
 export const ARCHIVE_URL = 'visuels/soyons-partisans-visuels.zip';
 
 export const VISUAL_GROUPS = [
@@ -19,3 +21,30 @@ export const VISUAL_GROUPS = [
     { name: 'La consigne', file: 'visuels/soyons-partisans-story-consigne.jpg', thumbnail: 'img/vignette-story-consigne.webp', width: 600, height: 1067 },
   ] },
 ];
+
+// Une carte : la vignette, la légende (cachée à l'œil sur téléphone) et la flèche. Le lien télécharge
+// le fichier en pleine taille ; sur iPhone, app.js ouvre plutôt le menu de partage (data-visuel).
+function visualCard({ name, detail, file, thumbnail, width, height }, kind) {
+  const action = kind === 'posts' ? '<span class="action-mot">Télécharger </span>↓' : '↓';
+  const detailText = detail ? `<span class="visuel-detail">${escapeHtml(detail)}</span>` : '';
+  return `<li class="visuel" data-anim="drop"><a href="${file}" download data-visuel><span class="visuel-image"><img src="${thumbnail}" width="${width}" height="${height}" alt="" loading="lazy" decoding="async"></span><span class="visuel-texte"><span class="visuel-nom">${escapeHtml(name)}</span>${detailText}</span><span class="visuel-action" aria-hidden="true">${action}</span></a></li>`;
+}
+
+function visualGroup({ kind, title, visuals }) {
+  const list = `<ul class="visuels visuels-${kind}">${visuals.map((visual) => visualCard(visual, kind)).join('')}</ul>`;
+  const body = kind === 'stories'
+    ? `<div class="grille-stories">${list}<div class="encadre-partage"><p class="encadre-titre">Partage-les. <span>Tague tes proches.</span></p><p>Mets le lien soyonspartisans.fr en story ou en bio.</p></div></div>`
+    : list;
+  return `<div class="groupe-visuels"><h3>${escapeHtml(title)}</h3>${body}</div>`;
+}
+
+export function visualsSection() {
+  return `<section class="fais-tourner" id="fais-tourner" tabindex="-1">
+    <div class="section-tete"><h2>Fais tourner</h2><p>Télécharge les visuels et partage-les sur tes réseaux.</p><a class="btn secondaire tout-telecharger" href="${ARCHIVE_URL}" download>Tout télécharger ↓</a></div>
+    ${VISUAL_GROUPS.map(visualGroup).join('\n    ')}
+  </section>`;
+}
+
+// iPhone, iPod, et iPad, qui se présente comme un Mac mais répond au toucher.
+export const isAppleMobile = (userAgent, maxTouchPoints) =>
+  /iPhone|iPad|iPod/.test(userAgent) || (/Macintosh/.test(userAgent) && maxTouchPoints > 1);

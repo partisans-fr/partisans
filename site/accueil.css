@@ -4,6 +4,8 @@
 .barre-liens,
 .barre .btn,
 .vitrine,
+.tout-telecharger,
+.action-mot,
 .pied-accueil .adresse,
 .hero-boutons [data-defiler] {
   display: none;
@@ -11,6 +13,7 @@
 
 .panneau :focus-visible,
 .slogan :focus-visible,
+.encadre-partage :focus-visible,
 .pied-accueil :focus-visible {
   outline-color: var(--papier);
 }
@@ -175,6 +178,117 @@
 
 .section-tete h2 {
   font-size: min(2rem, 8.5vw);
+}
+
+/* Fais tourner : vignettes en grilles de deux colonnes ; la légende est lue mais cachée à l'œil. */
+
+.fais-tourner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 28px max(20px, env(safe-area-inset-right)) 30px max(20px, env(safe-area-inset-left));
+  border-top: var(--filet);
+}
+
+.groupe-visuels h3 {
+  margin-bottom: 10px;
+  color: var(--rouge);
+  font: 800 13px/1.3 var(--font-texte);
+  letter-spacing: .12em;
+}
+
+.visuels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.visuels-logos .visuel:nth-child(3) {
+  grid-column: 1 / -1;
+}
+
+.visuel a {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  border: var(--filet);
+  background: var(--carte);
+  color: var(--noir);
+  text-decoration: none;
+}
+
+.visuel-image {
+  grid-column: 1 / -1;
+  display: block;
+}
+
+.visuel-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Badge et bloc au centre d'un carré papier. */
+.visuels-logos .visuel:nth-child(-n + 2) .visuel-image {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  background: var(--papier);
+}
+
+.visuels-logos .visuel:nth-child(1) img {
+  width: 72%;
+}
+
+.visuels-logos .visuel:nth-child(2) img {
+  width: 86%;
+}
+
+.visuel-texte {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.visuel-action {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 4px 8px;
+  background: var(--papier);
+  color: var(--rouge);
+  font: 400 14px/1.2 var(--font-titre);
+  text-transform: uppercase;
+}
+
+.grille-stories {
+  display: grid;
+  gap: 10px;
+}
+
+.encadre-partage {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 22px 20px;
+  background: var(--rouge);
+}
+
+.encadre-titre {
+  font: 400 24px/1.15 var(--font-titre);
+  text-transform: uppercase;
+}
+
+.encadre-titre span {
+  color: var(--papier);
 }
 
 /* Pied */
@@ -525,6 +639,101 @@
     display: none;
   }
 
+  /* Fais tourner */
+
+  .fais-tourner {
+    gap: 32px;
+    padding: 64px 56px 72px;
+  }
+
+  .tout-telecharger {
+    display: flex;
+  }
+
+  .groupe-visuels h3 {
+    margin-bottom: 14px;
+    font-size: 14px;
+  }
+
+  .visuels {
+    gap: 24px;
+  }
+
+  .visuels-logos {
+    grid-template-columns: 1fr 1fr 2fr;
+  }
+
+  .visuels-logos .visuel:nth-child(3) {
+    grid-column: auto;
+  }
+
+  .visuels-posts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .visuel a {
+    height: 100%;
+    transition: transform .15s var(--sortie), box-shadow .15s var(--sortie);
+  }
+
+  .visuel-image {
+    border-bottom: var(--filet);
+  }
+
+  .visuel-texte {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+    white-space: normal;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 12px 0 12px 16px;
+  }
+
+  .visuel-nom {
+    font: 800 16px/1.3 var(--font-texte);
+  }
+
+  .visuel-detail {
+    color: var(--gris);
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .visuel-action {
+    position: static;
+    align-self: start;
+    padding: 12px 16px;
+    background: none;
+  }
+
+  .action-mot {
+    display: inline;
+  }
+
+  /* Stories : deux moitiés, les deux stories d'un côté, l'encadré de l'autre. */
+  .grille-stories {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .encadre-partage {
+    gap: 14px;
+    padding: 32px;
+  }
+
+  .encadre-titre {
+    font-size: 34px;
+  }
+
+  .encadre-partage p:not(.encadre-titre) {
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
   /* Pied : poing et mot à gauche, adresse et note poussées à droite. */
   .pied-accueil {
     display: grid;
@@ -556,5 +765,13 @@
     align-self: start;
     font-size: 15px;
     text-align: right;
+  }
+}
+
+/* La carte se soulève au survol d'une souris, pas au toucher. */
+@media (min-width: 900px) and (hover: hover) and (pointer: fine) {
+  .visuel a:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 8px 8px 0 var(--noir);
   }
 }

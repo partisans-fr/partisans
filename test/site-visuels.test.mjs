@@ -4,7 +4,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { basename, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { imageProblems } from '../scripts/check-privacy.mjs';
-import { ARCHIVE_URL, VISUAL_GROUPS } from '../site/lib/visuals.js';
+import { ARCHIVE_URL, VISUAL_GROUPS, isAppleMobile, visualsSection } from '../site/lib/visuals.js';
 
 // Images du site : visuels de « Fais tourner » en pleine taille, zip, images affichées légères et propres.
 
@@ -79,4 +79,58 @@ test('les images affichées restent légères', () => {
 test('les favicons ont leur taille', () => {
   assert.equal(sizeOf('icons/favicon-16.png'), '16x16');
   assert.equal(sizeOf('icons/favicon-32.png'), '32x32');
+});
+
+// Rendu de la section « Fais tourner ».
+
+const section = visualsSection();
+const assertInOrder = (html, texts) => {
+  const positions = texts.map((text) => html.indexOf(text));
+  assert.ok(positions.every((p) => p >= 0), `absent : ${texts.filter((_, i) => positions[i] < 0).join(', ')}`);
+  assert.deepEqual([...positions].sort((a, b) => a - b), positions);
+};
+
+test('la tête propose le zip', () => {
+  assert.ok(section.includes('<div class="section-tete"><h2>Fais tourner</h2><p>Télécharge les visuels et partage-les sur tes réseaux.</p><a class="btn secondaire tout-telecharger" href="visuels/soyons-partisans-visuels.zip" download>Tout télécharger ↓</a></div>'));
+});
+
+test('les groupes, dans l\'ordre', () => {
+  assertInOrder(section, [
+    '<h3>Logos et bandeau</h3>',
+    '<ul class="visuels visuels-logos">',
+    '<h3>Posts carrés · 1080 × 1080</h3>',
+    '<ul class="visuels visuels-posts">',
+    '<h3>Stories · 1080 × 1920</h3>',
+    '<div class="grille-stories"><ul class="visuels visuels-stories">',
+  ]);
+});
+
+test('un post se télécharge depuis sa vignette', () => {
+  assert.ok(section.includes('<li class="visuel" data-anim="drop"><a href="visuels/soyons-partisans-post-haine.jpg" download data-visuel><span class="visuel-image"><img src="img/vignette-post-haine.webp" width="800" height="800" alt="" loading="lazy" decoding="async"></span><span class="visuel-texte"><span class="visuel-nom">Leur haine vit de tes clics.</span></span><span class="visuel-action" aria-hidden="true"><span class="action-mot">Télécharger </span>↓</span></a></li>'));
+});
+
+test('un logo dit son format et son usage', () => {
+  const badge = section.match(/<li class="visuel"[^>]*><a href="visuels\/soyons-partisans-badge.png".*?<\/li>/s)[0];
+  assert.ok(badge.includes('<span class="visuel-texte"><span class="visuel-nom">Badge</span><span class="visuel-detail">PNG · avatar, sticker</span></span><span class="visuel-action" aria-hidden="true">↓</span>'));
+});
+
+test('huit visuels, huit cartes qui tombent', () => {
+  assert.equal(section.match(/data-visuel>/g).length, 8);
+  assert.equal(section.match(/data-anim="drop"/g).length, 8);
+});
+
+test('l\'encadré dit où mettre le lien', () => {
+  assert.ok(section.includes('<div class="grille-stories"><ul class="visuels visuels-stories">'));
+  const stories = section.slice(section.indexOf('<div class="grille-stories">'));
+  assert.match(stories, /<\/ul><div class="encadre-partage"><p class="encadre-titre">Partage-les\. <span>Tague tes proches\.<\/span><\/p><p>Mets le lien soyonspartisans\.fr en story ou en bio\.<\/p><\/div><\/div>/);
+});
+
+test('isAppleMobile reconnaît iPhone et iPad', () => {
+  const iphone = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1';
+  const mac = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15';
+  const android = 'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36';
+  assert.equal(isAppleMobile(iphone, 5), true);
+  assert.equal(isAppleMobile(mac, 5), true);
+  assert.equal(isAppleMobile(mac, 0), false);
+  assert.equal(isAppleMobile(android, 5), false);
 });

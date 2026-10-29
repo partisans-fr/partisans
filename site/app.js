@@ -6,6 +6,7 @@ import { COUNTER_URL, commitRecord, loadCounter, recordOpened, recordVisit } fro
 import { siteUrl } from './lib/links.js';
 import { renderScreen, resolveRoute } from './lib/screens.js';
 import { loadState, saveState, selectedCategories, setFollowed, toggle } from './lib/state.js';
+import { isAppleMobile } from './lib/visuals.js';
 
 const SHARE_TEXT = 'Abonne-toi en quelques minutes aux comptes qui combattent l\'extrême droite.';
 
@@ -160,6 +161,43 @@ async function share(status) {
   }
 }
 
+// Sur iPhone et iPad, un fichier téléchargé finit dans Fichiers, où Instagram ne va pas le chercher :
+// le menu de partage du système, image jointe, propose « Enregistrer l'image » (Photos).
+const sharesVisuals = isAppleMobile(navigator.userAgent, navigator.maxTouchPoints) && typeof navigator.canShare === 'function';
+const visualFiles = new Map();
+
+// Le fichier est demandé dès le contact du doigt, pour être prêt quand le clic arrive.
+function visualFile(link) {
+  if (!visualFiles.has(link.href)) {
+    const name = link.pathname.split('/').pop();
+    const file = fetch(link.href)
+      .then((response) => (response.ok ? response.blob() : Promise.reject(new Error(response.status))))
+      .then((blob) => new File([blob], name, { type: blob.type }))
+      .catch((error) => {
+        visualFiles.delete(link.href);
+        throw error;
+      });
+    visualFiles.set(link.href, file);
+  }
+  return visualFiles.get(link.href);
+}
+
+// Si le partage échoue (navigateur intégré, délai dépassé), l'image s'ouvre : un appui long l'enregistre.
+async function shareVisual(link) {
+  try {
+    const file = await visualFile(link);
+    if (navigator.canShare({ files: [file] })) return await navigator.share({ files: [file] });
+  } catch (error) {
+    if (error.name === 'AbortError') return;
+  }
+  location.assign(link.href);
+}
+
+app.addEventListener('pointerdown', (event) => {
+  const visual = sharesVisuals && event.target.closest('[data-visuel]');
+  if (visual) visualFile(visual).catch(() => {});
+});
+
 app.addEventListener('change', (event) => {
   const { name, value } = event.target;
   if (name === 'platform') update({ platforms: toggle(state.platforms, value) });
@@ -175,6 +213,15 @@ app.addEventListener('input', (event) => {
 });
 
 app.addEventListener('click', (event) => {
+  // Visuel de « Fais tourner » : téléchargement natif, sauf sur iPhone et iPad.
+  const visual = event.target.closest('[data-visuel]');
+  if (visual) {
+    if (sharesVisuals) {
+      event.preventDefault();
+      shareVisual(visual);
+    }
+    return;
+  }
   // Liens internes de l'accueil : l'ancre commande l'écran affiché, on ne la touche pas ; la page
   // défile en douceur jusqu'à la section, qui reçoit le focus. Seul défilement doux du site : un
   // changement d'écran remonte d'un coup.

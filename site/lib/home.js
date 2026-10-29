@@ -5,6 +5,7 @@
 import { PLATFORMS, entryKey, showcase } from './catalog.js';
 import { EXTERNAL, bar, button, escapeHtml, fist, plural } from './html.js';
 import { profileUrl } from './links.js';
+import { visualsSection } from './visuals.js';
 
 // Ce que le titre de colonne ne dit pas.
 const PRECISIONS = { journaliste: 'Journaliste', influenceur: 'Influenceur', parti: 'Parti ou mouvement', association: 'Association' };
@@ -46,7 +47,7 @@ function showcaseSection(list) {
 
 export function homeScreen({ list, resume }) {
   const links = '<nav class="barre-liens"><a href="#la-liste" data-defiler>La liste</a><a href="#la-consigne" data-defiler>La consigne</a></nav>';
-  return `${bar(`${links}${button('Je rejoins →', '#reseaux', { secondary: true })}`)}
+  return `${bar(`${links}<a class="btn" href="#fais-tourner" data-defiler>Fais tourner</a>`)}
   <div class="hero">
     <div class="panneau" aria-hidden="true">${fist('(min-width: 900px) 368px, 213px')}</div>
     <div class="hero-texte">
@@ -64,5 +65,6 @@ export function homeScreen({ list, resume }) {
     <section class="bloc bloc-rouge" id="la-consigne" tabindex="-1" data-anim="drop"><span class="voile" data-anim="sweep" aria-hidden="true"></span><h2>Soutiens. <em>Ignore le reste.</em></h2><p>Une fois abonné, aime, partage et commente leurs posts. L'extrême droite, ignore-la : ne réponds pas, ne cite pas, continue juste de scroller !</p><p class="coin-blocage">Tu veux bloquer les comptes d'extrême droite pour ne plus les voir du tout ? Rendez-vous sur <a href="https://www.onbloquelextremedroite.fr/" ${EXTERNAL}>onbloquelextremedroite.fr</a>, par Mise au poing.</p></section>
   </div>
   ${showcaseSection(list)}
+  ${visualsSection()}
   <footer class="pied-accueil"><span class="pied-poing" aria-hidden="true"></span><p class="mot">Fais passer le mot.</p><p class="adresse">soyonspartisans.fr</p><p class="note">Projet bénévole et anonyme.</p></footer>`;
 }

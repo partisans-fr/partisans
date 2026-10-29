@@ -45,8 +45,12 @@ test('le poing du hero monte dans le panneau rouge', () => {
 
 test('les blocs et les colonnes tombent, le bloc rouge se dévoile', () => {
   const html = home();
-  assert.equal(html.match(/data-anim="drop"/g).length, 6);
+  assert.equal(html.split('<section class="fais-tourner"')[0].match(/data-anim="drop"/g).length, 6);
   assert.ok(html.includes('<section class="bloc bloc-rouge" id="la-consigne" tabindex="-1" data-anim="drop"><span class="voile" data-anim="sweep" aria-hidden="true"></span><h2>'));
+});
+
+test('Fais tourner suit la liste et précède le pied', () => {
+  assertInOrder(home(), ['<h2>La liste</h2>', '<section class="fais-tourner" id="fais-tourner" tabindex="-1">', '<footer class="pied-accueil">']);
 });
 
 test('l\'ancien bandeau et l\'ancien titre ont disparu', () => {
@@ -57,14 +61,15 @@ test('l\'ancien bandeau et l\'ancien titre ont disparu', () => {
 
 test('l\'accueil ne porte ni compteur, ni étiquette, ni menu', () => {
   const html = home();
-  for (const absent of ['12 408', '·', 'Menu', 'Diffuser', 'Ligne LFI', 'Survole']) assert.ok(!html.includes(absent), absent);
+  for (const absent of ['12 408', '45 comptes', 'Menu', 'Diffuser', 'Ligne LFI', 'Survole']) assert.ok(!html.includes(absent), absent);
 });
 
 test('les boutons de l\'accueil ouvrent le parcours ou défilent dans la page', () => {
   const html = home();
-  assert.equal(html.match(/href="#reseaux"/g).length, 3);
+  assert.equal(html.match(/href="#reseaux"/g).length, 2);
   assert.ok(html.includes('<a class="btn" href="#reseaux">Voir la liste →</a>'));
-  assert.ok(html.includes('<a class="btn secondaire" href="#reseaux">Je rejoins →</a>'));
+  assert.ok(html.includes('<a class="btn" href="#fais-tourner" data-defiler>Fais tourner</a>'));
+  assert.ok(!html.includes('Je rejoins'));
   assert.ok(html.includes('<a class="btn" href="#reseaux">Tout suivre sur mes réseaux →</a>'));
   assert.ok(html.includes('<a href="#la-liste" data-defiler>La liste</a>'));
   assert.ok(html.includes('<a href="#la-consigne" data-defiler>La consigne</a>'));
