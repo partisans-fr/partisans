@@ -31,6 +31,19 @@ const FOLLOW_URLS = {
 // `mastodonInstance` est déjà normalisée par normalizeInstance.
 export const followUrl = (entry, { mastodonInstance }) => FOLLOW_URLS[entry.platform](entry.handle, mastodonInstance);
 
+// Profil public du compte, pour la vitrine : pas d'intention d'abonnement, et le compte Mastodon sur
+// son instance (le visiteur n'a pas encore donné la sienne).
+const PROFILE_URLS = {
+  x: (handle) => `https://x.com/${handle}`,
+  youtube: (handle) => `https://www.youtube.com/@${encodeURIComponent(handle)}`,
+  mastodon: (handle) => {
+    const [name, instance] = handle.replace(/^@/, '').split('@');
+    return `https://${instance}/@${name}`;
+  },
+};
+
+export const profileUrl = (entry) => (PROFILE_URLS[entry.platform] ?? FOLLOW_URLS[entry.platform])(entry.handle);
+
 // L'adresse publique (og:url) tant qu'elle est renseignée, sinon la page en cours sans son ancre.
 export function siteUrl(ogUrl, currentUrl) {
   if (ogUrl && !new URL(ogUrl).hostname.endsWith('.invalid')) return ogUrl;

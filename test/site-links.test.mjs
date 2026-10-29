@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { followUrl, normalizeInstance, siteUrl } from '../site/lib/links.js';
+import { followUrl, normalizeInstance, profileUrl, siteUrl } from '../site/lib/links.js';
 import { miniList } from './helpers/partisans-fixture.mjs';
 
 const entryOf = (platform) => miniList.entries.find((entry) => entry.platform === platform);
@@ -36,4 +36,17 @@ test('le lien partagé est l\'adresse publique, ou la page en cours avant la mis
   assert.equal(siteUrl('https://partisans.invalid/', 'https://exemple.org/site/#liste'), 'https://exemple.org/site/');
   assert.equal(siteUrl('https://partisans.fr/', 'http://localhost:8000/#fin'), 'https://partisans.fr/');
   assert.equal(siteUrl(null, 'http://localhost:8000/#fin'), 'http://localhost:8000/');
+});
+
+test('la vitrine mène au profil de chaque compte', () => {
+  const profile = (platform) => profileUrl(entryOf(platform));
+  assert.equal(profile('x'), 'https://x.com/alicemartin');
+  assert.equal(profile('instagram'), 'https://www.instagram.com/alicemartin/');
+  assert.equal(profile('tiktok'), 'https://www.tiktok.com/@chloevideo');
+  assert.equal(profile('youtube'), 'https://www.youtube.com/@echo-cie');
+  assert.equal(profile('threads'), 'https://www.threads.com/@mouvementcommun');
+  assert.equal(profile('bluesky'), 'https://bsky.app/profile/lejournal.bsky.social');
+  assert.equal(profile('mastodon'), 'https://exemple.social/@echo');
+  assert.equal(profile('facebook'), 'https://www.facebook.com/collectifsolidaire');
+  assert.equal(profileUrl({ ...entryOf('youtube'), handle: 'médiaçà' }), 'https://www.youtube.com/@m%C3%A9dia%C3%A7%C3%A0');
 });

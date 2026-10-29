@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { parseList } from '../scripts/lib/list-format.js';
-import { accountGroups, categoryCounts, followedCount, peopleCount, platformKeys, progress } from '../site/lib/catalog.js';
+import { accountGroups, categoryCounts, followedCount, peopleCount, platformKeys, progress, showcase } from '../site/lib/catalog.js';
 import { miniList } from './helpers/partisans-fixture.mjs';
 
 const ALL = ['politique', 'media', 'journaliste', 'influenceur', 'parti', 'association'];
@@ -49,4 +49,30 @@ test('un compte retiré de la liste ne compte plus', () => {
 
 test('platformKeys donne tous les comptes d\'un réseau', () => {
   assert.deepEqual(platformKeys(miniList, 'bluesky'), ['bluesky:lejournal.bsky.social']);
+});
+
+test('la vitrine range chaque personne dans une colonne, avec ses comptes par réseau', () => {
+  const { people, platforms, columns } = showcase(miniList);
+  assert.equal(people, 7);
+  assert.equal(platforms, 8);
+  assert.deepEqual(columns.map((c) => c.title), ['Personnalités politiques', 'Médias', 'Partis et associations']);
+  assert.deepEqual(columns.map((c) => c.people.map((p) => p.name)), [
+    ['Alice Martin', 'Bruno Petit'],
+    ['Le Journal', "L'Écho & <Cie>", 'Chloé Vidéo'],
+    ['Mouvement Commun', 'Collectif Solidaire'],
+  ]);
+  const journal = columns[1].people[0];
+  assert.equal(journal.category, 'media');
+  assert.deepEqual(Object.keys(journal.accounts).sort(), ['bluesky', 'instagram', 'x']);
+  assert.equal(journal.accounts.x.handle, 'lejournal');
+});
+
+test('la vitrine garde la première catégorie et le premier compte, et saute les colonnes vides', () => {
+  const [alice] = miniList.entries;
+  const list = { ...miniList, entries: [alice, { ...alice, handle: 'doublon' }, { ...alice, platform: 'x', category: 'media' }] };
+  const { people, columns } = showcase(list);
+  assert.equal(people, 1);
+  assert.deepEqual(columns.map((c) => c.title), ['Personnalités politiques']);
+  assert.equal(columns[0].people[0].accounts.instagram.handle, 'alicemartin');
+  assert.ok(columns[0].people[0].accounts.x);
 });

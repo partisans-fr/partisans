@@ -48,3 +48,26 @@ export function progress(list, platform, categories, followed) {
 export const followedCount = (list, platforms, categories, followed) => followedAmong(entriesOn(list, platforms, categories), followed);
 
 export const platformKeys = (list, platform) => list.entries.filter((entry) => entry.platform === platform).map(entryKey);
+
+// Vitrine de l'accueil sur ordi : trois colonnes, une carte par personne ou organisation.
+export const SHOWCASE_COLUMNS = [
+  { title: 'Personnalités politiques', categories: ['politique'] },
+  { title: 'Médias', categories: ['media', 'journaliste', 'influenceur'] },
+  { title: 'Partis et associations', categories: ['parti', 'association'] },
+];
+
+// Une personne prend la catégorie de sa première entrée ; sur un réseau, sa première entrée compte.
+export function showcase(list) {
+  const people = new Map();
+  for (const entry of list.entries) {
+    const person = people.get(entry.displayName) ?? { name: entry.displayName, category: entry.category, accounts: {} };
+    person.accounts[entry.platform] ??= entry;
+    people.set(entry.displayName, person);
+  }
+  const columns = SHOWCASE_COLUMNS.map(({ title, categories }) => ({
+    title,
+    categories,
+    people: categories.flatMap((category) => [...people.values()].filter((person) => person.category === category)),
+  })).filter((column) => column.people.length);
+  return { people: people.size, platforms: new Set(list.entries.map((entry) => entry.platform)).size, columns };
+}
