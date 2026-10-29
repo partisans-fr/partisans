@@ -140,10 +140,9 @@ function endScreen({ list, state }) {
     <p>Maintenant, chaque jour, sur leurs posts :</p>
     <ul class="verbes"><li>Aime.</li><li>Partage.</li><li>Commente.</li></ul>
     <p class="ignore">Et l'extrême droite\u202f? <strong>Ignore-la.</strong> Ne réponds pas, ne cite pas, passe ton chemin.</p>
-    <p class="liens"><a href="#liste">Revenir à ma liste</a></p>
+    <div class="fin-bas"><p class="liens"><a href="#liste">Revenir à ma liste</a></p>${fist('146px')}</div>
     </div>
-    <div class="fin-partage"><p class="mot">Fais passer le mot.</p><button class="btn" data-share>Partager le site</button><p class="statut" role="status"></p><p class="adresse">soyonspartisans.fr</p></div>
-    ${fist('208px')}`;
+    <div class="fin-partage"><p class="mot">Fais passer le mot.</p><button class="btn" data-share>Partager le site</button><p class="statut" role="status"></p><p class="adresse">soyonspartisans.fr</p></div>`;
 }
 
 const home = ({ list, state }) => homeScreen({ list, resume: resolveRoute('#liste', list, state).screen === 'liste' });

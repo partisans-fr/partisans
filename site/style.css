@@ -122,10 +122,6 @@ input {
   background: url(img/poing-rouge-180.webp) center / contain no-repeat;
 }
 
-.ecran-fin .logo-poing {
-  background-image: url(img/poing-papier-180.webp);
-}
-
 .logo-mots {
   display: flex;
   flex-direction: column;
@@ -640,12 +636,12 @@ input:checked + .case,
   white-space: nowrap;
 }
 
-/* Fin : fond rouge, poing papier qui déborde en bas à droite, bloc noir pour faire passer le mot. */
+/* Fin : fond papier, poing qui sort du bloc noir en bas à droite (le bloc passe devant), bloc noir
+   pour faire passer le mot. */
 
 .ecran-fin {
   position: relative;
   overflow: hidden;
-  background: var(--rouge);
 }
 
 .ecran-fin .barre,
@@ -657,19 +653,35 @@ input:checked + .case,
 
 .ecran-fin .contenu {
   padding-top: 30px;
-  padding-bottom: 30px;
+  padding-bottom: 0;
 }
 
 .ecran-fin h1 {
   font-size: min(2rem, 8.2vw);
 }
 
+.ecran-fin h1 .ligne + .ligne {
+  color: var(--rouge);
+}
+
+.fin-bas {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.fin-bas .liens {
+  margin-bottom: 26px;
+}
+
+/* La marge négative fait remonter le bloc noir sur le bas du bras. */
 .ecran-fin .poing {
-  top: auto;
-  left: auto;
-  right: -50px;
-  bottom: -60px;
-  height: 430px;
+  position: relative;
+  inset: auto;
+  flex: none;
+  height: 300px;
+  margin: 0 -6px -130px 0;
   transform: none;
 }
 

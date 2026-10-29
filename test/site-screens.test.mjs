@@ -145,9 +145,8 @@ test('la fin compte les abonnements et porte le message', () => {
     'Et l\'extrême droite\u202f?',
     'Ignore-la.',
     'Ne réponds pas, ne cite pas, passe ton chemin.',
-    '<p class="liens"><a href="#liste">Revenir à ma liste</a></p>',
+    `<div class="fin-bas"><p class="liens"><a href="#liste">Revenir à ma liste</a></p>${fist('146px')}</div>`,
     '<div class="fin-partage"><p class="mot">Fais passer le mot.</p><button class="btn" data-share>Partager le site</button><p class="statut" role="status"></p><p class="adresse">soyonspartisans.fr</p></div>',
-    fist('208px'),
   ]);
 });
 
