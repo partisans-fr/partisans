@@ -38,12 +38,36 @@ function focusSelector(element) {
   return key ? `[data-follow="${CSS.escape(key)}"], [data-unfollow="${CSS.escape(key)}"]` : null;
 }
 
-// La CSP interdit l'attribut style dans le HTML : la largeur remplie se pose ici.
-function drawProgress() {
+// Pose l'ancien aspect d'un élément refait, sans transition, avant de le laisser glisser vers le nouveau.
+function startFrom(element, applyOldLook) {
+  element.style.transition = 'none';
+  applyOldLook();
+  element.getBoundingClientRect();
+  element.style.transition = '';
+}
+
+// La CSP interdit l'attribut style dans le HTML : la largeur remplie se pose ici. Sur le même réseau,
+// la barre repart de sa largeur précédente pour que sa transition se joue.
+let lastProgress = null;
+function drawProgress(hash) {
   const fill = app.querySelector('.rempli');
-  if (!fill) return;
+  if (!fill) {
+    lastProgress = null;
+    return;
+  }
   const meter = fill.parentElement;
-  fill.style.width = `${(Number(meter.getAttribute('aria-valuenow')) / Number(meter.getAttribute('aria-valuemax'))) * 100}%`;
+  const part = (Number(meter.getAttribute('aria-valuenow')) / Number(meter.getAttribute('aria-valuemax'))) * 100;
+  if (lastProgress?.hash === hash) startFrom(fill, () => (fill.style.width = `${lastProgress.part}%`));
+  fill.style.width = `${part}%`;
+  lastProgress = { hash, part };
+}
+
+// La ligne refaite reprend un instant son ancien aspect, puis glisse vers le nouveau (fondu de la feuille).
+function fadeRow(key) {
+  const row = app.querySelector(`[data-follow="${CSS.escape(key)}"], [data-unfollow="${CSS.escape(key)}"]`)?.closest('.compte');
+  if (!row) return;
+  startFrom(row, () => row.classList.toggle('est-suivi'));
+  row.classList.toggle('est-suivi');
 }
 
 // L'onglet du réseau affiché est centré dans sa rangée, sans faire défiler la page.
@@ -71,7 +95,7 @@ function raiseFists() {
   app.querySelectorAll('.panneau, .bandeau').forEach((block) => fistObserver.observe(block));
 }
 
-function render() {
+function render(changedKey = null) {
   const { route, html } = currentScreen();
   const hash = hashOf(route);
   const focused = focusSelector(document.activeElement);
@@ -81,7 +105,8 @@ function render() {
   centerCurrentTab();
   if (hash !== shownHash) window.scrollTo(0, 0);
   shownHash = hash;
-  drawProgress();
+  if (changedKey) fadeRow(changedKey);
+  drawProgress(hash);
   raiseFists();
 }
 
@@ -150,11 +175,11 @@ app.addEventListener('click', (event) => {
   if (target.hasAttribute('data-share')) return share(app.querySelector('.statut'));
   if (unfollow) {
     update(setFollowed(state, [unfollow], false));
-    return render();
+    return render(unfollow);
   }
   // Le lien s'ouvre normalement ; l'écran est refait juste après, pour ne pas retirer le lien pendant le clic.
   update(setFollowed(state, follow ? [follow] : platformKeys(list, followAll), true));
-  setTimeout(render);
+  setTimeout(() => render(follow ?? null));
 });
 
 async function loadList() {
@@ -170,5 +195,5 @@ async function loadList() {
 list = await loadList();
 if (list) {
   render();
-  window.addEventListener('hashchange', render);
+  window.addEventListener('hashchange', () => render());
 } else app.innerHTML = '<p class="erreur">La liste n\'a pas pu se charger. Vérifie ta connexion et recharge la page.</p>';
