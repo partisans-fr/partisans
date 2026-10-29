@@ -3,14 +3,11 @@
 // et les ancres (#reseaux, #categories, #liste/<réseau>, #fin) produits ici.
 
 import { PLATFORMS, accountGroups, categoryCounts, entryKey, followedCount, peopleCount, progress } from './catalog.js';
+import { EXTERNAL, TINTS, bar, button, escapeHtml } from './html.js';
 import { followUrl, normalizeInstance } from './links.js';
 import { selectedCategories } from './state.js';
 
-const ESCAPES = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
-export const escapeHtml = (text) => String(text).replace(/[&<>"']/g, (char) => ESCAPES[char]);
-
-const EXTERNAL = 'target="_blank" rel="noopener noreferrer"';
-const BRAND = '<p class="marque">PARTISANS</p>';
+export { escapeHtml } from './html.js';
 
 const chosenPlatforms = (state) => Object.keys(PLATFORMS).filter((slug) => state.platforms.includes(slug));
 const platformsReady = (state) =>
@@ -27,19 +24,19 @@ export function resolveRoute(hash, list, state) {
   return { screen: 'liste', platform: chosen.includes(platform) ? platform : chosen[0] };
 }
 
-const button = (label, href) => (href ? `<a class="btn" href="${href}">${label}</a>` : `<button class="btn" disabled>${label}</button>`);
 const checkbox = (name, value, { checked, disabled = false }) =>
   `<input type="checkbox" name="${name}" value="${value}"${checked ? ' checked' : ''}${disabled ? ' disabled' : ''}>`;
 
 function home({ list, state }) {
   const resume = resolveRoute('#liste', list, state).screen === 'liste';
-  return `${BRAND}
+  return `${bar()}<div class="contenu">
     <h1>Donne de la force à ceux qui combattent l'extrême droite</h1>
     <p>Abonne-toi en quelques minutes aux élus, médias et collectifs de gauche : chaque abonnement leur donne de l'audience.</p>
     <p class="discret">Rien à installer, aucun mot de passe. Tes choix restent dans ce téléphone.</p>
     <div class="actions">
       ${resume ? button('Reprendre ma liste', '#liste') : ''}
       ${button('Commencer', '#reseaux')}
+    </div>
     </div>`;
 }
 
@@ -53,11 +50,12 @@ function platformsScreen({ state }) {
       </label>
       ${normalizeInstance(state.mastodonInstance) ? '' : '<p class="aide">Indique ton instance, par exemple mastodon.social.</p>'}`
     : '';
-  return `${BRAND}
+  return `${bar()}<div class="contenu">
     <h1>Sur quels réseaux es-tu ?</h1>
     <fieldset class="puces"><legend>Coche tes réseaux</legend>${chips}</fieldset>
     ${instance}
-    <div class="actions">${button('Continuer', platformsReady(state) ? '#categories' : null)}</div>`;
+    <div class="actions">${button('Continuer', platformsReady(state) ? '#categories' : null)}</div>
+    </div>`;
 }
 
 function seeAccountsButton(count) {
@@ -73,20 +71,22 @@ function categoriesScreen({ list, state }) {
       return `<label class="categorie">${box}<span class="nom">${escapeHtml(label)}</span><span class="nombre">${empty ? 'à venir' : count}</span></label>`;
     })
     .join('\n');
-  return `${BRAND}
+  return `${bar()}<div class="contenu">
     <h1>Qui veux-tu suivre ?</h1>
     <fieldset class="categories"><legend>Coche ce qui t'intéresse</legend>${rows}</fieldset>
     <div class="actions">${seeAccountsButton(selectionCount(list, state))}</div>
-    <p class="liens"><a href="#reseaux">Changer mes réseaux</a></p>`;
+    <p class="liens"><a href="#reseaux">Changer mes réseaux</a></p>
+    </div>`;
 }
 
 function accountRow(entry, state) {
   const key = escapeHtml(entryKey(entry));
   const name = escapeHtml(entry.displayName);
-  const action = state.followed.includes(entryKey(entry))
-    ? `<span class="suivi">Suivi ✓</span> <button data-unfollow="${key}" aria-label="Annuler le suivi : ${name}">Annuler</button>`
+  const followed = state.followed.includes(entryKey(entry));
+  const action = followed
+    ? `<button data-unfollow="${key}" aria-label="Annuler le suivi : ${name}">Annuler</button> <span class="suivi">✓ Suivi</span>`
     : `<a class="suivre" data-follow="${key}" href="${escapeHtml(followUrl(entry, { mastodonInstance: normalizeInstance(state.mastodonInstance) }))}" ${EXTERNAL} aria-label="Suivre ${name}">Suivre</a>`;
-  return `<li class="compte"><span class="nom">${name}</span><span class="action">${action}</span></li>`;
+  return `<li class="compte${followed ? ' est-suivi' : ''}"><span class="nom">${name}</span><span class="action">${action}</span></li>`;
 }
 
 function listScreen({ list, state, starterPackUrl }, platform) {
@@ -99,29 +99,31 @@ function listScreen({ list, state, starterPackUrl }, platform) {
     })
     .join('\n');
   const { done, total } = progress(list, platform, categories, state.followed);
-  const bar = total
-    ? `<progress max="${total}" value="${done}">${done} sur ${total}</progress>`
+  // La largeur remplie est posée par app.js (la CSP interdit l'attribut style).
+  const progression = total
+    ? `<div class="progression"><div class="barre-progression" role="progressbar" aria-labelledby="titre-liste" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${done}"><span class="rempli"></span></div><p class="meta">${done} sur ${total}</p></div>`
     : `<p class="vide">Pas encore de compte de ta sélection sur ${PLATFORMS[platform]}.</p>`;
   const followAll =
     platform === 'bluesky' && starterPackUrl && total
-      ? `<a class="btn" data-follow-all="bluesky" href="${escapeHtml(starterPackUrl)}" ${EXTERNAL}>Tout suivre</a>`
+      ? `<a class="btn secondaire" data-follow-all="bluesky" href="${escapeHtml(starterPackUrl)}" ${EXTERNAL}>Tout suivre →</a>`
       : '';
   const groups = accountGroups(list, platform, categories)
-    .map(({ label, entries }) => `<h2>${escapeHtml(label)}</h2>
-      <ul class="comptes">${entries.map((entry) => accountRow(entry, state)).join('\n')}</ul>`)
+    .map(({ slug, label, entries }) => `<section class="groupe teinte-${TINTS[slug]}"><h2>${escapeHtml(label)}</h2>
+      <ul class="comptes">${entries.map((entry) => accountRow(entry, state)).join('\n')}</ul></section>`)
     .join('\n');
-  return `<nav class="onglets" aria-label="Tes réseaux">${tabs}</nav>
-    <h1 class="titre-liste">Ta liste ${PLATFORMS[platform]}</h1>
-    ${bar}
+  return `${bar()}<nav class="onglets" aria-label="Tes réseaux">${tabs}</nav><div class="contenu">
+    <h1 class="titre-liste" id="titre-liste">Ta liste ${PLATFORMS[platform]}</h1>
+    ${progression}
     ${total ? '<p class="discret">Appuie sur Suivre, puis confirme dans l\'appli ou la page qui s\'ouvre.</p>' : ''}
     ${followAll}
     ${groups}
-    <div class="actions">${button('J\'ai fini', '#fin')}</div>
+    <div class="actions">${button('J\'ai fini', '#fin', { secondary: true })}</div>
     <p class="liens"><a href="#reseaux">Changer mes réseaux</a> <a href="#categories">Changer mes catégories</a></p>
     <footer class="pied">
       <a href="${escapeHtml(list.contestUrl)}" ${EXTERNAL}>Un compte erroné ? Signale-le</a>
       ${list.suggestUrl ? `<a href="${escapeHtml(list.suggestUrl)}" ${EXTERNAL}>Suggérer un compte</a>` : ''}
-    </footer>`;
+    </footer>
+    </div>`;
 }
 
 function headline(count) {
@@ -131,7 +133,7 @@ function headline(count) {
 
 function endScreen({ list, state }) {
   const count = followedCount(list, state.platforms, selectedCategories(list, state), state.followed);
-  return `${BRAND}
+  return `${bar()}<div class="contenu">
     <h1>${headline(count)}</h1>
     <p>Maintenant, chaque jour, sur leurs posts :</p>
     <ul class="verbes"><li>Aime.</li><li>Partage.</li><li>Commente.</li></ul>
@@ -140,7 +142,8 @@ function endScreen({ list, state }) {
       <button class="btn" data-share>Partager le site</button>
       <p class="statut" role="status"></p>
     </div>
-    <p class="liens"><a href="#liste">Revenir à ma liste</a></p>`;
+    <p class="liens"><a href="#liste">Revenir à ma liste</a></p>
+    </div>`;
 }
 
 const SCREENS = { accueil: home, reseaux: platformsScreen, categories: categoriesScreen, fin: endScreen };

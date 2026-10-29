@@ -57,8 +57,15 @@ test('l\'onglet d\'un réseau montre sa progression et ses comptes', () => {
   assert.ok(html.includes('>Instagram 1/3<'));
   assert.ok(html.includes('>X 0/3<'));
   assert.match(html, /href="#liste\/instagram" aria-current="page"/);
-  assert.ok(html.includes('<progress max="3" value="1">'));
-  assert.ok(html.includes('Suivi ✓'));
+  assert.ok(html.includes('<h1 class="titre-liste" id="titre-liste">Ta liste Instagram</h1>'));
+  assert.match(html, /role="progressbar" aria-labelledby="titre-liste" aria-valuemin="0" aria-valuemax="3" aria-valuenow="1"/);
+  assert.ok(html.includes('<p class="meta">1 sur 3</p>'));
+  assert.ok(html.includes('<li class="compte est-suivi"><span class="nom">Alice Martin</span>'));
+  assert.ok(html.includes('<li class="compte"><span class="nom">Le Journal</span>'));
+  assert.ok(html.includes('<span class="suivi">✓ Suivi</span>'));
+  assert.ok(html.includes('<section class="groupe teinte-ardoise"><h2>Personnalités politiques</h2>'));
+  assert.ok(html.includes('<section class="groupe teinte-ocre"><h2>Médias</h2>'));
+  assert.ok(html.includes('<section class="groupe teinte-sauge"><h2>Associations</h2>'));
   assert.ok(html.includes('data-unfollow="instagram:alicemartin"'));
   assert.ok(html.includes('data-follow="instagram:lejournal" href="https://www.instagram.com/lejournal/"'));
   assertInOrder(html, ['<h2>Personnalités politiques</h2>', '<h2>Médias</h2>', '<h2>Associations</h2>']);
@@ -77,7 +84,7 @@ test('Suivre et Annuler nomment le compte pour les lecteurs d\'écran', () => {
 test('un réseau sans compte dans la sélection l\'annonce', () => {
   const html = render('#liste/threads', { platforms: ['threads', 'x'], categories: ['politique'] });
   assert.ok(html.includes('Threads 0/0'));
-  assert.ok(!html.includes('<progress'));
+  assert.ok(!html.includes('role="progressbar"'));
   assert.ok(html.includes('Pas encore de compte de ta sélection sur Threads.'));
 });
 
@@ -86,6 +93,8 @@ test('Bluesky propose Tout suivre seulement avec un starter pack', () => {
   assert.ok(!render('#liste/bluesky', fields).includes('data-follow-all'));
   const url = 'https://bsky.app/starter-pack/projet.example/partisans';
   assert.match(render('#liste/bluesky', fields, { starterPackUrl: url }), new RegExp(`data-follow-all="bluesky" href="${url}"`));
+  assert.ok(render('#liste/bluesky', fields, { starterPackUrl: url }).includes('>Tout suivre →</a>'));
+  assert.ok(render('#liste/bluesky', fields, { starterPackUrl: url }).includes('class="btn secondaire" data-follow-all="bluesky"'));
 });
 
 test('les noms sont échappés', () => {
@@ -113,8 +122,12 @@ test('la fin compte les abonnements et porte le message', () => {
   assert.ok(html.includes('<p class="statut" role="status"></p>'));
 });
 
-test('l\'accueil propose de reprendre seulement si la liste est accessible', () => {
-  assert.match(render('', { platforms: ['x'] }), /href="#liste">Reprendre ma liste</);
-  assert.ok(!render('', {}).includes('Reprendre ma liste'));
-  assert.ok(render('', {}).includes('href="#reseaux">Commencer<'));
+test('chaque écran du parcours a la barre au logo et au plus un bouton rouge plein', () => {
+  const fields = { platforms: ['instagram', 'bluesky'], followed: ['instagram:alicemartin'] };
+  for (const hash of ['#reseaux', '#categories', '#liste/instagram', '#liste/bluesky', '#fin']) {
+    const html = render(hash, fields, { starterPackUrl: 'https://bsky.app/starter-pack/projet.example/partisans' });
+    assert.ok(html.includes('<header class="barre"><span class="symbole" aria-hidden="true"></span><span class="logotype">partisans</span>'), hash);
+    assert.ok((html.match(/class="btn"/g) ?? []).length <= 1, hash);
+  }
+  assert.ok(render('#liste/instagram', fields).includes('<a class="btn secondaire" href="#fin">J\'ai fini</a>'));
 });

@@ -38,6 +38,22 @@ function focusSelector(element) {
   return key ? `[data-follow="${CSS.escape(key)}"], [data-unfollow="${CSS.escape(key)}"]` : null;
 }
 
+// La CSP interdit l'attribut style dans le HTML : la largeur remplie se pose ici.
+function drawProgress() {
+  const fill = app.querySelector('.rempli');
+  if (!fill) return;
+  const meter = fill.parentElement;
+  fill.style.width = `${(Number(meter.getAttribute('aria-valuenow')) / Number(meter.getAttribute('aria-valuemax'))) * 100}%`;
+}
+
+// L'onglet du réseau affiché est centré dans sa rangée, sans faire défiler la page.
+function centerCurrentTab() {
+  const tab = app.querySelector('.onglet[aria-current="page"]');
+  if (!tab) return;
+  const tabs = tab.parentElement;
+  tabs.scrollLeft = tab.offsetLeft - (tabs.clientWidth - tab.offsetWidth) / 2;
+}
+
 function render() {
   const { route, html } = currentScreen();
   const hash = hashOf(route);
@@ -45,9 +61,10 @@ function render() {
   if (hash !== location.hash) history.replaceState(null, '', hash || location.pathname + location.search);
   app.innerHTML = html;
   if (focused) app.querySelector(focused)?.focus({ preventScroll: true });
-  app.querySelector('.onglet[aria-current="page"]')?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  centerCurrentTab();
   if (hash !== shownHash) window.scrollTo(0, 0);
   shownHash = hash;
+  drawProgress();
 }
 
 function update(changes) {
