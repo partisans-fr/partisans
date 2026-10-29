@@ -7,8 +7,8 @@
   },
   "contestUrl": "https://github.com/partisans-fr/partisans/issues/new?template=signalement.yml",
   "suggestUrl": "https://github.com/partisans-fr/partisans/issues/new?template=suggestion.yml",
-  "version": "2026.10.28",
-  "updatedAt": "2026-10-28",
+  "version": "2026.10.29",
+  "updatedAt": "2026-10-29",
   "categories": {
     "politique": "Personnalités politiques",
     "media": "Médias",
@@ -57,6 +57,24 @@
       "category": "politique",
       "source": "https://www.wikidata.org/wiki/Q5829",
       "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "youtube",
+      "handle": "jlmelenchon",
+      "id": "UCk-_PEY3iC6DIGJKuoEe9bw",
+      "displayName": "Jean-Luc Mélenchon",
+      "category": "politique",
+      "source": "https://melenchon.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "jeanlucmelenchon.bsky.social",
+      "id": "did:plc:zxdacjqdtukwrzjt6qggo44h",
+      "displayName": "Jean-Luc Mélenchon",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q5829",
+      "addedAt": "2026-10-29"
     },
     {
       "platform": "facebook",
@@ -329,14 +347,6 @@
       "addedAt": "2026-10-28"
     },
     {
-      "platform": "facebook",
-      "handle": "dan.obono.5",
-      "displayName": "Danièle Obono",
-      "category": "politique",
-      "source": "https://www.wikidata.org/wiki/Q30335340",
-      "addedAt": "2026-10-28"
-    },
-    {
       "platform": "x",
       "handle": "deputee_obono",
       "displayName": "Danièle Obono",
@@ -346,11 +356,44 @@
     },
     {
       "platform": "instagram",
-      "handle": "camaradobono",
+      "handle": "deputee_obono",
       "displayName": "Danièle Obono",
       "category": "politique",
-      "source": "https://www.wikidata.org/wiki/Q30335340",
-      "addedAt": "2026-10-28"
+      "source": "https://daniele-obono.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "deputee_obono",
+      "displayName": "Danièle Obono",
+      "category": "politique",
+      "source": "https://daniele-obono.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "youtube",
+      "handle": "daniele_obono",
+      "displayName": "Danièle Obono",
+      "category": "politique",
+      "source": "https://daniele-obono.fr/",
+      "id": "UCpQ4STl8j62KeiApns4FndA",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "threads",
+      "handle": "deputee_obono",
+      "displayName": "Danièle Obono",
+      "category": "politique",
+      "source": "https://daniele-obono.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "facebook",
+      "handle": "deputeeobono",
+      "displayName": "Danièle Obono",
+      "category": "politique",
+      "source": "https://daniele-obono.fr/",
+      "addedAt": "2026-10-29"
     },
     {
       "platform": "threads",
@@ -457,6 +500,14 @@
       "category": "politique",
       "source": "https://www.wikidata.org/wiki/Q110998923",
       "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "alma_dufour",
+      "displayName": "Alma Dufour",
+      "category": "politique",
+      "source": "https://www.assemblee-nationale.fr/dyn/deputes/PA795200",
+      "addedAt": "2026-10-29"
     },
     {
       "platform": "facebook",
@@ -637,6 +688,201 @@
       "category": "politique",
       "source": "https://www.wikidata.org/wiki/Q81923",
       "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "ballybagayoko",
+      "displayName": "Bally Bagayoko",
+      "category": "politique",
+      "source": "https://www.ballybagayoko.com/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "ballybagayoko",
+      "displayName": "Bally Bagayoko",
+      "category": "politique",
+      "source": "https://www.ballybagayoko.com/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "ballybagayoko.bsky.social",
+      "id": "did:plc:zxwrfx6mjku5bpp5h5saq6km",
+      "displayName": "Bally Bagayoko",
+      "category": "politique",
+      "source": "https://www.ballybagayoko.com/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "threads",
+      "handle": "ballybagayoko",
+      "displayName": "Bally Bagayoko",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q137612820",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "facebook",
+      "handle": "bally.bagayoko.7",
+      "displayName": "Bally Bagayoko",
+      "category": "politique",
+      "source": "https://www.ballybagayoko.com/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "facebook",
+      "handle": "bagayokobally",
+      "displayName": "Bally Bagayoko",
+      "category": "politique",
+      "source": "https://www.ballybagayoko.com/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "ballybagayoko",
+      "displayName": "Bally Bagayoko",
+      "category": "politique",
+      "source": "https://www.ballybagayoko.com/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "youtube",
+      "handle": "ballybagayoko5286",
+      "displayName": "Bally Bagayoko",
+      "category": "politique",
+      "source": "https://www.ballybagayoko.com/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "fabien_gay",
+      "displayName": "Fabien Gay",
+      "category": "politique",
+      "source": "https://www.senat.fr/senateur/gay_fabien19695n.html",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "fabien_roussel",
+      "displayName": "Fabien Roussel",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q30388733",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "instagram",
+      "handle": "fabien_roussel",
+      "displayName": "Fabien Roussel",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q30388733",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "threads",
+      "handle": "fabien_roussel",
+      "displayName": "Fabien Roussel",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q30388733",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "fabien_roussel",
+      "displayName": "Fabien Roussel",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q30388733",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "gabriellecthl",
+      "displayName": "Gabrielle Cathala",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q127256470",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "youtube",
+      "handle": "gabriellecathaladeputee",
+      "displayName": "Gabrielle Cathala",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q127256470",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "instagram",
+      "handle": "nathalie_arthaud_lo",
+      "displayName": "Nathalie Arthaud",
+      "category": "politique",
+      "source": "http://www.nathalie-arthaud.info/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "n_arthaud",
+      "displayName": "Nathalie Arthaud",
+      "category": "politique",
+      "source": "http://www.nathalie-arthaud.info/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "nathaliearthaud",
+      "displayName": "Nathalie Arthaud",
+      "category": "politique",
+      "source": "http://www.nathalie-arthaud.info/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "facebook",
+      "handle": "nathaliearthaud",
+      "displayName": "Nathalie Arthaud",
+      "category": "politique",
+      "source": "http://www.nathalie-arthaud.info/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "nathalie-arthaud.bsky.social",
+      "id": "did:plc:bss25nadp4id3hillmf5ocmi",
+      "displayName": "Nathalie Arthaud",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q439490",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "olbesancenot",
+      "displayName": "Olivier Besancenot",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q12932",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "olivierbesancenot.bsky.social",
+      "id": "did:plc:dykijeynsqr4ihvltgsmlun7",
+      "displayName": "Olivier Besancenot",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q12932",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "olbesancenot@mastodon.social",
+      "displayName": "Olivier Besancenot",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q12932",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "philippepoutou",
+      "displayName": "Philippe Poutou",
+      "category": "politique",
+      "source": "https://www.wikidata.org/wiki/Q2631198",
+      "addedAt": "2026-10-29"
     },
     {
       "platform": "x",
@@ -1223,6 +1469,228 @@
       "addedAt": "2026-10-28"
     },
     {
+      "platform": "bluesky",
+      "handle": "bonpote.com",
+      "id": "did:plc:yvxxxti5p2msnfh5kmzwa5f7",
+      "displayName": "Bon Pote",
+      "category": "media",
+      "source": "https://bonpote.com/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "bonpoteofficiel@mamot.fr",
+      "displayName": "Bon Pote",
+      "category": "media",
+      "source": "https://bonpote.com/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "instagram",
+      "handle": "bonpote",
+      "displayName": "Bon Pote",
+      "category": "media",
+      "source": "https://bonpote.com/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "facebook",
+      "handle": "bonpoteofficiel",
+      "displayName": "Bon Pote",
+      "category": "media",
+      "source": "https://bonpote.com/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "youtube",
+      "handle": "bonpoteofficiel",
+      "id": "UC9mes7ZXbrZ_UXn0jzBt21A",
+      "displayName": "Bon Pote",
+      "category": "media",
+      "source": "https://bonpote.com/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "facebook",
+      "handle": "histoires.crepues",
+      "displayName": "Histoires Crépues",
+      "category": "media",
+      "source": "https://histoirescrepues.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "instagram",
+      "handle": "histoires_crepues",
+      "displayName": "Histoires Crépues",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q140090399",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "histoires_crepues",
+      "displayName": "Histoires Crépues",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q140090399",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "youtube",
+      "handle": "histoirescrepues",
+      "id": "UCVuMMUfqEI448VKbkpuNPHQ",
+      "displayName": "Histoires Crépues",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q140090399",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "mondi_alisation",
+      "displayName": "Mr Mondialisation",
+      "category": "media",
+      "source": "https://mrmondialisation.org/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "mr-mondialisation.bsky.social",
+      "id": "did:plc:vedmvdug2odqrvv63huxl4nd",
+      "displayName": "Mr Mondialisation",
+      "category": "media",
+      "source": "https://mrmondialisation.org/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "mr_mondialisation@mastodon.social",
+      "displayName": "Mr Mondialisation",
+      "category": "media",
+      "source": "https://mrmondialisation.org/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "instagram",
+      "handle": "mr_mondialisation",
+      "displayName": "Mr Mondialisation",
+      "category": "media",
+      "source": "https://mrmondialisation.org/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "threads",
+      "handle": "mr_mondialisation",
+      "displayName": "Mr Mondialisation",
+      "category": "media",
+      "source": "https://mrmondialisation.org/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "mr_mondialisation",
+      "displayName": "Mr Mondialisation",
+      "category": "media",
+      "source": "https://mrmondialisation.org/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "facebook",
+      "handle": "m.mondialisation",
+      "displayName": "Mr Mondialisation",
+      "category": "media",
+      "source": "https://mrmondialisation.org/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "youtube",
+      "handle": "mrmondialisation_officiel",
+      "displayName": "Mr Mondialisation",
+      "category": "media",
+      "source": "https://mrmondialisation.org/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "revpermanente",
+      "displayName": "Révolution Permanente",
+      "category": "media",
+      "source": "https://www.revolutionpermanente.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "facebook",
+      "handle": "revolutionpermanente.fr",
+      "displayName": "Révolution Permanente",
+      "category": "media",
+      "source": "https://www.revolutionpermanente.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "instagram",
+      "handle": "revolutionpermanente.fr",
+      "displayName": "Révolution Permanente",
+      "category": "media",
+      "source": "https://www.revolutionpermanente.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "revpermanente",
+      "displayName": "Révolution Permanente",
+      "category": "media",
+      "source": "https://www.revolutionpermanente.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "vert_le_media",
+      "displayName": "Vert",
+      "category": "media",
+      "source": "https://www.wikidata.org/wiki/Q113359441",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "vert.eco",
+      "id": "did:plc:ittis6mfcchi54qe7m7d5mun",
+      "displayName": "Vert",
+      "category": "media",
+      "source": "https://vert.eco/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "facebook",
+      "handle": "vertlemedia",
+      "displayName": "Vert",
+      "category": "media",
+      "source": "https://vert.eco/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "instagram",
+      "handle": "vert_le_media",
+      "displayName": "Vert",
+      "category": "media",
+      "source": "https://vert.eco/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "vert_le_media",
+      "displayName": "Vert",
+      "category": "media",
+      "source": "https://vert.eco/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "youtube",
+      "handle": "vert_le_media",
+      "id": "UCQvVZr4LCFW94hLuzLkiNfQ",
+      "displayName": "Vert",
+      "category": "media",
+      "source": "https://vert.eco/",
+      "addedAt": "2026-10-29"
+    },
+    {
       "platform": "instagram",
       "handle": "salomesaque",
       "displayName": "Salomé Saqué",
@@ -1246,6 +1714,55 @@
       "category": "journaliste",
       "source": "https://www.wikidata.org/wiki/Q110507860",
       "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "clemovitch",
+      "displayName": "Clément Viktorovitch",
+      "category": "journaliste",
+      "source": "https://clemovitch.com/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "facebook",
+      "handle": "clemovitch",
+      "displayName": "Clément Viktorovitch",
+      "category": "journaliste",
+      "source": "https://clemovitch.com/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "youtube",
+      "handle": "clemovitch",
+      "id": "UCQcas4dulTzVUrAo0fMfWWg",
+      "displayName": "Clément Viktorovitch",
+      "category": "journaliste",
+      "source": "https://clemovitch.com/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "clemovitch.com",
+      "displayName": "Clément Viktorovitch",
+      "category": "journaliste",
+      "source": "https://clemovitch.com/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "clemovitch",
+      "displayName": "Clément Viktorovitch",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q47118715",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "threads",
+      "handle": "clemovitch",
+      "displayName": "Clément Viktorovitch",
+      "category": "journaliste",
+      "source": "https://www.wikidata.org/wiki/Q47118715",
+      "addedAt": "2026-10-29"
     },
     {
       "platform": "facebook",
@@ -1279,6 +1796,158 @@
       "category": "influenceur",
       "source": "https://www.wikidata.org/wiki/Q61951075",
       "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "instagram",
+      "handle": "guillaumemeurice",
+      "displayName": "Guillaume Meurice",
+      "category": "influenceur",
+      "source": "https://www.guillaumemeurice.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "facebook",
+      "handle": "pageguillaumemeurice",
+      "displayName": "Guillaume Meurice",
+      "category": "influenceur",
+      "source": "https://www.guillaumemeurice.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "guillaumemeurice.bsky.social",
+      "displayName": "Guillaume Meurice",
+      "category": "influenceur",
+      "source": "https://www.wikidata.org/wiki/Q21511921",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "guillaumemeurice@piaille.fr",
+      "displayName": "Guillaume Meurice",
+      "category": "influenceur",
+      "source": "https://www.wikidata.org/wiki/Q21511921",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "threads",
+      "handle": "guillaumemeurice",
+      "displayName": "Guillaume Meurice",
+      "category": "influenceur",
+      "source": "https://www.wikidata.org/wiki/Q21511921",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "instagram",
+      "handle": "jean_massiet",
+      "displayName": "Jean Massiet",
+      "category": "influenceur",
+      "source": "https://www.wikidata.org/wiki/Q105425850",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "jeanmassiet",
+      "displayName": "Jean Massiet",
+      "category": "influenceur",
+      "source": "https://www.wikidata.org/wiki/Q105425850",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "jeanmassiet.bsky.social",
+      "displayName": "Jean Massiet",
+      "category": "influenceur",
+      "source": "https://www.wikidata.org/wiki/Q105425850",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "instagram",
+      "handle": "medine_officiel",
+      "displayName": "Médine",
+      "category": "influenceur",
+      "source": "https://www.wikidata.org/wiki/Q3332672",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "threads",
+      "handle": "medine_officiel",
+      "displayName": "Médine",
+      "category": "influenceur",
+      "source": "https://www.wikidata.org/wiki/Q3332672",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "facebook",
+      "handle": "justine.lossa",
+      "displayName": "Justine Lossa",
+      "category": "influenceur",
+      "source": "https://www.wikidata.org/wiki/Q76975234",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "instagram",
+      "handle": "pierreemmanuelbarre",
+      "displayName": "Pierre-Emmanuel Barré",
+      "category": "influenceur",
+      "source": "https://www.pebarre.com/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "sale_con",
+      "displayName": "Pierre-Emmanuel Barré",
+      "category": "influenceur",
+      "source": "https://www.pebarre.com/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "facebook",
+      "handle": "alleztousvousfaireenculer",
+      "displayName": "Pierre-Emmanuel Barré",
+      "category": "influenceur",
+      "source": "https://www.pebarre.com/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "instagram",
+      "handle": "waly_dia",
+      "displayName": "Waly Dia",
+      "category": "influenceur",
+      "source": "https://www.walydia.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "walydia",
+      "displayName": "Waly Dia",
+      "category": "influenceur",
+      "source": "https://www.walydia.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "facebook",
+      "handle": "walydiafb",
+      "displayName": "Waly Dia",
+      "category": "influenceur",
+      "source": "https://www.walydia.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "usuldufutur",
+      "displayName": "Usul",
+      "category": "influenceur",
+      "source": "https://www.wikidata.org/wiki/Q22249416",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "instagram",
+      "handle": "bolchegeek",
+      "displayName": "Bolchegeek",
+      "category": "influenceur",
+      "source": "https://www.wikidata.org/wiki/Q133283104",
+      "addedAt": "2026-10-29"
     },
     {
       "platform": "x",
@@ -1541,6 +2210,152 @@
       "addedAt": "2026-10-28"
     },
     {
+      "platform": "x",
+      "handle": "lacgtcommunique",
+      "displayName": "CGT",
+      "category": "parti",
+      "source": "https://www.cgt.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "instagram",
+      "handle": "cgt_confederation",
+      "displayName": "CGT",
+      "category": "parti",
+      "source": "https://www.cgt.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "facebook",
+      "handle": "confederationgeneraledutravail",
+      "displayName": "CGT",
+      "category": "parti",
+      "source": "https://www.cgt.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "youtube",
+      "handle": "la_cgt",
+      "id": "UCXbA6-9E-w1m5SwUVuC9VQw",
+      "displayName": "CGT",
+      "category": "parti",
+      "source": "https://www.cgt.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "cgt.fr",
+      "displayName": "CGT",
+      "category": "parti",
+      "source": "https://www.wikidata.org/wiki/Q1125638",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "la_cgt@framapiaf.org",
+      "displayName": "CGT",
+      "category": "parti",
+      "source": "https://www.wikidata.org/wiki/Q1125638",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "unionsolidaires",
+      "displayName": "Union syndicale Solidaires",
+      "category": "parti",
+      "source": "https://www.solidaires.org/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "instagram",
+      "handle": "union_solidaires",
+      "displayName": "Union syndicale Solidaires",
+      "category": "parti",
+      "source": "https://www.solidaires.org/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "facebook",
+      "handle": "unionsolidaires",
+      "displayName": "Union syndicale Solidaires",
+      "category": "parti",
+      "source": "https://www.solidaires.org/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "syndicat.solidaires",
+      "displayName": "Union syndicale Solidaires",
+      "category": "parti",
+      "source": "https://www.solidaires.org/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "youtube",
+      "handle": "unionsyndicalesolidaires",
+      "id": "UCrhskh-RXjJPUXlfCMui6Cw",
+      "displayName": "Union syndicale Solidaires",
+      "category": "parti",
+      "source": "https://www.wikidata.org/wiki/Q3550610",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "solidaires.org",
+      "displayName": "Union syndicale Solidaires",
+      "category": "parti",
+      "source": "https://www.wikidata.org/wiki/Q3550610",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "unionsolidaires@syndicat.solidaires.org",
+      "displayName": "Union syndicale Solidaires",
+      "category": "parti",
+      "source": "https://www.wikidata.org/wiki/Q3550610",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "npajeunes_revo",
+      "displayName": "NPA Jeunes Révolutionnaires",
+      "category": "parti",
+      "source": "https://npa-jeunes-revolutionnaires.org/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "instagram",
+      "handle": "npajeunes_revo",
+      "displayName": "NPA Jeunes Révolutionnaires",
+      "category": "parti",
+      "source": "https://npa-jeunes-revolutionnaires.org/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "npajeunes_revo",
+      "displayName": "NPA Jeunes Révolutionnaires",
+      "category": "parti",
+      "source": "https://npa-jeunes-revolutionnaires.org/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "youtube",
+      "handle": "npajeunesrevo",
+      "displayName": "NPA Jeunes Révolutionnaires",
+      "category": "parti",
+      "source": "https://npa-jeunes-revolutionnaires.org/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "facebook",
+      "handle": "npajeunesrevolutionnaires",
+      "displayName": "NPA Jeunes Révolutionnaires",
+      "category": "parti",
+      "source": "https://npa-jeunes-revolutionnaires.org/",
+      "addedAt": "2026-10-29"
+    },
+    {
       "platform": "instagram",
       "handle": "alternatiba_",
       "displayName": "Alternatiba",
@@ -1686,6 +2501,134 @@
       "category": "association",
       "source": "https://www.ldh-france.org/",
       "addedAt": "2026-10-28"
+    },
+    {
+      "platform": "x",
+      "handle": "amnestyfrance",
+      "displayName": "Amnesty International France",
+      "category": "association",
+      "source": "https://www.wikidata.org/wiki/Q20666304",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "amnestyfrance.bsky.social",
+      "displayName": "Amnesty International France",
+      "category": "association",
+      "source": "https://www.amnesty.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "amnestyfrance@mastodon.social",
+      "displayName": "Amnesty International France",
+      "category": "association",
+      "source": "https://www.amnesty.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "instagram",
+      "handle": "amnestyfrance",
+      "displayName": "Amnesty International France",
+      "category": "association",
+      "source": "https://www.amnesty.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "facebook",
+      "handle": "amnestyfr",
+      "displayName": "Amnesty International France",
+      "category": "association",
+      "source": "https://www.amnesty.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "amnestyfrance",
+      "displayName": "Amnesty International France",
+      "category": "association",
+      "source": "https://www.amnesty.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "youtube",
+      "handle": "amnestyfrance",
+      "displayName": "Amnesty International France",
+      "category": "association",
+      "source": "https://www.amnesty.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "tsdkcollectif",
+      "displayName": "Tsedek !",
+      "category": "association",
+      "source": "https://tsedek.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "tsdkcollectif.bsky.social",
+      "displayName": "Tsedek !",
+      "category": "association",
+      "source": "https://tsedek.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "mastodon",
+      "handle": "tsedek@piaille.fr",
+      "displayName": "Tsedek !",
+      "category": "association",
+      "source": "https://tsedek.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "instagram",
+      "handle": "tsdkcollectif",
+      "displayName": "Tsedek !",
+      "category": "association",
+      "source": "https://tsedek.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "facebook",
+      "handle": "61553449439130",
+      "displayName": "Tsedek !",
+      "category": "association",
+      "source": "https://tsedek.fr/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "x",
+      "handle": "utopia_56",
+      "displayName": "Utopia 56",
+      "category": "association",
+      "source": "https://utopia56.org/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "instagram",
+      "handle": "utopia.56",
+      "displayName": "Utopia 56",
+      "category": "association",
+      "source": "https://utopia56.org/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "facebook",
+      "handle": "asso.utopia56",
+      "displayName": "Utopia 56",
+      "category": "association",
+      "source": "https://utopia56.org/",
+      "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "utopia56.bsky.social",
+      "displayName": "Utopia 56",
+      "category": "association",
+      "source": "https://utopia56.org/",
+      "addedAt": "2026-10-29"
     }
   ]
 }
