@@ -34,9 +34,10 @@ function currentScreen() {
 }
 
 // L'écran est refait en entier : le focus revient à la même case, ou au même compte (Suivre devenu
-// Annuler et inversement), pour le clavier et les lecteurs d'écran.
+// Annuler et inversement, ou son lien Commenter), pour le clavier et les lecteurs d'écran.
 function focusSelector(element) {
   if (element.name === 'platform' || element.name === 'category') return `input[name="${element.name}"][value="${CSS.escape(element.value)}"]`;
+  if (element.dataset?.comment) return `[data-comment="${CSS.escape(element.dataset.comment)}"]`;
   const key = element.dataset?.follow ?? element.dataset?.unfollow;
   return key ? `[data-follow="${CSS.escape(key)}"], [data-unfollow="${CSS.escape(key)}"]` : null;
 }
@@ -183,9 +184,9 @@ app.addEventListener('click', (event) => {
     section.focus({ preventScroll: true });
     return;
   }
-  const target = event.target.closest('[data-follow], [data-follow-all], [data-unfollow], [data-share], [data-open]');
+  const target = event.target.closest('[data-follow], [data-follow-all], [data-unfollow], [data-share], [data-open], [data-comment]');
   if (!target) return;
-  const { follow, followAll, unfollow, open } = target.dataset;
+  const { follow, followAll, unfollow, open, comment } = target.dataset;
   if (target.hasAttribute('data-share')) return share(app.querySelector('.statut'));
   // Lien de la vitrine : le compte s'ouvre et compte, sans être marqué suivi dans le parcours.
   if (open) return count(recordOpened(counter, [open]));
@@ -193,11 +194,14 @@ app.addEventListener('click', (event) => {
     update(setFollowed(state, [unfollow], false));
     return render(unfollow);
   }
+  // Déjà abonné : commenter marque le compte comme suivi, comme Suivre ; s'il l'est déjà, il compte seulement.
+  if (comment && state.followed.includes(comment)) return count(recordOpened(counter, [comment]));
   // Le lien s'ouvre normalement ; l'écran est refait juste après, pour ne pas retirer le lien pendant le clic.
-  const keys = follow ? [follow] : platformKeys(list, followAll);
+  const key = follow ?? comment;
+  const keys = key ? [key] : platformKeys(list, followAll);
   update(setFollowed(state, keys, true));
   count(recordOpened(counter, keys));
-  setTimeout(() => render(follow ?? null));
+  setTimeout(() => render(key ?? null));
 });
 
 async function loadList() {

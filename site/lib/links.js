@@ -2,6 +2,8 @@
 // Liens candidats de la conception (docs/superpowers/specs/2026-10-28-partisans-design.md) : chaque
 // réseau gardera le lien qui fait gagner un appui sur téléphone, d'après l'essai réel (plan, Task 10).
 
+import { entryKey } from './catalog.js';
+
 const DOMAIN = /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z](?:[a-z0-9-]{0,61}[a-z0-9])?$/;
 
 // Accepte « piaille.fr », « @moi@piaille.fr » ou « https://piaille.fr/@moi » ; renvoie le domaine, ou null.
@@ -43,6 +45,17 @@ const PROFILE_URLS = {
 };
 
 export const profileUrl = (entry) => (PROFILE_URLS[entry.platform] ?? FOLLOW_URLS[entry.platform])(entry.handle);
+
+// « Commenter leur dernier post » : Bluesky passe par la fonction dernier-post (recherche côté serveur),
+// Mastodon ouvre le compte sur l'instance du visiteur, YouTube les vidéos de la chaîne (la plus récente
+// en premier) ; ailleurs, la page du compte, où le dernier post est en haut.
+// `mastodonInstance` est déjà normalisée par normalizeInstance.
+export function commentUrl(entry, { mastodonInstance }) {
+  if (entry.platform === 'bluesky') return `/.netlify/functions/dernier-post?compte=${encodeURIComponent(entryKey(entry))}`;
+  if (entry.platform === 'mastodon') return followUrl(entry, { mastodonInstance });
+  if (entry.platform === 'youtube') return `${profileUrl(entry)}/videos`;
+  return profileUrl(entry);
+}
 
 // L'adresse publique (og:url) tant qu'elle est renseignée, sinon la page en cours sans son ancre.
 export function siteUrl(ogUrl, currentUrl) {

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { followUrl, normalizeInstance, profileUrl, siteUrl } from '../site/lib/links.js';
+import { commentUrl, followUrl, normalizeInstance, profileUrl, siteUrl } from '../site/lib/links.js';
 import { miniList } from './helpers/partisans-fixture.mjs';
 
 const entryOf = (platform) => miniList.entries.find((entry) => entry.platform === platform);
@@ -49,4 +49,14 @@ test('la vitrine mène au profil de chaque compte', () => {
   assert.equal(profile('mastodon'), 'https://exemple.social/@echo');
   assert.equal(profile('facebook'), 'https://www.facebook.com/collectifsolidaire');
   assert.equal(profileUrl({ ...entryOf('youtube'), handle: 'médiaçà' }), 'https://www.youtube.com/@m%C3%A9dia%C3%A7%C3%A0');
+});
+
+test('« Commenter leur dernier post » vise le dernier post, ou la page du compte', () => {
+  const comment = (platform) => commentUrl(entryOf(platform), { mastodonInstance: 'piaille.fr' });
+  assert.equal(comment('bluesky'), '/.netlify/functions/dernier-post?compte=bluesky%3Alejournal.bsky.social');
+  assert.equal(comment('mastodon'), 'https://piaille.fr/authorize_interaction?uri=echo%40exemple.social');
+  assert.equal(comment('youtube'), 'https://www.youtube.com/@echo-cie/videos');
+  for (const platform of ['x', 'instagram', 'tiktok', 'threads', 'facebook']) {
+    assert.equal(comment(platform), profileUrl(entryOf(platform)), platform);
+  }
 });

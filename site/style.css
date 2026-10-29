@@ -476,20 +476,20 @@ legend {
   list-style: none;
 }
 
+/* Une ligne : le nom et l'action, puis la rangée « Commenter leur dernier post » sur toute la largeur. */
 .compte {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: minmax(62px, auto);
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  min-height: 62px;
-  padding: 8px 8px 8px 16px;
+  column-gap: 8px;
   border-top: 1px solid var(--filet-clair);
   background: var(--papier-carte);
   transition: background-color 300ms, color 300ms;
 }
 
 .compte .nom {
-  min-width: 0;
+  padding: 8px 0 8px 16px;
   font: 600 17px/1.25 var(--font-titre);
   overflow-wrap: anywhere;
 }
@@ -500,10 +500,23 @@ legend {
 }
 
 .action {
-  flex: none;
   display: flex;
   align-items: center;
   gap: 4px;
+  padding: 8px 8px 8px 0;
+}
+
+.commenter {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border-top: 1px dashed var(--filet-clair);
+  color: var(--encre);
+  font: 400 13px var(--font-titre);
+  text-decoration-color: var(--filet-clair);
+  text-underline-offset: 3px;
 }
 
 .suivre {

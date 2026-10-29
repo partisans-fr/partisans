@@ -6,7 +6,7 @@
 import { PLATFORMS, accountGroups, categoryCounts, entryKey, followedCount, peopleCount, progress } from './catalog.js';
 import { homeScreen } from './home.js';
 import { EXTERNAL, TINTS, bar, button, escapeHtml } from './html.js';
-import { followUrl, normalizeInstance } from './links.js';
+import { commentUrl, followUrl, normalizeInstance } from './links.js';
 import { selectedCategories } from './state.js';
 
 export { escapeHtml } from './html.js';
@@ -71,11 +71,14 @@ function categoriesScreen({ list, state }) {
 function accountRow(entry, state) {
   const key = escapeHtml(entryKey(entry));
   const name = escapeHtml(entry.displayName);
+  const mastodonInstance = normalizeInstance(state.mastodonInstance);
   const followed = state.followed.includes(entryKey(entry));
   const action = followed
     ? `<button data-unfollow="${key}" aria-label="Annuler le suivi : ${name}">Annuler</button> <span class="suivi">✓ Suivi</span>`
-    : `<a class="suivre" data-follow="${key}" href="${escapeHtml(followUrl(entry, { mastodonInstance: normalizeInstance(state.mastodonInstance) }))}" ${EXTERNAL} aria-label="Suivre ${name}">Suivre</a>`;
-  return `<li class="compte${followed ? ' est-suivi' : ''}"><span class="nom">${name}</span><span class="action">${action}</span></li>`;
+    : `<a class="suivre" data-follow="${key}" href="${escapeHtml(followUrl(entry, { mastodonInstance }))}" ${EXTERNAL} aria-label="Suivre ${name}">Suivre</a>`;
+  const commentLabel = followed ? 'Commenter leur dernier post' : 'Déjà abonné ? Commenter leur dernier post';
+  const comment = `<a class="commenter" data-comment="${key}" href="${escapeHtml(commentUrl(entry, { mastodonInstance }))}" ${EXTERNAL} aria-label="${commentLabel} : ${name}">${commentLabel} →</a>`;
+  return `<li class="compte${followed ? ' est-suivi' : ''}"><span class="nom">${name}</span><span class="action">${action}</span>${comment}</li>`;
 }
 
 function listScreen({ list, state, starterPackUrl }, platform) {

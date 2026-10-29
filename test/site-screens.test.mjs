@@ -1,5 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { EXTERNAL } from '../site/lib/html.js';
 import { escapeHtml, renderScreen, resolveRoute } from '../site/lib/screens.js';
 import { emptyState } from '../site/lib/state.js';
 import { miniList } from './helpers/partisans-fixture.mjs';
@@ -130,4 +131,12 @@ test('chaque écran du parcours a la barre au logo et au plus un bouton rouge pl
     assert.ok((html.match(/class="btn"/g) ?? []).length <= 1, hash);
   }
   assert.ok(render('#liste/instagram', fields).includes('<a class="btn secondaire" href="#fin">J\'ai fini</a>'));
+});
+
+test('chaque compte propose de commenter son dernier post', () => {
+  const html = render('#liste/instagram', { platforms: ['instagram'], followed: ['instagram:alicemartin'] });
+  assert.ok(html.includes(`<a class="commenter" data-comment="instagram:lejournal" href="https://www.instagram.com/lejournal/" ${EXTERNAL} aria-label="Déjà abonné ? Commenter leur dernier post : Le Journal">Déjà abonné ? Commenter leur dernier post →</a></li>`));
+  assert.ok(html.includes(`<a class="commenter" data-comment="instagram:alicemartin" href="https://www.instagram.com/alicemartin/" ${EXTERNAL} aria-label="Commenter leur dernier post : Alice Martin">Commenter leur dernier post →</a></li>`));
+  assert.ok(render('#liste/youtube', { platforms: ['youtube'] }).includes('aria-label="Déjà abonné ? Commenter leur dernier post : L&#39;Écho &amp; &lt;Cie&gt;"'));
+  assert.ok(render('#liste/bluesky', { platforms: ['bluesky'], categories: ['media'] }).includes('href="/.netlify/functions/dernier-post?compte=bluesky%3Alejournal.bsky.social"'));
 });
