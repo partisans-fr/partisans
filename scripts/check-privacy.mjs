@@ -11,6 +11,7 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { extname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const git = (...args) => execFileSync('git', args, { encoding: 'utf8' }).trim();
 const gitRaw = (...args) => execFileSync('git', args, { maxBuffer: 64 * 1024 * 1024 });
@@ -23,8 +24,9 @@ const GENERIC_PATTERNS = [
 ];
 
 const PNG_ALLOWED_CHUNKS = new Set(['IHDR', 'PLTE', 'tRNS', 'IDAT', 'IEND', 'sRGB', 'gAMA']);
-const JPEG_FORBIDDEN_MARKERS = { 0xe1: 'EXIF/XMP', 0xed: 'IPTC', 0xfe: 'commentaire' };
-const UNCHECKED_IMAGES = new Set(['.gif', '.webp', '.ico', '.bmp', '.tif', '.tiff', '.heic', '.avif']);
+const JPEG_MARKER_NAMES = { 0xe1: 'EXIF/XMP', 0xe2: 'profil ICC', 0xeb: 'C2PA/JUMBF', 0xed: 'IPTC', 0xfe: 'commentaire' };
+const WEBP_ALLOWED_CHUNKS = new Set(['VP8 ', 'VP8L', 'VP8X', 'ALPH']);
+const UNCHECKED_IMAGES = new Set(['.gif', '.ico', '.bmp', '.tif', '.tiff', '.heic', '.avif']);
 
 function loadPersonalPatterns() {
   const path = git('rev-parse', '--git-path', 'info/privacy-patterns');
@@ -63,21 +65,44 @@ function jpegMetadataProblems(buffer) {
   while (offset + 4 <= buffer.length && buffer[offset] === 0xff) {
     const marker = buffer[offset + 1];
     if (marker === 0xda) break; // début des données d'image
-    if (JPEG_FORBIDDEN_MARKERS[marker]) problems.push(`segment JPEG ${JPEG_FORBIDDEN_MARKERS[marker]}`);
+    // Seul le segment JFIF (APP0) est gardé : APP1 à APP15 et les commentaires portent des métadonnées.
+    if ((marker >= 0xe1 && marker <= 0xef) || marker === 0xfe) problems.push(`segment JPEG ${JPEG_MARKER_NAMES[marker] ?? 'APPn'}`);
     offset += 2 + buffer.readUInt16BE(offset + 2);
   }
   return problems;
 }
 
+function webpMetadataProblems(buffer) {
+  if (buffer.length < 12 || buffer.toString('ascii', 0, 4) !== 'RIFF' || buffer.toString('ascii', 8, 12) !== 'WEBP') {
+    return ['fichier WebP illisible'];
+  }
+  const problems = [];
+  let offset = 12;
+  while (offset + 8 <= buffer.length) {
+    const type = buffer.toString('ascii', offset, offset + 4);
+    const size = buffer.readUInt32LE(offset + 4);
+    if (!WEBP_ALLOWED_CHUNKS.has(type)) problems.push(`bloc WebP « ${type} » (métadonnées)`);
+    offset += 8 + size + (size & 1);
+  }
+  return problems;
+}
+
+export function imageProblems(path, buffer) {
+  const ext = extname(path).toLowerCase();
+  if (ext === '.png') return pngMetadataProblems(buffer);
+  if (ext === '.jpg' || ext === '.jpeg') return jpegMetadataProblems(buffer);
+  if (ext === '.webp') return webpMetadataProblems(buffer);
+  if (UNCHECKED_IMAGES.has(ext)) return ['format d\'image non vérifié : convertis en PNG sans métadonnées'];
+  return [];
+}
+
 function fileProblems(path, buffer, personalPatterns) {
   const ext = extname(path).toLowerCase();
   const problems = findLeaks(path, personalPatterns).map((p) => `nom de fichier : ${p}`);
+  problems.push(...imageProblems(path, buffer));
 
-  if (ext === '.png') problems.push(...pngMetadataProblems(buffer));
-  else if (ext === '.jpg' || ext === '.jpeg') problems.push(...jpegMetadataProblems(buffer));
-  else if (UNCHECKED_IMAGES.has(ext)) problems.push('format d\'image non vérifié : convertis en PNG sans métadonnées');
-
-  const text = buffer.toString(ext === '.png' || ext === '.jpg' || ext === '.jpeg' ? 'latin1' : 'utf8');
+  const binary = ['.png', '.jpg', '.jpeg', '.webp'].includes(ext);
+  const text = buffer.toString(binary ? 'latin1' : 'utf8');
   if (ext === '.svg' && /<metadata|<rdf:|sodipodi:|inkscape:/i.test(text)) {
     problems.push('métadonnées SVG (éditeur, chemins de fichiers)');
   }
@@ -140,4 +165,4 @@ function main() {
   console.log('Garde-fou d\'anonymat : RAS.');
 }
 
-main();
+if (process.argv[1] === fileURLToPath(import.meta.url)) main();
