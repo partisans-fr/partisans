@@ -28,7 +28,7 @@ test('l\'accueil porte les textes validés, dans l\'ordre', () => {
     '<h2>Les algorithmes amplifient ce qui fait réagir.</h2>',
     'Quand tu réponds à un post d\'extrême droite, même pour le dénoncer, tu le fais voir à plus de monde. Tes likes, partages et commentaires ont du poids : donne-les à ceux qui la combattent.',
     '<h2>Abonne-toi en quelques clics.</h2>',
-    'Choisis tes réseaux. On t\'ouvre chaque compte de la liste, tu n\'as plus qu\'à cliquer sur « S\'abonner ».',
+    'Choisis tes réseaux. On t\'ouvre chaque compte de la liste, tu n\'as plus qu\'à cliquer sur «\u202fS\'abonner\u202f».',
     '<h2>Soutiens. <em>Ignore le reste.</em></h2>',
     'Une fois abonné à ceux qui luttent, aime, partage et commente leurs posts. L\'extrême droite, ignore-la : ne réponds pas, ne cite pas, continue juste de scroller !',
     '<h2>La liste</h2>',
@@ -82,8 +82,13 @@ test('la consigne renvoie vers On bloque l\'extrême droite', () => {
   assert.ok(home().includes(`<p class="coin-blocage">Tu veux bloquer les comptes d'extrême droite pour ne plus les voir du tout\u202f? Rendez-vous sur <a href="https://www.onbloquelextremedroite.fr/" ${EXTERNAL}>onbloquelextremedroite.fr</a>, par <a href="https://www.instagram.com/mise__au__poing/" ${EXTERNAL}>Mise au poing</a>.</p></section>`));
 });
 
+test('les guillemets serrent leur mot d\'une espace insécable fine', () => {
+  const html = home({ platforms: ['x'] });
+  assert.doesNotMatch(html, /«[ \u00a0]|[ \u00a0]»/);
+});
+
 test('le deuxième bloc liste les réseaux de la liste', () => {
-  assert.ok(home().includes('tu n\'as plus qu\'à cliquer sur « S\'abonner ».</p><ul class="reseaux-dispo"><li>Instagram</li><li>X</li><li>TikTok</li><li>YouTube</li><li>Threads</li><li>Bluesky</li><li>Mastodon</li><li>Facebook</li></ul></section>'));
+  assert.ok(home().includes('tu n\'as plus qu\'à cliquer sur «\u202fS\'abonner\u202f».</p><ul class="reseaux-dispo"><li>Instagram</li><li>X</li><li>TikTok</li><li>YouTube</li><li>Threads</li><li>Bluesky</li><li>Mastodon</li><li>Facebook</li></ul></section>'));
   const [alice] = miniList.entries;
   assert.ok(home({}, { ...miniList, entries: [alice] }).includes('<ul class="reseaux-dispo"><li>Instagram</li></ul>'));
 });
