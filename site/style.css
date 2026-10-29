@@ -455,10 +455,10 @@ input:checked + .case,
 .onglets {
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 2;
   display: flex;
-  border-bottom: 1px solid var(--encre);
-  background: var(--papier);
+  border-bottom: var(--filet);
+  background: var(--papier) url(img/grain.png);
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -471,17 +471,26 @@ input:checked + .case,
   flex: none;
   display: flex;
   align-items: center;
-  padding: 14px;
-  border-right: 1px solid var(--encre);
-  color: var(--encre);
-  font: 500 14px var(--font-titre);
+  min-height: 44px;
+  padding: 13px 14px;
+  border-right: 1px solid var(--noir);
+  color: var(--noir);
+  font: 800 14px/1.2 var(--font-texte);
   text-decoration: none;
   white-space: nowrap;
 }
 
 .onglet[aria-current='page'] {
-  background: var(--encre);
+  background: var(--noir);
   color: var(--papier);
+}
+
+.onglet:focus-visible {
+  outline-offset: -5px;
+}
+
+.onglet[aria-current='page']:focus-visible {
+  outline-color: var(--papier);
 }
 
 .progression {
@@ -492,9 +501,9 @@ input:checked + .case,
 
 .barre-progression {
   flex: 1;
-  height: 10px;
-  border: 1px solid var(--encre);
-  background: var(--papier-carte);
+  height: 20px;
+  border: var(--filet);
+  background: var(--carte);
 }
 
 /* Largeur posée par app.js, depuis aria-valuenow et aria-valuemax. */
@@ -503,51 +512,39 @@ input:checked + .case,
   width: 0;
   height: 100%;
   background: var(--rouge);
-  transition: width 500ms var(--sortie);
+  transition: width 200ms var(--balayage);
 }
 
 .meta {
-  color: var(--gris-meta);
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font: 800 14px/1.2 var(--font-texte);
   white-space: nowrap;
 }
 
 .vide {
   padding: 16px;
   border: 1px solid var(--filet-clair);
-  background: var(--papier-carte);
+  background: var(--carte);
 }
 
-/* Teintes des collections : posées sur un bloc, appliquées à son en-tête. */
-.teinte-ardoise {
-  --teinte: var(--ardoise);
-  --sur-teinte: var(--papier);
-}
-
-.teinte-ocre {
-  --teinte: var(--ocre);
-  --sur-teinte: var(--encre);
-}
-
-.teinte-sauge {
-  --teinte: var(--sauge);
-  --sur-teinte: var(--encre);
-}
-
+/* Groupes par catégorie : en-têtes alternés noir et rouge. */
 .groupe {
-  border: 1px solid var(--encre);
+  border: var(--filet);
 }
 
 .groupe h2 {
   padding: 12px 16px;
-  background: var(--teinte);
-  color: var(--sur-teinte);
-  font-weight: 600;
-  font-size: 22px;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
+  border-bottom: var(--filet);
+  font-size: 17px;
+  line-height: 1.2;
+}
+
+.tete-noire h2 {
+  background: var(--noir);
+  color: var(--papier);
+}
+
+.tete-rouge h2 {
+  background: var(--rouge);
 }
 
 .comptes {
@@ -555,27 +552,26 @@ input:checked + .case,
   list-style: none;
 }
 
-/* Une ligne : le nom et l'action, puis la rangée « Commenter leur dernier post » sur toute la largeur. */
+/* Une ligne : le nom et l'action, puis la rangée « Commenter leur dernier post » sur toute la largeur.
+   Suivie, elle reste à sa place, sur le même fond. */
 .compte {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-rows: minmax(62px, auto);
+  grid-template-rows: minmax(60px, auto);
   align-items: center;
   column-gap: 8px;
   border-top: 1px solid var(--filet-clair);
-  background: var(--papier-carte);
-  transition: background-color 300ms, color 300ms;
+  background: var(--carte);
+}
+
+.compte:first-child {
+  border-top: 0;
 }
 
 .compte .nom {
   padding: 8px 0 8px 16px;
-  font: 600 17px/1.25 var(--font-titre);
-  overflow-wrap: anywhere;
-}
-
-.compte.est-suivi {
-  background: var(--papier);
-  color: var(--gris-meta);
+  font: 800 17px/1.25 var(--font-texte);
+  overflow-wrap: break-word;
 }
 
 .action {
@@ -592,8 +588,8 @@ input:checked + .case,
   min-height: 44px;
   padding: 0 16px;
   border-top: 1px dashed var(--filet-clair);
-  color: var(--encre);
-  font: 400 13px var(--font-titre);
+  color: var(--noir);
+  font-size: 13px;
   text-decoration-color: var(--filet-clair);
   text-underline-offset: 3px;
 }
@@ -604,62 +600,127 @@ input:checked + .case,
   min-height: 44px;
   padding: 13px 16px;
   background: var(--rouge);
-  color: var(--papier);
-  font: 600 15px var(--font-titre);
+  color: var(--noir);
+  font: 400 15px/1.1 var(--font-titre);
+  text-transform: uppercase;
   text-decoration: none;
-  transition: transform 120ms, background-color 160ms;
+  transition: transform 80ms, background-color 160ms, color 160ms;
 }
 
-.suivre:hover,
-.suivre:active {
-  background: var(--encre);
+.suivre:hover {
+  background: var(--noir);
+  color: var(--papier);
 }
 
 .suivre:active {
-  transform: scale(0.96);
+  transform: scale(.94);
 }
 
 [data-unfollow] {
   min-height: 44px;
-  padding: 0 12px;
+  padding: 0 10px;
   border: 0;
   background: none;
-  color: var(--gris-meta);
-  font: 400 13px var(--font-titre);
+  color: var(--gris);
+  font-size: 13px;
   text-decoration: underline;
   text-underline-offset: 3px;
   cursor: pointer;
 }
 
+/* inline-block : l'animation « flip » le retourne. */
 .suivi {
-  padding: 12px 14px;
-  border: 1px solid var(--encre);
-  color: var(--encre);
-  font: 600 15px var(--font-titre);
+  display: inline-block;
+  padding: 10px 12px;
+  border: var(--filet);
+  font: 800 15px/1.2 var(--font-texte);
+  white-space: nowrap;
 }
 
-/* Fin */
+/* Fin : fond rouge, poing papier qui déborde en bas à droite, bloc noir pour faire passer le mot. */
+
+.ecran-fin {
+  position: relative;
+  overflow: hidden;
+  background: var(--rouge);
+}
+
+.ecran-fin .barre,
+.ecran-fin .contenu,
+.fin-partage {
+  position: relative;
+  z-index: 1;
+}
+
+.ecran-fin .contenu {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.ecran-fin h1 {
+  font-size: min(2rem, 8.2vw);
+}
+
+.ecran-fin .poing {
+  top: auto;
+  left: auto;
+  right: -50px;
+  bottom: -60px;
+  height: 430px;
+  transform: none;
+}
 
 .verbes {
   padding: 0;
   list-style: none;
-  font: 700 2rem/1.1 var(--font-titre);
+  font: 400 min(2rem, 8.5vw)/1.1 var(--font-titre);
+  text-transform: uppercase;
 }
 
 .ignore {
   padding: 16px 18px;
-  background: var(--encre);
+  background: var(--noir);
   color: var(--papier);
 }
 
 .ignore strong {
-  color: var(--rouge-clair);
+  color: var(--rouge);
+}
+
+.fin-partage {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px max(20px, env(safe-area-inset-right)) calc(28px + env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+  background: var(--noir);
+  color: var(--papier);
+}
+
+.fin-partage :focus-visible {
+  outline-color: var(--papier);
+}
+
+.fin-partage .mot {
+  font: 400 26px/1.1 var(--font-titre);
+  text-transform: uppercase;
+}
+
+.fin-partage .btn:hover {
+  background: var(--papier);
+  color: var(--noir);
+}
+
+.fin-partage .adresse {
+  color: var(--gris-clair);
+  font: 800 14px/1.3 var(--font-texte);
+  text-align: center;
 }
 
 .statut {
   min-height: 1.45em;
-  color: var(--encre);
-  font: 600 16px var(--font-titre);
+  font-weight: 700;
+  font-size: 16px;
   overflow-wrap: anywhere;
 }
 
@@ -711,9 +772,18 @@ input:checked + .case,
     margin: 0 auto;
   }
 
+  .ecran-fin h1 {
+    font-size: 3rem;
+  }
+
+  .fin-partage {
+    padding-right: max(20px, calc((100% - 36rem) / 2 + 20px));
+    padding-left: max(20px, calc((100% - 36rem) / 2 + 20px));
+  }
+
   /* Les onglets s'alignent sur les blocs de la colonne (36rem moins ses marges). */
   .onglets {
     max-width: calc(36rem - 40px);
-    border-left: 1px solid var(--encre);
+    border-left: 1px solid var(--noir);
   }
 }

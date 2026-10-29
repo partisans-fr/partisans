@@ -5,7 +5,7 @@
 
 import { PLATFORMS, accountGroups, categoryCounts, entryKey, followedCount, peopleCount, platformKeys, progress } from './catalog.js';
 import { homeScreen } from './home.js';
-import { EXTERNAL, TINTS, bar, button, escapeHtml, plural } from './html.js';
+import { EXTERNAL, bar, button, escapeHtml, fist, plural } from './html.js';
 import { commentUrl, followUrl, normalizeInstance } from './links.js';
 import { selectedCategories } from './state.js';
 
@@ -85,7 +85,7 @@ function accountRow(entry, state) {
     : `<a class="suivre" data-follow="${key}" href="${escapeHtml(followUrl(entry, { mastodonInstance }))}" ${EXTERNAL} aria-label="Suivre ${name}">Suivre</a>`;
   const commentLabel = followed ? 'Commenter leur dernier post' : 'Déjà abonné ? Commenter leur dernier post';
   const comment = `<a class="commenter" data-comment="${key}" href="${escapeHtml(commentUrl(entry, { mastodonInstance }))}" ${EXTERNAL} aria-label="${commentLabel} : ${name}">${commentLabel} →</a>`;
-  return `<li class="compte${followed ? ' est-suivi' : ''}"><span class="nom">${name}</span><span class="action">${action}</span>${comment}</li>`;
+  return `<li class="compte"><span class="nom">${name}</span><span class="action">${action}</span>${comment}</li>`;
 }
 
 function listScreen({ list, state, starterPackUrl }, platform) {
@@ -104,10 +104,11 @@ function listScreen({ list, state, starterPackUrl }, platform) {
     : `<p class="vide">Pas encore de compte de ta sélection sur ${PLATFORMS[platform]}.</p>`;
   const followAll =
     platform === 'bluesky' && starterPackUrl && total
-      ? `<a class="btn secondaire" data-follow-all="bluesky" href="${escapeHtml(starterPackUrl)}" ${EXTERNAL}>Tout suivre →</a>`
+      ? `<a class="btn" data-follow-all="bluesky" href="${escapeHtml(starterPackUrl)}" ${EXTERNAL}>Tout suivre →</a>`
       : '';
+  // En-têtes de groupe alternés, noir puis rouge, dans l'ordre affiché.
   const groups = accountGroups(list, platform, categories)
-    .map(({ slug, label, entries }) => `<section class="groupe teinte-${TINTS[slug]}"><h2>${escapeHtml(label)}</h2>
+    .map(({ label, entries }, rank) => `<section class="groupe ${rank % 2 ? 'tete-rouge' : 'tete-noire'}"><h2>${escapeHtml(label)}</h2>
       <ul class="comptes">${entries.map((entry) => accountRow(entry, state)).join('\n')}</ul></section>`)
     .join('\n');
   return `${bar(step(3))}<nav class="onglets" aria-label="Tes réseaux">${tabs}</nav><div class="contenu">
@@ -125,24 +126,24 @@ function listScreen({ list, state, starterPackUrl }, platform) {
     </div>`;
 }
 
+// Les lignes du titre de la fin, chacune montée depuis sa découpe (animation « line »).
 function headline(count) {
-  if (count === 0) return 'Ta liste t\'attend.';
-  return `C'est fait : ${count} ${count === 1 ? 'abonnement' : 'abonnements'}.`;
+  if (count === 0) return ['Ta liste t\'attend.'];
+  return ['C\'est fait :', `${count} ${count === 1 ? 'abonnement' : 'abonnements'}.`];
 }
 
 function endScreen({ list, state }) {
   const count = followedCount(list, state.platforms, selectedCategories(list, state), state.followed);
+  const title = headline(count).map((line) => `<span class="ligne"><span data-anim="line">${line}</span></span>`).join(' ');
   return `${bar()}<div class="contenu">
-    <h1>${headline(count)}</h1>
+    <h1>${title}</h1>
     <p>Maintenant, chaque jour, sur leurs posts :</p>
     <ul class="verbes"><li>Aime.</li><li>Partage.</li><li>Commente.</li></ul>
     <p class="ignore">Et l'extrême droite ? <strong>Ignore-la.</strong> Ne réponds pas, ne cite pas, passe ton chemin.</p>
-    <div class="actions">
-      <button class="btn" data-share>Partager le site</button>
-      <p class="statut" role="status"></p>
-    </div>
     <p class="liens"><a href="#liste">Revenir à ma liste</a></p>
-    </div>`;
+    </div>
+    <div class="fin-partage"><p class="mot">Fais passer le mot.</p><button class="btn" data-share>Partager le site</button><p class="statut" role="status"></p><p class="adresse">soyonspartisans.fr</p></div>
+    ${fist('208px')}`;
 }
 
 const home = ({ list, state }) => homeScreen({ list, resume: resolveRoute('#liste', list, state).screen === 'liste' });

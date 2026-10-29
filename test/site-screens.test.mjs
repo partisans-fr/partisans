@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { EXTERNAL } from '../site/lib/html.js';
+import { EXTERNAL, fist } from '../site/lib/html.js';
 import { escapeHtml, renderScreen, resolveRoute } from '../site/lib/screens.js';
 import { emptyState } from '../site/lib/state.js';
 import { miniList } from './helpers/partisans-fixture.mjs';
@@ -81,17 +81,24 @@ test('l\'onglet d\'un réseau montre sa progression et ses comptes', () => {
   assert.ok(html.includes('<h1 class="titre-liste" id="titre-liste">Ta liste Instagram</h1>'));
   assert.match(html, /role="progressbar" aria-labelledby="titre-liste" aria-valuemin="0" aria-valuemax="3" aria-valuenow="1"/);
   assert.ok(html.includes('<p class="meta">1 sur 3</p>'));
-  assert.ok(html.includes('<li class="compte est-suivi"><span class="nom">Alice Martin</span>'));
+  assert.ok(html.includes('<li class="compte"><span class="nom">Alice Martin</span><span class="action"><button data-unfollow="instagram:alicemartin" aria-label="Annuler le suivi : Alice Martin">Annuler</button> <span class="suivi">✓ Suivi</span></span>'));
   assert.ok(html.includes('<li class="compte"><span class="nom">Le Journal</span>'));
-  assert.ok(html.includes('<span class="suivi">✓ Suivi</span>'));
-  assert.ok(html.includes('<section class="groupe teinte-ardoise"><h2>Personnalités politiques</h2>'));
-  assert.ok(html.includes('<section class="groupe teinte-ocre"><h2>Médias</h2>'));
-  assert.ok(html.includes('<section class="groupe teinte-sauge"><h2>Associations</h2>'));
+  assert.ok(!html.includes('est-suivi'));
   assert.ok(html.includes('data-unfollow="instagram:alicemartin"'));
   assert.ok(html.includes('data-follow="instagram:lejournal" href="https://www.instagram.com/lejournal/"'));
   assertInOrder(html, ['<h2>Personnalités politiques</h2>', '<h2>Médias</h2>', '<h2>Associations</h2>']);
   assert.ok(html.includes('href="https://example.com/signaler"'));
   assert.ok(html.includes('href="https://example.com/suggerer"'));
+});
+
+test('les groupes alternent noir et rouge', () => {
+  const html = render('#liste/instagram', { platforms: ['instagram'] });
+  assertInOrder(html, [
+    '<section class="groupe tete-noire"><h2>Personnalités politiques</h2>',
+    '<section class="groupe tete-rouge"><h2>Médias</h2>',
+    '<section class="groupe tete-noire"><h2>Associations</h2>',
+  ]);
+  assert.ok(!html.includes('teinte-'));
 });
 
 test('Suivre et Annuler nomment le compte pour les lecteurs d\'écran', () => {
@@ -115,7 +122,7 @@ test('Bluesky propose Tout suivre seulement avec un starter pack', () => {
   const url = 'https://bsky.app/starter-pack/projet.example/partisans';
   assert.match(render('#liste/bluesky', fields, { starterPackUrl: url }), new RegExp(`data-follow-all="bluesky" href="${url}"`));
   assert.ok(render('#liste/bluesky', fields, { starterPackUrl: url }).includes('>Tout suivre →</a>'));
-  assert.ok(render('#liste/bluesky', fields, { starterPackUrl: url }).includes('class="btn secondaire" data-follow-all="bluesky"'));
+  assert.ok(render('#liste/bluesky', fields, { starterPackUrl: url }).includes(`<a class="btn" data-follow-all="bluesky" href="${url}" ${EXTERNAL}>Tout suivre →</a>`));
 });
 
 test('les noms sont échappés', () => {
@@ -127,10 +134,10 @@ test('les noms sont échappés', () => {
 test('la fin compte les abonnements et porte le message', () => {
   const platforms = ['instagram', 'x'];
   const html = render('#fin', { platforms, followed: ['instagram:alicemartin', 'x:alicemartin'] });
-  assert.ok(html.includes('C\'est fait : 2 abonnements.'));
-  assert.ok(render('#fin', { platforms, followed: ['x:alicemartin'] }).includes('C\'est fait : 1 abonnement.'));
-  assert.ok(render('#fin', { platforms }).includes('Ta liste t\'attend.'));
+  assert.ok(render('#fin', { platforms, followed: ['x:alicemartin'] }).includes('<span class="ligne"><span data-anim="line">1 abonnement.</span></span></h1>'));
+  assert.ok(render('#fin', { platforms }).includes('<h1><span class="ligne"><span data-anim="line">Ta liste t\'attend.</span></span></h1>'));
   assertInOrder(html, [
+    '<h1><span class="ligne"><span data-anim="line">C\'est fait :</span></span> <span class="ligne"><span data-anim="line">2 abonnements.</span></span></h1>',
     'Maintenant, chaque jour, sur leurs posts :',
     'Aime.',
     'Partage.',
@@ -138,9 +145,10 @@ test('la fin compte les abonnements et porte le message', () => {
     'Et l\'extrême droite ?',
     'Ignore-la.',
     'Ne réponds pas, ne cite pas, passe ton chemin.',
+    '<p class="liens"><a href="#liste">Revenir à ma liste</a></p>',
+    '<div class="fin-partage"><p class="mot">Fais passer le mot.</p><button class="btn" data-share>Partager le site</button><p class="statut" role="status"></p><p class="adresse">soyonspartisans.fr</p></div>',
+    fist('208px'),
   ]);
-  assert.ok(html.includes('<button class="btn" data-share>Partager le site</button>'));
-  assert.ok(html.includes('<p class="statut" role="status"></p>'));
 });
 
 test('chaque écran du parcours a la barre au logo et au plus un bouton rouge plein', () => {

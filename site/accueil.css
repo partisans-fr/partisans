@@ -309,18 +309,18 @@
   background: url(img/poing-rouge-180.webp) center / contain no-repeat;
 }
 
-.mot {
+.pied-accueil .mot {
   font: 400 28px/1.1 var(--font-titre);
   text-transform: uppercase;
 }
 
-.adresse {
+.pied-accueil .adresse {
   color: var(--rouge);
   font: 400 22px/1.1 var(--font-titre);
   text-transform: uppercase;
 }
 
-.note {
+.pied-accueil .note {
   color: var(--gris-clair);
   font-size: 14px;
 }
@@ -749,7 +749,7 @@
     height: 90px;
   }
 
-  .mot {
+  .pied-accueil .mot {
     grid-row: span 2;
     max-width: 9em;
     font-size: 46px;
@@ -761,7 +761,7 @@
     text-align: right;
   }
 
-  .note {
+  .pied-accueil .note {
     align-self: start;
     font-size: 15px;
     text-align: right;

@@ -1,5 +1,5 @@
 // Morceaux HTML partagés par l'accueil et les écrans du parcours : échappement, boutons, barre au
-// logo, accords, poing et teintes des catégories.
+// logo, accords et poing.
 
 const ESCAPES = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
 export const escapeHtml = (text) => String(text).replace(/[&<>"']/g, (char) => ESCAPES[char]);
@@ -20,6 +20,3 @@ export const plural = (count, word) => `${count} ${word}${count > 1 ? 's' : ''}`
 // Poing papier du hero et de la fin : deux résolutions, la plus légère sur téléphone.
 export const fist = (sizes) =>
   `<img class="poing" src="img/poing-papier-880.webp" srcset="img/poing-papier-880.webp 426w, img/poing-papier.webp 718w" sizes="${sizes}" width="718" height="1483" alt="" data-anim="rise">`;
-
-// Couleurs des collections de la charte, par catégorie de la liste.
-export const TINTS = { politique: 'ardoise', media: 'ocre', journaliste: 'ocre', influenceur: 'ocre', parti: 'sauge', association: 'sauge' };
