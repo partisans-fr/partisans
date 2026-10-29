@@ -134,6 +134,24 @@
   line-height: 1.5;
 }
 
+/* Réseaux de la liste, sous « Abonne-toi en quelques clics. ». */
+.reseaux-dispo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reseaux-dispo li {
+  padding: 4px 8px;
+  border: 1px solid var(--noir);
+  font: 800 12px/1.3 var(--font-texte);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
 .bloc-rouge {
   position: relative;
   background: var(--rouge);

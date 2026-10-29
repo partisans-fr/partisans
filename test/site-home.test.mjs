@@ -21,7 +21,7 @@ test('l\'accueil porte les textes validés, dans l\'ordre', () => {
   assertInOrder(html, [
     '<p class="surtitre">Contre l\'extrême droite, sur les réseaux</p>',
     '<h1><span class="ligne"><span data-anim="line">Soyons</span></span> <span class="ligne"><span data-anim="line">partisans.</span></span></h1>',
-    'Abonne-toi en quelques minutes aux élus, médias et collectifs de gauche qui combattent l\'extrême droite. Chaque abonné de plus, c\'est plus de monde qui voit leurs posts.',
+    '<p class="chapo">Abonne-toi en quelques minutes aux élus, médias et collectifs de gauche qui combattent l\'extrême droite.</p>',
     '>Voir la liste →</a>',
     'Il ne te sera demandé aucun mot de passe, toutes tes données restent confidentielles.',
     '<p class="slogan"><span class="phrase"><span>De la force pour</span> <span>ceux qui luttent.</span></span> <span class="phrase rouge"><span>Rien pour</span> <span>l\'extrême droite.</span></span></p>',
@@ -30,7 +30,7 @@ test('l\'accueil porte les textes validés, dans l\'ordre', () => {
     '<h2>Abonne-toi en quelques clics.</h2>',
     'Choisis tes réseaux. On t\'ouvre chaque compte de la liste, tu n\'as plus qu\'à cliquer sur « S\'abonner ».',
     '<h2>Soutiens. <em>Ignore le reste.</em></h2>',
-    'Une fois abonné, aime, partage et commente leurs posts. L\'extrême droite, ignore-la : ne réponds pas, ne cite pas, continue juste de scroller !',
+    'Une fois abonné à ceux qui luttent, aime, partage et commente leurs posts. L\'extrême droite, ignore-la : ne réponds pas, ne cite pas, continue juste de scroller !',
     '<h2>La liste</h2>',
     'Fais passer le mot.',
     '<p class="adresse">soyonspartisans.fr</p>',
@@ -79,7 +79,13 @@ test('les boutons de l\'accueil ouvrent le parcours ou défilent dans la page', 
 });
 
 test('la consigne renvoie vers On bloque l\'extrême droite', () => {
-  assert.ok(home().includes(`<p class="coin-blocage">Tu veux bloquer les comptes d'extrême droite pour ne plus les voir du tout\u202f? Rendez-vous sur <a href="https://www.onbloquelextremedroite.fr/" ${EXTERNAL}>onbloquelextremedroite.fr</a>, par Mise au poing.</p></section>`));
+  assert.ok(home().includes(`<p class="coin-blocage">Tu veux bloquer les comptes d'extrême droite pour ne plus les voir du tout\u202f? Rendez-vous sur <a href="https://www.onbloquelextremedroite.fr/" ${EXTERNAL}>onbloquelextremedroite.fr</a>, par <a href="https://www.instagram.com/mise__au__poing/" ${EXTERNAL}>Mise au poing</a>.</p></section>`));
+});
+
+test('le deuxième bloc liste les réseaux de la liste', () => {
+  assert.ok(home().includes('tu n\'as plus qu\'à cliquer sur « S\'abonner ».</p><ul class="reseaux-dispo"><li>Instagram</li><li>X</li><li>TikTok</li><li>YouTube</li><li>Threads</li><li>Bluesky</li><li>Mastodon</li><li>Facebook</li></ul></section>'));
+  const [alice] = miniList.entries;
+  assert.ok(home({}, { ...miniList, entries: [alice] }).includes('<ul class="reseaux-dispo"><li>Instagram</li></ul>'));
 });
 
 test('l\'accueil propose de reprendre seulement si la liste est accessible', () => {

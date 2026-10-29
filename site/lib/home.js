@@ -45,6 +45,10 @@ function showcaseSection(list) {
   </section>`;
 }
 
+// Les réseaux où la liste a des comptes, dans l'ordre de PLATFORMS.
+const networksList = (list) =>
+  `<ul class="reseaux-dispo">${Object.keys(PLATFORMS).filter((platform) => list.entries.some((entry) => entry.platform === platform)).map((platform) => `<li>${PLATFORMS[platform]}</li>`).join('')}</ul>`;
+
 export function homeScreen({ list, resume }) {
   const links = '<nav class="barre-liens"><a href="#la-liste" data-defiler>La liste</a><a href="#la-consigne" data-defiler>La consigne</a></nav>';
   return `${bar(`${links}<a class="btn" href="#fais-tourner" data-defiler>Fais tourner</a>`)}
@@ -53,7 +57,7 @@ export function homeScreen({ list, resume }) {
     <div class="hero-texte">
       <p class="surtitre">Contre l'extrême droite, sur les réseaux</p>
       <h1><span class="ligne"><span data-anim="line">Soyons</span></span> <span class="ligne"><span data-anim="line">partisans.</span></span></h1>
-      <p class="chapo">Abonne-toi en quelques minutes aux élus, médias et collectifs de gauche qui combattent l'extrême droite. Chaque abonné de plus, c'est plus de monde qui voit leurs posts.</p>
+      <p class="chapo">Abonne-toi en quelques minutes aux élus, médias et collectifs de gauche qui combattent l'extrême droite.</p>
       <div class="hero-boutons">${button('Voir la liste →', '#reseaux')}${resume ? button('Reprendre ma liste', '#liste', { secondary: true }) : ''}<a class="btn secondaire" href="#la-consigne" data-defiler>Lire la consigne</a></div>
       <p class="discret">Il ne te sera demandé aucun mot de passe, toutes tes données restent confidentielles.</p>
     </div>
@@ -61,8 +65,8 @@ export function homeScreen({ list, resume }) {
   <p class="slogan"><span class="phrase"><span>De la force pour</span> <span>ceux qui luttent.</span></span> <span class="phrase rouge"><span>Rien pour</span> <span>l'extrême droite.</span></span></p>
   <div class="blocs">
     <section class="bloc" data-anim="drop"><h2>Les algorithmes amplifient ce qui fait réagir.</h2><p>Quand tu réponds à un post d'extrême droite, même pour le dénoncer, tu le fais voir à plus de monde. Tes likes, partages et commentaires ont du poids : donne-les à ceux qui la combattent.</p></section>
-    <section class="bloc" data-anim="drop"><h2>Abonne-toi en quelques clics.</h2><p>Choisis tes réseaux. On t'ouvre chaque compte de la liste, tu n'as plus qu'à cliquer sur « S'abonner ».</p></section>
-    <section class="bloc bloc-rouge" id="la-consigne" tabindex="-1" data-anim="drop"><span class="voile" data-anim="sweep" aria-hidden="true"></span><h2>Soutiens. <em>Ignore le reste.</em></h2><p>Une fois abonné, aime, partage et commente leurs posts. L'extrême droite, ignore-la : ne réponds pas, ne cite pas, continue juste de scroller !</p><p class="coin-blocage">Tu veux bloquer les comptes d'extrême droite pour ne plus les voir du tout\u202f? Rendez-vous sur <a href="https://www.onbloquelextremedroite.fr/" ${EXTERNAL}>onbloquelextremedroite.fr</a>, par Mise au poing.</p></section>
+    <section class="bloc" data-anim="drop"><h2>Abonne-toi en quelques clics.</h2><p>Choisis tes réseaux. On t'ouvre chaque compte de la liste, tu n'as plus qu'à cliquer sur « S'abonner ».</p>${networksList(list)}</section>
+    <section class="bloc bloc-rouge" id="la-consigne" tabindex="-1" data-anim="drop"><span class="voile" data-anim="sweep" aria-hidden="true"></span><h2>Soutiens. <em>Ignore le reste.</em></h2><p>Une fois abonné à ceux qui luttent, aime, partage et commente leurs posts. L'extrême droite, ignore-la : ne réponds pas, ne cite pas, continue juste de scroller !</p><p class="coin-blocage">Tu veux bloquer les comptes d'extrême droite pour ne plus les voir du tout\u202f? Rendez-vous sur <a href="https://www.onbloquelextremedroite.fr/" ${EXTERNAL}>onbloquelextremedroite.fr</a>, par <a href="https://www.instagram.com/mise__au__poing/" ${EXTERNAL}>Mise au poing</a>.</p></section>
   </div>
   ${showcaseSection(list)}
   ${visualsSection()}
