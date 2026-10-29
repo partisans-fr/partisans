@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 
 // La page du site ne doit rien charger hors de son dossier : ni script, ni style, ni police, ni image.
 
@@ -43,4 +43,51 @@ test('le manifeste et ses icônes existent aux bonnes tailles', () => {
   for (const icon of manifest.icons) assert.equal(pngSize(icon.src), icon.sizes, icon.src);
   assert.equal(pngSize('icons/apple-touch-icon.png'), '180x180');
   assert.equal(pngSize('partage.png'), '1200x630');
+});
+
+const siteFiles = readdirSync(new URL('../site/', import.meta.url), { recursive: true });
+const stylesheets = [...page.matchAll(/<link rel="stylesheet" href="([^"]+)">/g)].map(([, href]) => href);
+
+test('tout fichier appelé par la page existe', () => {
+  for (const [, ref] of page.matchAll(/\b(?:src|href)="([^"]+)"/g)) assert.ok(existsSync(siteFile(ref)), ref);
+});
+
+test('les feuilles de style ne chargent que des fichiers du site', () => {
+  assert.ok(stylesheets.length >= 1);
+  for (const sheet of stylesheets) {
+    const text = readFileSync(siteFile(sheet), 'utf8');
+    assert.doesNotMatch(text, /@import/, sheet);
+    for (const [, url] of text.matchAll(/url\(\s*['"]?([^'")]+)/g)) {
+      assert.doesNotMatch(url, /^(?:[a-z]+:|\/\/)/, url);
+      assert.ok(existsSync(siteFile(url)), url);
+    }
+  }
+});
+
+test('les polices sont servies par le site, avec leur licence', () => {
+  for (const font of ['bricolage-grotesque', 'newsreader', 'newsreader-italique']) {
+    assert.equal(readFileSync(siteFile(`polices/${font}.woff2`)).toString('latin1', 0, 4), 'wOF2', font);
+  }
+  for (const license of ['OFL-bricolage-grotesque.txt', 'OFL-newsreader.txt']) {
+    assert.match(readFileSync(siteFile(`polices/${license}`), 'utf8'), /SIL Open Font License/);
+  }
+});
+
+test('les couleurs du navigateur sont celles de la charte', () => {
+  const manifest = JSON.parse(readFileSync(siteFile('manifest.webmanifest'), 'utf8'));
+  assert.equal(manifest.theme_color, '#C2341F');
+  assert.equal(manifest.background_color, '#EFEBE3');
+  assert.ok(page.includes('<meta name="theme-color" content="#C2341F">'));
+});
+
+test('les images vectorielles n\'embarquent aucune métadonnée', () => {
+  for (const file of siteFiles.filter((f) => f.endsWith('.svg'))) {
+    assert.doesNotMatch(readFileSync(siteFile(file), 'utf8'), /<metadata|c2pa/i, file);
+  }
+});
+
+test('aucun tiret cadratin dans les fichiers du site', () => {
+  for (const file of siteFiles.filter((f) => /\.(?:html|css|js|json|webmanifest)$/.test(f))) {
+    assert.ok(!readFileSync(siteFile(file), 'utf8').includes(String.fromCodePoint(0x2014)), file);
+  }
 });

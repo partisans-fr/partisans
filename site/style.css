@@ -1,5 +1,47 @@
 /* Partisans : esprit de l'affiche, pensé d'abord pour le téléphone. Polices du système uniquement. */
 
+/* Identité définitive (piste C v3) : jetons et polices hébergées sur le site. */
+:root {
+  --rouge: #C2341F;
+  --rouge-clair: #E8624B;
+  --rouge-fantome: #AD2D1A;
+  --encre: #24221F;
+  --papier: #EFEBE3;
+  --papier-carte: #F6F3EC;
+  --filet-clair: #CFC9BD;
+  --gris-meta: #6B665D;
+  --ardoise: #4E5D70;
+  --ocre: #C49A4E;
+  --sauge: #8E9C80;
+  --sortie: cubic-bezier(.2, .7, .1, 1);
+  --levee: cubic-bezier(.16, .8, .2, 1);
+  --font-titre: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-texte: 'Newsreader', Georgia, serif;
+}
+
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url(polices/bricolage-grotesque.woff2) format('woff2');
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Newsreader';
+  src: url(polices/newsreader.woff2) format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Newsreader';
+  src: url(polices/newsreader-italique.woff2) format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
   --rouge: #d4202f;
   --jaune: #f2b705;
