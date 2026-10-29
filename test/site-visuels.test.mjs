@@ -98,20 +98,26 @@ test('les groupes, dans l\'ordre', () => {
   assertInOrder(section, [
     '<h3>Logos et bandeau</h3>',
     '<ul class="visuels visuels-logos">',
-    '<h3>Posts carrés · 1080 × 1080</h3>',
+    '<h3>Carrousel · 1080 × 1080</h3>',
     '<ul class="visuels visuels-posts">',
     '<h3>Stories · 1080 × 1920</h3>',
     '<div class="grille-stories"><ul class="visuels visuels-stories">',
   ]);
 });
 
-test('un post se télécharge depuis sa vignette', () => {
-  assert.ok(section.includes('<li class="visuel" data-anim="drop"><a href="visuels/soyons-partisans-post-haine.jpg" download data-visuel><span class="visuel-image"><img src="img/vignette-post-haine.webp" width="800" height="800" alt="" loading="lazy" decoding="async"></span><span class="visuel-texte"><span class="visuel-nom">Leur haine vit de tes clics.</span></span><span class="visuel-action" aria-hidden="true"><span class="action-mot">Télécharger </span>↓</span></a></li>'));
+test('une slide du carrousel se télécharge depuis sa vignette', () => {
+  assert.ok(section.includes('<li class="visuel" data-anim="drop"><a href="visuels/soyons-partisans-slide-1.jpg" download data-visuel><span class="visuel-image"><img src="img/vignette-slide-1.webp" width="800" height="800" alt="" loading="lazy" decoding="async"></span><span class="visuel-texte"><span class="visuel-nom">Slide 1</span></span><span class="visuel-action" aria-hidden="true"><span class="action-mot">Télécharger </span>↓</span></a></li>'));
 });
 
 test('un logo dit son format et son usage', () => {
   const badge = section.match(/<li class="visuel"[^>]*><a href="visuels\/soyons-partisans-badge.png".*?<\/li>/s)[0];
   assert.ok(badge.includes('<span class="visuel-texte"><span class="visuel-nom">Badge</span><span class="visuel-detail">PNG · avatar, sticker</span></span><span class="visuel-action" aria-hidden="true">↓</span>'));
+});
+
+test('les slides du carrousel sont numérotées dans l\'ordre', () => {
+  const carousel = VISUAL_GROUPS.find((group) => group.kind === 'posts').visuals;
+  assert.deepEqual(carousel.map((visual) => visual.name), ['Slide 1', 'Slide 2', 'Slide 3']);
+  assert.deepEqual(carousel.map((visual) => basename(visual.file)), ['soyons-partisans-slide-1.jpg', 'soyons-partisans-slide-2.jpg', 'soyons-partisans-slide-3.jpg']);
 });
 
 test('huit visuels, huit cartes qui tombent', () => {

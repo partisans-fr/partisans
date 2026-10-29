@@ -11,10 +11,10 @@ export const VISUAL_GROUPS = [
     { name: 'Bloc', detail: 'PNG · bannière, en-tête', file: 'visuels/soyons-partisans-bloc.png', thumbnail: 'img/vignette-bloc.webp', width: 640, height: 232 },
     { name: 'Bandeau de profil', detail: 'JPG 1500 × 500 · X, Bluesky, Facebook', file: 'visuels/soyons-partisans-bandeau-profil.jpg', thumbnail: 'img/vignette-bandeau-profil.webp', width: 1200, height: 400 },
   ] },
-  { kind: 'posts', title: 'Posts carrés · 1080 × 1080', visuals: [
-    { name: 'Leur haine vit de tes clics.', file: 'visuels/soyons-partisans-post-haine.jpg', thumbnail: 'img/vignette-post-haine.webp', width: 800, height: 800 },
-    { name: 'De la force pour ceux qui luttent.', file: 'visuels/soyons-partisans-post-force.jpg', thumbnail: 'img/vignette-post-force.webp', width: 800, height: 800 },
-    { name: 'Ne leur réponds pas.', file: 'visuels/soyons-partisans-post-reponds.jpg', thumbnail: 'img/vignette-post-reponds.webp', width: 800, height: 800 },
+  { kind: 'posts', title: 'Carrousel · 1080 × 1080', visuals: [
+    { name: 'Slide 1', file: 'visuels/soyons-partisans-slide-1.jpg', thumbnail: 'img/vignette-slide-1.webp', width: 800, height: 800 },
+    { name: 'Slide 2', file: 'visuels/soyons-partisans-slide-2.jpg', thumbnail: 'img/vignette-slide-2.webp', width: 800, height: 800 },
+    { name: 'Slide 3', file: 'visuels/soyons-partisans-slide-3.jpg', thumbnail: 'img/vignette-slide-3.webp', width: 800, height: 800 },
   ] },
   { kind: 'stories', title: 'Stories · 1080 × 1920', visuals: [
     { name: 'Soyons partisans.', file: 'visuels/soyons-partisans-story-soyons.jpg', thumbnail: 'img/vignette-story-soyons.webp', width: 600, height: 1067 },
