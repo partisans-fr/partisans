@@ -2,7 +2,7 @@
 
 Un site, pour téléphone et pour ordi, qui abonne la personne, réseau par réseau, à des comptes de gauche qui combattent l'extrême droite. Un appui sur « Suivre » ouvre la page ou l'appli de la plateforme ; la progression reste dans le navigateur.
 
-Le site : https://partisans.netlify.app/
+Le site : https://soyonspartisans.fr/
 
 ## Principes
 
@@ -31,7 +31,7 @@ Il refuse tout commit qui contiendrait une identité non anonyme, un chemin abso
 - **Compteur** : `netlify/functions/compter.mjs` additionne les deux totaux dans le magasin Netlify Blobs `compteur` (clé `totaux`). Pour les lire : interface Netlify, Data & Storage > Blobs.
 - **Dernier post** : `netlify/functions/dernier-post.mjs` mène au dernier post Bluesky d'un compte de la liste, cherché côté serveur.
 
-Le site est servi par Netlify depuis le dossier `site/` (voir `netlify.toml`), à l'adresse https://partisans.netlify.app/.
+Le site est servi par Netlify depuis le dossier `site/` (voir `netlify.toml`), à l'adresse https://soyonspartisans.fr/ (https://partisans.netlify.app/ y redirige).
 
 ## Licence
 

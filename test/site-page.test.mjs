@@ -30,7 +30,7 @@ const pngSize = (path) => {
 };
 
 test('l\'image de partage vit à côté de l\'adresse du site', () => {
-  assert.equal(meta('og:url'), 'https://partisans.netlify.app/');
+  assert.equal(meta('og:url'), 'https://soyonspartisans.fr/');
   assert.equal(meta('og:image'), `${meta('og:url')}partage.png`);
 });
 
