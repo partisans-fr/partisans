@@ -42,7 +42,7 @@ test('Continuer attend un réseau et une instance valide', () => {
 
 test('chaque réseau est une ligne à cocher, qui compte ses comptes une fois cochée', () => {
   const html = render('#reseaux', { platforms: ['instagram', 'bluesky'] });
-  assert.ok(html.includes('<h1>Sur quels réseaux es-tu ?</h1>'));
+  assert.ok(html.includes('<h1>Sur quels réseaux es-tu\u202f?</h1>'));
   assert.ok(html.includes('<fieldset class="reseaux"><legend>Coche tes réseaux</legend>'));
   assert.ok(html.includes('<label class="reseau"><input type="checkbox" name="platform" value="instagram" checked><span class="case" aria-hidden="true"><span class="coche">✓</span></span><span class="nom">Instagram</span><span class="nombre">3 comptes</span></label>'));
   assert.ok(html.includes('<label class="reseau"><input type="checkbox" name="platform" value="bluesky" checked><span class="case" aria-hidden="true"><span class="coche">✓</span></span><span class="nom">Bluesky</span><span class="nombre">1 compte</span></label>'));
@@ -142,7 +142,7 @@ test('la fin compte les abonnements et porte le message', () => {
     'Aime.',
     'Partage.',
     'Commente.',
-    'Et l\'extrême droite ?',
+    'Et l\'extrême droite\u202f?',
     'Ignore-la.',
     'Ne réponds pas, ne cite pas, passe ton chemin.',
     '<p class="liens"><a href="#liste">Revenir à ma liste</a></p>',
@@ -161,10 +161,17 @@ test('chaque écran du parcours a la barre au logo et au plus un bouton rouge pl
   assert.ok(render('#liste/instagram', fields).includes('<a class="btn secondaire" href="#fin">J\'ai fini</a>'));
 });
 
+test('un « ? » suit toujours une espace insécable fine', () => {
+  const fields = { platforms: ['instagram', 'bluesky'], followed: ['instagram:alicemartin'] };
+  const screens = ['', '#reseaux', '#categories', '#liste/instagram', '#fin'].map((hash) => render(hash, fields));
+  for (const html of screens) assert.doesNotMatch(html, /[ \u00a0\t\n]\?/);
+  assert.equal(screens.join('').match(/\u202f\?/g).length, 9);
+});
+
 test('chaque compte propose de commenter son dernier post', () => {
   const html = render('#liste/instagram', { platforms: ['instagram'], followed: ['instagram:alicemartin'] });
-  assert.ok(html.includes(`<a class="commenter" data-comment="instagram:lejournal" href="https://www.instagram.com/lejournal/" ${EXTERNAL} aria-label="Déjà abonné ? Commenter leur dernier post : Le Journal">Déjà abonné ? Commenter leur dernier post →</a></li>`));
+  assert.ok(html.includes(`<a class="commenter" data-comment="instagram:lejournal" href="https://www.instagram.com/lejournal/" ${EXTERNAL} aria-label="Déjà abonné\u202f? Commenter leur dernier post : Le Journal">Déjà abonné\u202f? Commenter leur dernier post →</a></li>`));
   assert.ok(html.includes(`<a class="commenter" data-comment="instagram:alicemartin" href="https://www.instagram.com/alicemartin/" ${EXTERNAL} aria-label="Commenter leur dernier post : Alice Martin">Commenter leur dernier post →</a></li>`));
-  assert.ok(render('#liste/youtube', { platforms: ['youtube'] }).includes('aria-label="Déjà abonné ? Commenter leur dernier post : L&#39;Écho &amp; &lt;Cie&gt;"'));
+  assert.ok(render('#liste/youtube', { platforms: ['youtube'] }).includes('aria-label="Déjà abonné\u202f? Commenter leur dernier post : L&#39;Écho &amp; &lt;Cie&gt;"'));
   assert.ok(render('#liste/bluesky', { platforms: ['bluesky'], categories: ['media'] }).includes('href="/.netlify/functions/dernier-post?compte=bluesky%3Alejournal.bsky.social"'));
 });

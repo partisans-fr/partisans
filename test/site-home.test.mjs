@@ -78,7 +78,7 @@ test('les boutons de l\'accueil ouvrent le parcours ou défilent dans la page', 
 });
 
 test('la consigne renvoie vers On bloque l\'extrême droite', () => {
-  assert.ok(home().includes(`<p class="coin-blocage">Tu veux bloquer les comptes d'extrême droite pour ne plus les voir du tout ? Rendez-vous sur <a href="https://www.onbloquelextremedroite.fr/" ${EXTERNAL}>onbloquelextremedroite.fr</a>, par Mise au poing.</p></section>`));
+  assert.ok(home().includes(`<p class="coin-blocage">Tu veux bloquer les comptes d'extrême droite pour ne plus les voir du tout\u202f? Rendez-vous sur <a href="https://www.onbloquelextremedroite.fr/" ${EXTERNAL}>onbloquelextremedroite.fr</a>, par Mise au poing.</p></section>`));
 });
 
 test('l\'accueil propose de reprendre seulement si la liste est accessible', () => {

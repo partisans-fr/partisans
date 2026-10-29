@@ -47,7 +47,7 @@ function platformsScreen({ list, state }) {
       ${normalizeInstance(state.mastodonInstance) ? '' : '<p class="aide">Indique ton instance, par exemple mastodon.social.</p>'}`
     : '';
   return `${bar(step(1))}<div class="contenu">
-    <h1>Sur quels réseaux es-tu ?</h1>
+    <h1>Sur quels réseaux es-tu\u202f?</h1>
     <fieldset class="reseaux"><legend>Coche tes réseaux</legend>${rows}</fieldset>
     ${instance}
     <div class="actions">${button('Continuer', platformsReady(state) ? '#categories' : null)}</div>
@@ -68,7 +68,7 @@ function categoriesScreen({ list, state }) {
     })
     .join('\n');
   return `${bar(step(2))}<div class="contenu">
-    <h1>Qui veux-tu suivre ?</h1>
+    <h1>Qui veux-tu suivre\u202f?</h1>
     <fieldset class="categories"><legend>Coche ce qui t'intéresse</legend>${rows}</fieldset>
     <div class="actions">${seeAccountsButton(selectionCount(list, state))}</div>
     <p class="liens"><a href="#reseaux">Changer mes réseaux</a></p>
@@ -83,7 +83,7 @@ function accountRow(entry, state) {
   const action = followed
     ? `<button data-unfollow="${key}" aria-label="Annuler le suivi : ${name}">Annuler</button> <span class="suivi">✓ Suivi</span>`
     : `<a class="suivre" data-follow="${key}" href="${escapeHtml(followUrl(entry, { mastodonInstance }))}" ${EXTERNAL} aria-label="Suivre ${name}">Suivre</a>`;
-  const commentLabel = followed ? 'Commenter leur dernier post' : 'Déjà abonné ? Commenter leur dernier post';
+  const commentLabel = followed ? 'Commenter leur dernier post' : 'Déjà abonné\u202f? Commenter leur dernier post';
   const comment = `<a class="commenter" data-comment="${key}" href="${escapeHtml(commentUrl(entry, { mastodonInstance }))}" ${EXTERNAL} aria-label="${commentLabel} : ${name}">${commentLabel} →</a>`;
   return `<li class="compte"><span class="nom">${name}</span><span class="action">${action}</span>${comment}</li>`;
 }
@@ -120,7 +120,7 @@ function listScreen({ list, state, starterPackUrl }, platform) {
     <div class="actions">${button('J\'ai fini', '#fin', { secondary: true })}</div>
     <p class="liens"><a href="#reseaux">Changer mes réseaux</a> <a href="#categories">Changer mes catégories</a></p>
     <footer class="pied">
-      <a href="${escapeHtml(list.contestUrl)}" ${EXTERNAL}>Un compte erroné ? Signale-le</a>
+      <a href="${escapeHtml(list.contestUrl)}" ${EXTERNAL}>Un compte erroné\u202f? Signale-le</a>
       ${list.suggestUrl ? `<a href="${escapeHtml(list.suggestUrl)}" ${EXTERNAL}>Suggérer un compte</a>` : ''}
     </footer>
     </div>`;
@@ -139,7 +139,7 @@ function endScreen({ list, state }) {
     <h1>${title}</h1>
     <p>Maintenant, chaque jour, sur leurs posts :</p>
     <ul class="verbes"><li>Aime.</li><li>Partage.</li><li>Commente.</li></ul>
-    <p class="ignore">Et l'extrême droite ? <strong>Ignore-la.</strong> Ne réponds pas, ne cite pas, passe ton chemin.</p>
+    <p class="ignore">Et l'extrême droite\u202f? <strong>Ignore-la.</strong> Ne réponds pas, ne cite pas, passe ton chemin.</p>
     <p class="liens"><a href="#liste">Revenir à ma liste</a></p>
     </div>
     <div class="fin-partage"><p class="mot">Fais passer le mot.</p><button class="btn" data-share>Partager le site</button><p class="statut" role="status"></p><p class="adresse">soyonspartisans.fr</p></div>
