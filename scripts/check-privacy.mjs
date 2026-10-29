@@ -69,6 +69,8 @@ function jpegMetadataProblems(buffer) {
     if ((marker >= 0xe1 && marker <= 0xef) || marker === 0xfe) problems.push(`segment JPEG ${JPEG_MARKER_NAMES[marker] ?? 'APPn'}`);
     offset += 2 + buffer.readUInt16BE(offset + 2);
   }
+  // Certains logiciels collent leurs métadonnées après la fin de l'image (marqueur FFD9).
+  if (buffer.length < 2 || buffer.readUInt16BE(buffer.length - 2) !== 0xffd9) problems.push('données après la fin de l\'image JPEG');
   return problems;
 }
 

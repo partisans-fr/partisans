@@ -66,14 +66,16 @@ def to_width(image, width):
 
 
 def strip_jpeg(data: bytes) -> bytes:
-    """Garde le JPEG entier sauf ses segments APP1 à APP15 et ses commentaires, sans réencoder."""
+    """Garde le JPEG entier sauf ses segments APP1 à APP15, ses commentaires et ce qui suit la fin
+    de l'image (marqueur FFD9), sans réencoder."""
     kept, i = bytearray(data[:2]), 2
     while data[i] == 0xFF and data[i + 1] != 0xDA:
         marker, length = data[i + 1], int.from_bytes(data[i + 2:i + 4], 'big')
         if not (0xE1 <= marker <= 0xEF or marker == 0xFE):
             kept += data[i:i + 2 + length]
         i += 2 + length
-    return bytes(kept + data[i:])
+    end = data.rfind(b'\xff\xd9') + 2
+    return bytes(kept + data[i:end])
 
 
 def write_archive(destination, files):

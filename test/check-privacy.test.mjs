@@ -15,7 +15,7 @@ const webp = (...types) => {
   return Buffer.concat([head, body]);
 };
 const jpeg = (...markers) =>
-  Buffer.concat([Buffer.from([0xff, 0xd8]), ...markers.map((m) => Buffer.from([0xff, m, 0, 4, 0, 0])), Buffer.from([0xff, 0xda, 0, 2])]);
+  Buffer.concat([Buffer.from([0xff, 0xd8]), ...markers.map((m) => Buffer.from([0xff, m, 0, 4, 0, 0])), Buffer.from([0xff, 0xda, 0, 2, 1, 2, 3, 0xff, 0xd9])]);
 
 test('un WebP sans métadonnées passe', () => {
   assert.deepEqual(imageProblems('a.webp', webp('VP8X', 'ALPH', 'VP8 ')), []);
@@ -38,4 +38,8 @@ test('un JPEG ne garde que son segment JFIF', () => {
 test('les autres formats d\'image restent refusés, le reste passe', () => {
   assert.equal(imageProblems('a.gif', Buffer.alloc(0)).length, 1);
   assert.deepEqual(imageProblems('a.txt', Buffer.from('texte')), []);
+});
+
+test('un JPEG avec des données après la fin de l\'image est refusé', () => {
+  assert.equal(imageProblems('a.jpg', Buffer.concat([jpeg(0xe0), Buffer.from('<x:xmpmeta>')])).length, 1);
 });
