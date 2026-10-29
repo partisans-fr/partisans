@@ -19,33 +19,38 @@ export function normalizeInstance(input) {
   return DOMAIN.test(domain) ? domain : null;
 }
 
+// Une chaîne dont la liste connaît l'identifiant (champ id) passe par son adresse /channel/, qui ne
+// dépend pas des redirections de YouTube : certaines adresses en @ mènent à une page cassée.
+const youtubeChannel = ({ handle, id }) =>
+  id ? `https://www.youtube.com/channel/${id}` : `https://www.youtube.com/@${encodeURIComponent(handle)}`;
+
 const FOLLOW_URLS = {
-  x: (handle) => `https://x.com/intent/follow?screen_name=${handle}`,
-  instagram: (handle) => `https://www.instagram.com/${handle}/`,
-  tiktok: (handle) => `https://www.tiktok.com/@${handle}`,
-  youtube: (handle) => `https://www.youtube.com/@${encodeURIComponent(handle)}?sub_confirmation=1`,
-  threads: (handle) => `https://www.threads.com/intent/follow?username=${handle}`,
-  bluesky: (handle) => `https://bsky.app/profile/${handle}`,
-  mastodon: (handle, instance) => `https://${instance}/authorize_interaction?uri=${encodeURIComponent(handle)}`,
-  facebook: (handle) => `https://www.facebook.com/${handle}`,
+  x: ({ handle }) => `https://x.com/intent/follow?screen_name=${handle}`,
+  instagram: ({ handle }) => `https://www.instagram.com/${handle}/`,
+  tiktok: ({ handle }) => `https://www.tiktok.com/@${handle}`,
+  youtube: (entry) => `${youtubeChannel(entry)}?sub_confirmation=1`,
+  threads: ({ handle }) => `https://www.threads.com/intent/follow?username=${handle}`,
+  bluesky: ({ handle }) => `https://bsky.app/profile/${handle}`,
+  mastodon: ({ handle }, instance) => `https://${instance}/authorize_interaction?uri=${encodeURIComponent(handle)}`,
+  facebook: ({ handle }) => `https://www.facebook.com/${handle}`,
 };
 
 // `mastodonInstance` est déjà normalisée par normalizeInstance.
-export const followUrl = (entry, { mastodonInstance }) => FOLLOW_URLS[entry.platform](entry.handle, mastodonInstance);
+export const followUrl = (entry, { mastodonInstance }) => FOLLOW_URLS[entry.platform](entry, mastodonInstance);
 
 // Profil public du compte, pour la vitrine : pas d'intention d'abonnement, et le compte Mastodon sur
 // son instance (le visiteur n'a pas encore donné la sienne).
 const PROFILE_URLS = {
-  x: (handle) => `https://x.com/${handle}`,
-  youtube: (handle) => `https://www.youtube.com/@${encodeURIComponent(handle)}`,
-  threads: (handle) => `https://www.threads.com/@${handle}`,
-  mastodon: (handle) => {
+  x: ({ handle }) => `https://x.com/${handle}`,
+  youtube: youtubeChannel,
+  threads: ({ handle }) => `https://www.threads.com/@${handle}`,
+  mastodon: ({ handle }) => {
     const [name, instance] = handle.replace(/^@/, '').split('@');
     return `https://${instance}/@${name}`;
   },
 };
 
-export const profileUrl = (entry) => (PROFILE_URLS[entry.platform] ?? FOLLOW_URLS[entry.platform])(entry.handle);
+export const profileUrl = (entry) => (PROFILE_URLS[entry.platform] ?? FOLLOW_URLS[entry.platform])(entry);
 
 // « Commenter leur dernier post » : Bluesky passe par la fonction dernier-post (recherche côté serveur),
 // Mastodon ouvre le compte sur l'instance du visiteur, YouTube les vidéos de la chaîne (la plus récente

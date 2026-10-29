@@ -22,6 +22,13 @@ test('un pseudo YouTube hors ASCII est encodé', () => {
   assert.equal(followUrl(entry, { mastodonInstance: null }), 'https://www.youtube.com/@m%C3%A9dia%C3%A7%C3%A0?sub_confirmation=1');
 });
 
+test('une chaîne YouTube notée avec son identifiant passe par son adresse /channel/', () => {
+  const entry = { ...entryOf('youtube'), id: 'UCbOdpYBG53zmFuDK0qaTSmw' };
+  assert.equal(followUrl(entry, { mastodonInstance: null }), 'https://www.youtube.com/channel/UCbOdpYBG53zmFuDK0qaTSmw?sub_confirmation=1');
+  assert.equal(profileUrl(entry), 'https://www.youtube.com/channel/UCbOdpYBG53zmFuDK0qaTSmw');
+  assert.equal(commentUrl(entry, { mastodonInstance: null }), 'https://www.youtube.com/channel/UCbOdpYBG53zmFuDK0qaTSmw/videos');
+});
+
 test('l\'instance Mastodon se reconnaît sous toutes ses formes', () => {
   assert.equal(normalizeInstance('mastodon.social'), 'mastodon.social');
   assert.equal(normalizeInstance(' Piaille.FR '), 'piaille.fr');
