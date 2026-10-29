@@ -11,10 +11,13 @@ export const VISUAL_GROUPS = [
     { name: 'Bloc', detail: 'PNG · bannière, en-tête', file: 'visuels/soyons-partisans-bloc.png', thumbnail: 'img/vignette-bloc.webp', width: 640, height: 232 },
     { name: 'Bandeau de profil', detail: 'JPG 1500 × 500 · X, Bluesky, Facebook', file: 'visuels/soyons-partisans-bandeau-profil.jpg', thumbnail: 'img/vignette-bandeau-profil.webp', width: 1200, height: 400 },
   ] },
-  { kind: 'posts', title: 'Carrousel · 1080 × 1080', visuals: [
-    { name: 'Slide 1', file: 'visuels/soyons-partisans-slide-1.jpg', thumbnail: 'img/vignette-slide-1.webp', width: 800, height: 800 },
-    { name: 'Slide 2', file: 'visuels/soyons-partisans-slide-2.jpg', thumbnail: 'img/vignette-slide-2.webp', width: 800, height: 800 },
-    { name: 'Slide 3', file: 'visuels/soyons-partisans-slide-3.jpg', thumbnail: 'img/vignette-slide-3.webp', width: 800, height: 800 },
+  { kind: 'carrousel', title: 'Carrousel 1 · 1080 × 1080', visuals: [
+    { name: 'Slide 1', file: 'visuels/soyons-partisans-carrousel-1-slide-1.jpg', thumbnail: 'img/vignette-carrousel-1-slide-1.webp', width: 800, height: 800 },
+    { name: 'Slide 2', file: 'visuels/soyons-partisans-carrousel-1-slide-2.jpg', thumbnail: 'img/vignette-carrousel-1-slide-2.webp', width: 800, height: 800 },
+  ] },
+  { kind: 'carrousel', title: 'Carrousel 2 · 1080 × 1080', visuals: [
+    { name: 'Slide 1', file: 'visuels/soyons-partisans-carrousel-2-slide-1.jpg', thumbnail: 'img/vignette-carrousel-2-slide-1.webp', width: 800, height: 800 },
+    { name: 'Slide 2', file: 'visuels/soyons-partisans-carrousel-2-slide-2.jpg', thumbnail: 'img/vignette-carrousel-2-slide-2.webp', width: 800, height: 800 },
   ] },
   { kind: 'stories', title: 'Stories · 1080 × 1920', visuals: [
     { name: 'Soyons partisans.', file: 'visuels/soyons-partisans-story-soyons.jpg', thumbnail: 'img/vignette-story-soyons.webp', width: 600, height: 1067 },
@@ -25,7 +28,7 @@ export const VISUAL_GROUPS = [
 // Une carte : la vignette, la légende (cachée à l'œil sur téléphone) et la flèche. Le lien télécharge
 // le fichier en pleine taille ; sur iPhone, app.js ouvre plutôt le menu de partage (data-visuel).
 function visualCard({ name, detail, file, thumbnail, width, height }, kind) {
-  const action = kind === 'posts' ? '<span class="action-mot">Télécharger </span>↓' : '↓';
+  const action = kind === 'carrousel' ? '<span class="action-mot">Télécharger </span>↓' : '↓';
   const detailText = detail ? `<span class="visuel-detail">${escapeHtml(detail)}</span>` : '';
   return `<li class="visuel" data-anim="drop"><a href="${file}" download data-visuel><span class="visuel-image"><img src="${thumbnail}" width="${width}" height="${height}" alt="" loading="lazy" decoding="async"></span><span class="visuel-texte"><span class="visuel-nom">${escapeHtml(name)}</span>${detailText}</span><span class="visuel-action" aria-hidden="true">${action}</span></a></li>`;
 }
@@ -38,10 +41,14 @@ function visualGroup({ kind, title, visuals }) {
   return `<div class="groupe-visuels"><h3>${escapeHtml(title)}</h3>${body}</div>`;
 }
 
+// Les carrousels vont côte à côte, dans une même grille.
 export function visualsSection() {
+  const groups = (kind) => VISUAL_GROUPS.filter((group) => group.kind === kind).map(visualGroup).join('');
   return `<section class="fais-tourner" id="fais-tourner" tabindex="-1">
     <div class="section-tete"><h2>Fais tourner</h2><p>Télécharge les visuels et partage-les sur tes réseaux.</p><a class="btn secondaire tout-telecharger" href="${ARCHIVE_URL}" download>Tout télécharger ↓</a></div>
-    ${VISUAL_GROUPS.map(visualGroup).join('\n    ')}
+    ${groups('logos')}
+    <div class="grille-carrousels">${groups('carrousel')}</div>
+    ${groups('stories')}
   </section>`;
 }
 

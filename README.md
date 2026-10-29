@@ -2,7 +2,7 @@
 
 Un site, pour téléphone et pour ordi, qui abonne la personne, réseau par réseau, à des comptes de gauche qui combattent l'extrême droite. Un appui sur « Suivre » ouvre la page ou l'appli de la plateforme ; la progression reste dans le navigateur.
 
-La section « Fais tourner » de l'accueil propose les visuels du projet à télécharger un par un (logos, bandeau de profil, carrousel, stories), ou tous d'un coup dans un zip sur ordi.
+La section « Fais tourner » de l'accueil propose les visuels du projet à télécharger un par un (logos, bandeau de profil, deux carrousels, stories), ou tous d'un coup dans un zip sur ordi.
 
 Le site : https://soyonspartisans.fr/
 

@@ -286,6 +286,11 @@
   text-transform: uppercase;
 }
 
+.grille-carrousels {
+  display: grid;
+  gap: 16px;
+}
+
 .grille-stories {
   display: grid;
   gap: 10px;
@@ -685,8 +690,10 @@
     grid-column: auto;
   }
 
-  .visuels-posts {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* Les deux carrousels côte à côte, deux slides chacun : quatre colonnes égales. */
+  .grille-carrousels {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
   }
 
   .visuel a {
@@ -788,11 +795,11 @@
 
 /* Téléphone : le carrousel garde son numéro de slide sous l'image, pour être posté dans l'ordre. */
 @media (max-width: 899px) {
-  .visuels-posts .visuel-image {
+  .visuels-carrousel .visuel-image {
     border-bottom: var(--filet);
   }
 
-  .visuels-posts .visuel-texte {
+  .visuels-carrousel .visuel-texte {
     position: static;
     width: auto;
     height: auto;
@@ -802,11 +809,11 @@
     padding: 6px 0 6px 10px;
   }
 
-  .visuels-posts .visuel-nom {
+  .visuels-carrousel .visuel-nom {
     font: 800 14px/1.3 var(--font-texte);
   }
 
-  .visuels-posts .visuel-action {
+  .visuels-carrousel .visuel-action {
     position: static;
     align-self: center;
     padding: 6px 10px;

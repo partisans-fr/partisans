@@ -23,10 +23,11 @@ ROUGE = '#D7261E'
 DOWNLOADS = [
     ('complements/badge.png', 'soyons-partisans-badge.png'),
     ('complements/bloc.png', 'soyons-partisans-bloc.png'),
-    ('complements/bandeau-profil.jpg', 'soyons-partisans-bandeau-profil.jpg'),
-    ('visuels-jpg/01-posts/post-1-haine.jpg', 'soyons-partisans-slide-1.jpg'),
-    ('visuels-jpg/01-posts/post-2-force.jpg', 'soyons-partisans-slide-2.jpg'),
-    ('visuels-jpg/01-posts/post-3-reponds.jpg', 'soyons-partisans-slide-3.jpg'),
+    ('visuels-jpg-2/bandeau-profil.jpg', 'soyons-partisans-bandeau-profil.jpg'),
+    ('visuels-jpg-2/carrousel-A/1-extreme-droite-vit-de-tes-clics.jpg', 'soyons-partisans-carrousel-1-slide-1.jpg'),
+    ('visuels-jpg-2/carrousel-A/2-ne-lui-reponds-pas.jpg', 'soyons-partisans-carrousel-1-slide-2.jpg'),
+    ('visuels-jpg-2/carrousel-B/1-donne-de-la-force.jpg', 'soyons-partisans-carrousel-2-slide-1.jpg'),
+    ('visuels-jpg-2/carrousel-B/2-ne-lui-reponds-pas.jpg', 'soyons-partisans-carrousel-2-slide-2.jpg'),
     ('visuels-jpg/02-stories/story-1-soyons.jpg', 'soyons-partisans-story-soyons.jpg'),
     ('visuels-jpg/02-stories/story-2-consigne.jpg', 'soyons-partisans-story-consigne.jpg'),
 ]
@@ -34,10 +35,11 @@ DOWNLOADS = [
 THUMBNAILS = [
     ('complements/badge.png', 'vignette-badge.webp', 480),
     ('complements/bloc.png', 'vignette-bloc.webp', 640),
-    ('complements/bandeau-profil.jpg', 'vignette-bandeau-profil.webp', 1200),
-    ('visuels-jpg/01-posts/post-1-haine.jpg', 'vignette-slide-1.webp', 800),
-    ('visuels-jpg/01-posts/post-2-force.jpg', 'vignette-slide-2.webp', 800),
-    ('visuels-jpg/01-posts/post-3-reponds.jpg', 'vignette-slide-3.webp', 800),
+    ('visuels-jpg-2/bandeau-profil.jpg', 'vignette-bandeau-profil.webp', 1200),
+    ('visuels-jpg-2/carrousel-A/1-extreme-droite-vit-de-tes-clics.jpg', 'vignette-carrousel-1-slide-1.webp', 800),
+    ('visuels-jpg-2/carrousel-A/2-ne-lui-reponds-pas.jpg', 'vignette-carrousel-1-slide-2.webp', 800),
+    ('visuels-jpg-2/carrousel-B/1-donne-de-la-force.jpg', 'vignette-carrousel-2-slide-1.webp', 800),
+    ('visuels-jpg-2/carrousel-B/2-ne-lui-reponds-pas.jpg', 'vignette-carrousel-2-slide-2.webp', 800),
     ('visuels-jpg/02-stories/story-1-soyons.jpg', 'vignette-story-soyons.webp', 600),
     ('visuels-jpg/02-stories/story-2-consigne.jpg', 'vignette-story-consigne.webp', 600),
 ]

@@ -33,11 +33,11 @@ test('chaque visuel a son fichier et sa vignette', () => {
 });
 
 test('les visuels gardent leur pleine taille', () => {
-  const expected = ['1080x1080', '1614x584', '1500x500', '1080x1080', '1080x1080', '1080x1080', '1080x1920', '1080x1920'];
+  const expected = ['1080x1080', '1614x584', '1500x500', '1080x1080', '1080x1080', '1080x1080', '1080x1080', '1080x1920', '1080x1920'];
   assert.deepEqual(visuals.map((visual) => sizeOf(visual.file)), expected);
 });
 
-test('le zip contient les huit visuels, tels quels, et rien d\'autre', () => {
+test('le zip contient les neuf visuels, tels quels, et rien d\'autre', () => {
   const zip = readFileSync(siteFile(ARCHIVE_URL));
   const downloads = VISUAL_GROUPS.flatMap((group) => group.visuals.map((visual) => visual.file));
   const entries = [];
@@ -98,15 +98,16 @@ test('les groupes, dans l\'ordre', () => {
   assertInOrder(section, [
     '<h3>Logos et bandeau</h3>',
     '<ul class="visuels visuels-logos">',
-    '<h3>Carrousel · 1080 × 1080</h3>',
-    '<ul class="visuels visuels-posts">',
+    '<div class="grille-carrousels">',
+    '<h3>Carrousel 1 · 1080 × 1080</h3><ul class="visuels visuels-carrousel">',
+    '<h3>Carrousel 2 · 1080 × 1080</h3><ul class="visuels visuels-carrousel">',
     '<h3>Stories · 1080 × 1920</h3>',
     '<div class="grille-stories"><ul class="visuels visuels-stories">',
   ]);
 });
 
 test('une slide du carrousel se télécharge depuis sa vignette', () => {
-  assert.ok(section.includes('<li class="visuel" data-anim="drop"><a href="visuels/soyons-partisans-slide-1.jpg" download data-visuel><span class="visuel-image"><img src="img/vignette-slide-1.webp" width="800" height="800" alt="" loading="lazy" decoding="async"></span><span class="visuel-texte"><span class="visuel-nom">Slide 1</span></span><span class="visuel-action" aria-hidden="true"><span class="action-mot">Télécharger </span>↓</span></a></li>'));
+  assert.ok(section.includes('<li class="visuel" data-anim="drop"><a href="visuels/soyons-partisans-carrousel-1-slide-1.jpg" download data-visuel><span class="visuel-image"><img src="img/vignette-carrousel-1-slide-1.webp" width="800" height="800" alt="" loading="lazy" decoding="async"></span><span class="visuel-texte"><span class="visuel-nom">Slide 1</span></span><span class="visuel-action" aria-hidden="true"><span class="action-mot">Télécharger </span>↓</span></a></li>'));
 });
 
 test('un logo dit son format et son usage', () => {
@@ -114,15 +115,18 @@ test('un logo dit son format et son usage', () => {
   assert.ok(badge.includes('<span class="visuel-texte"><span class="visuel-nom">Badge</span><span class="visuel-detail">PNG · avatar, sticker</span></span><span class="visuel-action" aria-hidden="true">↓</span>'));
 });
 
-test('les slides du carrousel sont numérotées dans l\'ordre', () => {
-  const carousel = VISUAL_GROUPS.find((group) => group.kind === 'posts').visuals;
-  assert.deepEqual(carousel.map((visual) => visual.name), ['Slide 1', 'Slide 2', 'Slide 3']);
-  assert.deepEqual(carousel.map((visual) => basename(visual.file)), ['soyons-partisans-slide-1.jpg', 'soyons-partisans-slide-2.jpg', 'soyons-partisans-slide-3.jpg']);
+test('deux carrousels de deux slides, numérotées dans l\'ordre', () => {
+  const carousels = VISUAL_GROUPS.filter((group) => group.kind === 'carrousel');
+  assert.deepEqual(carousels.map((group) => group.visuals.map((visual) => visual.name)), [['Slide 1', 'Slide 2'], ['Slide 1', 'Slide 2']]);
+  assert.deepEqual(carousels.flatMap((group) => group.visuals.map((visual) => basename(visual.file))), [
+    'soyons-partisans-carrousel-1-slide-1.jpg', 'soyons-partisans-carrousel-1-slide-2.jpg',
+    'soyons-partisans-carrousel-2-slide-1.jpg', 'soyons-partisans-carrousel-2-slide-2.jpg',
+  ]);
 });
 
-test('huit visuels, huit cartes qui tombent', () => {
-  assert.equal(section.match(/data-visuel>/g).length, 8);
-  assert.equal(section.match(/data-anim="drop"/g).length, 8);
+test('neuf visuels, neuf cartes qui tombent', () => {
+  assert.equal(section.match(/data-visuel>/g).length, 9);
+  assert.equal(section.match(/data-anim="drop"/g).length, 9);
 });
 
 test('l\'encadré dit où mettre le lien', () => {
