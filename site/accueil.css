@@ -3,62 +3,73 @@
 
 .barre-liens,
 .barre .btn,
-.panneau,
 .vitrine,
+.pied-accueil .adresse,
 .hero-boutons [data-defiler] {
   display: none;
 }
 
-.bloc-encre :focus-visible,
-.bandeau :focus-visible,
+.panneau :focus-visible,
+.slogan :focus-visible,
 .pied-accueil :focus-visible {
   outline-color: var(--papier);
 }
 
-/* Hero */
+/* Hero : bande rouge et poing au-dessus du texte. */
 
-.hero {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  padding: 28px max(20px, env(safe-area-inset-right)) 28px max(20px, env(safe-area-inset-left));
+.panneau {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+  border-bottom: var(--filet);
+  background: var(--rouge);
+}
+
+/* Centré par transform : l'animation « rise » joue sur la propriété translate, qui s'y ajoute. */
+.poing {
+  position: absolute;
+  top: 26px;
+  left: 50%;
+  width: auto;
+  max-width: none;
+  height: 440px;
+  transform: translateX(-50%);
 }
 
 .hero-texte {
   display: flex;
   flex-direction: column;
   gap: 18px;
+  padding: 26px max(20px, env(safe-area-inset-right)) 30px max(20px, env(safe-area-inset-left));
 }
 
 .surtitre {
   color: var(--rouge);
-  font: 400 12px var(--font-titre);
-  letter-spacing: 0.08em;
+  font: 800 12px/1.3 var(--font-texte);
+  letter-spacing: .12em;
   text-transform: uppercase;
 }
 
-/* Le grand titre monte depuis un masque. Sa marge basse garde les jambages hors du masque. */
-.masque-titre {
-  overflow: hidden;
-}
-
 .hero h1 {
-  padding-bottom: 0.1em;
-  font-weight: 700;
-  font-size: clamp(3rem, 16.4vw, 4rem);
-  line-height: 0.9;
-  letter-spacing: -0.05em;
-  animation: monte 900ms var(--levee) 150ms both;
+  font-size: min(41px, 10.5vw);
+  line-height: 1.08;
 }
 
-@keyframes monte {
-  from {
-    transform: translateY(105%);
-  }
+/* Découpe d'une ligne de titre : l'animation « line » la fait monter de dessous. La marge garde
+   les accents des capitales dans la découpe. */
+.ligne {
+  display: block;
+  overflow: hidden;
+  padding-top: .06em;
+  margin-top: -.06em;
+}
+
+.ligne > span {
+  display: block;
 }
 
 .chapo {
-  font-size: 19px;
+  font-size: 18px;
   line-height: 1.45;
 }
 
@@ -67,21 +78,52 @@
   gap: 12px;
 }
 
-/* Les trois blocs */
+.hero-boutons .btn {
+  font-size: 19px;
+}
+
+.hero .discret {
+  color: var(--gris);
+  font-style: normal;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+/* Bandeau slogan */
+
+.slogan {
+  padding: 18px max(20px, env(safe-area-inset-right)) 18px max(20px, env(safe-area-inset-left));
+  background: var(--noir);
+  color: var(--papier);
+  font: 400 min(22px, 6.6vw)/1.2 var(--font-titre);
+  text-transform: uppercase;
+}
+
+.slogan .phrase,
+.slogan .phrase > span {
+  display: block;
+}
+
+.slogan .rouge {
+  color: var(--rouge);
+}
+
+/* Les trois blocs de la consigne */
 
 .bloc {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 24px max(20px, env(safe-area-inset-right)) 24px max(20px, env(safe-area-inset-left));
-  border-top: 1px solid var(--encre);
+  gap: 12px;
+  padding: 26px max(20px, env(safe-area-inset-right)) 26px max(20px, env(safe-area-inset-left));
+}
+
+.bloc + .bloc {
+  border-top: var(--filet);
 }
 
 .bloc h2 {
-  font-weight: 600;
-  font-size: 30px;
-  line-height: 1;
-  letter-spacing: -0.035em;
+  font-size: 24px;
+  line-height: 1.2;
 }
 
 .bloc p {
@@ -89,75 +131,50 @@
   line-height: 1.5;
 }
 
-.bloc-encre {
-  background: var(--encre);
-  color: var(--papier);
+.bloc-rouge {
+  position: relative;
+  background: var(--rouge);
 }
 
-.bloc-encre em {
+.bloc-rouge em {
+  display: block;
+  color: var(--papier);
   font-style: normal;
-  color: var(--rouge-clair);
+}
+
+/* Voile papier qui se retire pendant l'animation « sweep » ; au repos, il ne couvre rien. */
+.voile {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--papier) url(img/grain.png);
+  clip-path: inset(0 0 0 100%);
+  pointer-events: none;
 }
 
 .bloc .coin-blocage {
-  margin-top: 6px;
+  margin-top: 4px;
   padding-top: 12px;
-  border-top: 1px solid var(--gris-meta);
-  color: var(--filet-clair);
-  font-style: italic;
+  border-top: 1px solid var(--noir);
   font-size: 15px;
   line-height: 1.45;
 }
 
 .coin-blocage a {
-  color: var(--rouge-clair);
+  color: var(--noir);
   text-underline-offset: 3px;
 }
 
-/* Bandeau rouge du téléphone : le poing ton sur ton, et de quoi agir sans remonter. */
+/* Tête de section : titre, phrase et bouton (la liste, « Fais tourner »). */
 
-.bandeau {
-  position: relative;
-  height: 240px;
-  overflow: hidden;
-  background: var(--rouge);
+.section-tete {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.poing {
-  position: absolute;
-  background: var(--rouge-fantome);
-  -webkit-mask: url(img/symbole.svg) center / contain no-repeat;
-  mask: url(img/symbole.svg) center / contain no-repeat;
-}
-
-/* Le disque déborde en haut et à droite ; le poing, entier, s'arrête au-dessus du bouton. */
-.bandeau .poing {
-  top: -68px;
-  right: -60px;
-  width: 300px;
-  height: 300px;
-  transform: translateY(90px);
-}
-
-.bandeau.leve .poing {
-  transform: none;
-  transition: transform 1300ms var(--levee) 300ms;
-}
-
-.btn.papier {
-  position: absolute;
-  left: 20px;
-  right: 20px;
-  bottom: 20px;
-  width: auto;
-  background: var(--papier);
-  color: var(--encre);
-}
-
-.btn.papier:hover,
-.btn.papier:active {
-  background: var(--encre);
-  color: var(--papier);
+.section-tete h2 {
+  font-size: min(2rem, 8.5vw);
 }
 
 /* Pied */
@@ -167,28 +184,31 @@
   flex-direction: column;
   gap: 10px;
   padding: 28px max(20px, env(safe-area-inset-right)) calc(28px + env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
-  border-top: 1px solid var(--rouge);
-  background: var(--encre);
+  background: var(--noir);
   color: var(--papier);
 }
 
-.pied-accueil .symbole {
-  width: 44px;
-  height: 44px;
-  background: var(--rouge-clair);
-  -webkit-mask: url(img/symbole.svg) center / contain no-repeat;
-  mask: url(img/symbole.svg) center / contain no-repeat;
+.pied-poing {
+  flex: none;
+  width: 29px;
+  height: 60px;
+  background: url(img/poing-rouge-180.webp) center / contain no-repeat;
 }
 
 .mot {
-  font: 600 30px/1 var(--font-titre);
-  letter-spacing: -0.035em;
+  font: 400 28px/1.1 var(--font-titre);
+  text-transform: uppercase;
+}
+
+.adresse {
+  color: var(--rouge);
+  font: 400 22px/1.1 var(--font-titre);
+  text-transform: uppercase;
 }
 
 .note {
-  color: var(--filet-clair);
-  font-style: italic;
-  font-size: 15px;
+  color: var(--gris-clair);
+  font-size: 14px;
 }
 
 /* Ordi (référence 1440 px) */
@@ -196,13 +216,13 @@
 @media (min-width: 900px) {
   .barre-liens {
     display: flex;
-    gap: 30px;
+    gap: 32px;
     margin-left: auto;
-    font: 400 16px var(--font-titre);
+    font: 800 16px var(--font-texte);
   }
 
   .barre-liens a {
-    color: var(--encre);
+    color: var(--noir);
     text-decoration: none;
   }
 
@@ -214,54 +234,63 @@
   .barre .btn {
     display: flex;
     width: auto;
-    margin-left: 24px;
-    padding: 11px 19px;
-    font: 600 16px/1.2 var(--font-titre);
+    margin-left: 28px;
+    padding: 13px 20px;
+    font-size: 16px;
   }
 
+  .barre .btn.secondaire {
+    padding: 10px 17px;
+  }
+
+  /* La colonne du texte s'élargit pour le titre ; le panneau prend la deuxième colonne. */
   .hero {
     display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: 24px;
-    padding: 64px 56px 72px;
+    grid-template-columns: 7fr 5fr;
+    min-height: 640px;
+    border-bottom: var(--filet);
   }
 
   .hero-texte {
-    grid-column: span 7;
-    gap: 28px;
+    grid-column: 1;
+    grid-row: 1;
+    justify-content: center;
+    gap: 26px;
+    padding: 64px 56px 56px;
   }
 
   .surtitre {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .hero h1 {
-    font-size: clamp(5.5rem, 10.4vw, 9.375rem);
-    line-height: 0.88;
-    animation-duration: 1000ms;
+    font-size: clamp(4rem, calc(8.9vw - 16px), 7rem);
+    line-height: 1.02;
+  }
+
+  .hero h1 .ligne {
+    white-space: nowrap;
   }
 
   .chapo {
     max-width: 640px;
-    font-size: 25px;
-    line-height: 1.45;
+    font-size: 23px;
   }
 
   .hero-boutons {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 14px;
   }
 
   .hero-boutons .btn {
     width: auto;
-    padding: 17px 28px;
-    font-size: 19px;
+    padding: 18px 28px;
+    font-size: 20px;
   }
 
   .hero-boutons .btn.secondaire {
-    padding: 16px 27px;
-    font-weight: 500;
+    padding: 15px 26px;
   }
 
   .hero-boutons [data-defiler] {
@@ -269,50 +298,49 @@
   }
 
   .hero .discret {
-    font-size: 18px;
-    line-height: 1.4;
+    font-size: 16px;
   }
 
-  .bandeau {
-    display: none;
-  }
-
-  /* Le poing doit rester entier et lisible : il déborde du disque, pas du poing. */
   .panneau {
-    display: block;
-    grid-column: span 5;
-    position: relative;
-    min-height: 560px;
-    overflow: hidden;
-    background: var(--rouge);
+    grid-column: 2;
+    grid-row: 1;
+    height: auto;
+    border-bottom: 0;
+    border-left: var(--filet);
   }
 
-  .panneau .poing {
-    left: -90px;
-    bottom: -150px;
-    width: 760px;
+  .poing {
+    top: auto;
+    bottom: -120px;
     height: 760px;
-    opacity: 0;
-    transform: translateY(120px);
   }
 
-  .panneau.leve .poing {
-    opacity: 1;
-    transform: none;
-    transition: transform 1400ms var(--levee) 250ms, opacity 900ms ease-out 250ms;
+  /* Chaque phrase tient sur une ligne ; le retour n'est permis qu'entre les deux. */
+  .slogan {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 24px;
+    padding: 26px 56px;
+    font-size: 30px;
+    line-height: 1.15;
+  }
+
+  .slogan .phrase {
+    white-space: nowrap;
+  }
+
+  .slogan .phrase > span {
+    display: inline;
   }
 
   .blocs {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    border-top: 1px solid var(--encre);
-    border-bottom: 1px solid var(--encre);
+    border-bottom: var(--filet);
   }
 
   .bloc {
-    gap: 14px;
-    padding: 40px 40px 48px;
-    border-top: 0;
+    padding: 44px 40px 52px;
   }
 
   .bloc:first-child {
@@ -324,19 +352,49 @@
   }
 
   .bloc + .bloc {
-    border-left: 1px solid var(--encre);
+    border-top: 0;
+    border-left: var(--filet);
   }
 
   .bloc h2 {
-    font-size: 40px;
+    font-size: clamp(1.25rem, 2.1vw, 1.875rem);
+    line-height: 1.18;
   }
 
   .bloc p {
-    font-size: 19px;
+    font-size: 18px;
+    line-height: 1.55;
   }
 
   .bloc .coin-blocage {
     font-size: 16px;
+  }
+
+  .section-tete {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 12px 24px;
+  }
+
+  .section-tete h2 {
+    font-size: clamp(3.5rem, 5.8vw, 5.25rem);
+    line-height: 1;
+  }
+
+  .section-tete p {
+    font-size: 20px;
+  }
+
+  .section-tete .btn {
+    width: auto;
+    margin-left: auto;
+    padding: 15px 22px;
+    font-size: 17px;
+  }
+
+  .section-tete .btn.secondaire {
+    padding: 12px 19px;
   }
 
   /* La vitrine de la liste */
@@ -344,35 +402,8 @@
   .vitrine {
     display: flex;
     flex-direction: column;
-    gap: 26px;
-    padding: 56px;
-  }
-
-  .vitrine-tete {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    gap: 24px;
-  }
-
-  .vitrine-tete h2 {
-    font-weight: 700;
-    font-size: 88px;
-    line-height: 0.9;
-    letter-spacing: -0.045em;
-  }
-
-  .vitrine-tete p {
-    padding-bottom: 10px;
-    font-style: italic;
-    font-size: 20px;
-  }
-
-  .vitrine-tete .btn {
-    width: auto;
-    margin-left: auto;
-    padding: 14px 22px;
-    font-size: 17px;
+    gap: 28px;
+    padding: 64px 56px;
   }
 
   .colonnes {
@@ -383,26 +414,45 @@
   }
 
   .colonne {
-    border: 1px solid var(--encre);
+    border: var(--filet);
+    background: var(--carte);
   }
 
   .colonne-tete {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4px 12px;
     padding: 18px 20px;
-    background: var(--teinte);
-    color: var(--sur-teinte);
+    border-bottom: var(--filet);
   }
 
-  .colonne-tete p {
-    font: 400 13px var(--font-titre);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+  .teinte-noir .colonne-tete {
+    background: var(--noir);
+    color: var(--papier);
+  }
+
+  .teinte-rouge .colonne-tete {
+    background: var(--rouge);
+  }
+
+  .teinte-papier .colonne-tete {
+    background: var(--papier);
   }
 
   .colonne-tete h3 {
-    font-weight: 600;
-    font-size: 36px;
-    line-height: 1.05;
-    letter-spacing: -0.035em;
+    flex: 1 1 12rem;
+    font-size: 22px;
+    line-height: 1.15;
+  }
+
+  .colonne-tete p {
+    font: 800 14px var(--font-texte);
+  }
+
+  .teinte-noir .colonne-tete :focus-visible {
+    outline-color: var(--papier);
   }
 
   .cartes {
@@ -414,59 +464,49 @@
   .carte {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 14px 18px 16px;
-    border-top: 1px solid var(--filet-clair);
-    background: var(--papier-carte);
+    gap: 5px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--filet-clair);
   }
 
   .carte-nom {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: 10px;
+    column-gap: 10px;
   }
 
   .carte .nom {
-    font: 600 18px/1.2 var(--font-titre);
+    font: 800 19px/1.25 var(--font-texte);
   }
 
   .precision {
-    color: var(--gris-meta);
-    font-style: italic;
+    color: var(--gris);
     font-size: 15px;
   }
 
-  /* Réglette : les huit réseaux toujours aux mêmes places ; présents en encre, absents en filet clair. */
-  .reglette {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 7px 8px;
-    font: 400 11px/1.3 var(--font-titre);
-    letter-spacing: 0.04em;
+  .carte-reseaux {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    font: 700 12px/1.5 var(--font-texte);
+    letter-spacing: .05em;
     text-transform: uppercase;
   }
 
-  .reglette a {
-    color: var(--encre);
-    text-decoration-color: var(--filet-clair);
-    text-underline-offset: 3px;
-    transition: color 180ms;
-  }
-
-  .reglette a:hover {
+  .carte-reseaux a {
     color: var(--rouge);
-    text-decoration-color: var(--rouge);
+    text-underline-offset: 3px;
   }
 
-  .reglette span {
-    color: var(--filet-clair);
+  .carte-reseaux a:hover {
+    color: var(--noir);
   }
 
   .suite summary {
-    padding: 14px 18px;
-    border-top: 1px solid var(--encre);
-    font: 600 15px var(--font-titre);
+    padding: 16px 20px;
+    font: 400 15px/1.2 var(--font-titre);
+    text-transform: uppercase;
     list-style: none;
     cursor: pointer;
     transition: background-color 160ms, color 160ms;
@@ -477,7 +517,7 @@
   }
 
   .suite summary:hover {
-    background: var(--encre);
+    background: var(--noir);
     color: var(--papier);
   }
 
@@ -485,34 +525,36 @@
     display: none;
   }
 
+  /* Pied : poing et mot à gauche, adresse et note poussées à droite. */
   .pied-accueil {
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: auto auto 1fr;
     align-items: center;
-    gap: 20px;
-    padding: 40px 56px;
-    border-top: 0;
+    gap: 6px 24px;
+    padding: 48px 56px;
   }
 
-  .pied-accueil .symbole {
-    width: 52px;
-    height: 52px;
+  .pied-poing {
+    grid-row: span 2;
+    width: 44px;
+    height: 90px;
   }
 
   .mot {
-    font-size: 40px;
+    grid-row: span 2;
+    max-width: 9em;
+    font-size: 46px;
+  }
+
+  .pied-accueil .adresse {
+    display: block;
+    align-self: end;
+    text-align: right;
   }
 
   .note {
-    margin-left: auto;
-    font-size: 16px;
+    align-self: start;
+    font-size: 15px;
     text-align: right;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .bandeau .poing,
-  .panneau .poing {
-    opacity: 1;
-    transform: none;
   }
 }
