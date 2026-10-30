@@ -7,8 +7,8 @@
   },
   "contestUrl": "https://github.com/partisans-fr/partisans/issues/new?template=signalement.yml",
   "suggestUrl": "https://github.com/partisans-fr/partisans/issues/new?template=suggestion.yml",
-  "version": "2026.10.29",
-  "updatedAt": "2026-10-29",
+  "version": "2026.10.30",
+  "updatedAt": "2026-10-30",
   "categories": {
     "politique": "Personnalités politiques",
     "media": "Médias",
@@ -2122,6 +2122,23 @@
       "category": "influenceur",
       "source": "https://www.kisskissbankbank.com/fr/projects/i-m-fine-la-bande-dessinee",
       "addedAt": "2026-10-29"
+    },
+    {
+      "platform": "tiktok",
+      "handle": "gaetandagir",
+      "displayName": "GaetanDagir",
+      "category": "influenceur",
+      "source": "https://www.kisskissbankbank.com/fr/projects/i-m-fine-la-bande-dessinee",
+      "addedAt": "2026-10-30"
+    },
+    {
+      "platform": "bluesky",
+      "handle": "gaetangabriele.bsky.social",
+      "id": "did:plc:ccm4tgvqklxw4tere62a7iyg",
+      "displayName": "GaetanDagir",
+      "category": "influenceur",
+      "source": "https://www.kisskissbankbank.com/fr/projects/i-m-fine-la-bande-dessinee",
+      "addedAt": "2026-10-30"
     },
     {
       "platform": "x",
