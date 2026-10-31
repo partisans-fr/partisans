@@ -3,7 +3,6 @@
 // Seuls les comptes de la liste sont acceptés, et la redirection ne mène qu'à bsky.app ou à la page
 // du compte, jamais à un domaine reçu dans la requête. Ne garde rien, ne journalise rien.
 
-import list from '../../site/partisans.json' with { type: 'json' };
 import { entryKey } from '../../site/lib/catalog.js';
 import { profileUrl } from '../../site/lib/links.js';
 
@@ -35,4 +34,9 @@ export async function handle(request, { list, fetch, timeoutMs }) {
   return new Response(null, { status: 302, headers: { Location: post ?? profileUrl(entry), 'Cache-Control': 'no-store' } });
 }
 
-export const onRequest = ({ request }) => handle(request, { list, fetch });
+// Cloudflare Pages : la liste est lue dans les fichiers du site (env.ASSETS), donc toujours celle en ligne.
+export async function onRequest({ request, env }) {
+  const response = await env.ASSETS.fetch(new URL('/partisans.json', request.url));
+  if (response.status !== 200) return new Response(null, { status: 503 });
+  return handle(request, { list: await response.json(), fetch });
+}

@@ -48,9 +48,29 @@ test('un compte hors de la liste est refusé', async () => {
   }
 });
 
-test('Cloudflare Pages : la fonction lit la liste du site', async () => {
-  const response = await onRequest({ request: ask('compte=inconnu%3Apersonne') });
-  assert.equal(response.status, 404);
+// Cloudflare Pages donne accès aux fichiers du site par env.ASSETS : la fonction y lit la liste en ligne.
+const siteList = readFileSync(new URL('../site/partisans.json', import.meta.url), 'utf8');
+const assets = (response) => {
+  const asked = [];
+  return { asked, fetch: async (request) => (asked.push(new URL(request.url ?? request).pathname), response()) };
+};
+
+test('Cloudflare Pages : la fonction lit la liste publiée avec le site', async () => {
+  const instagram = JSON.parse(siteList).entries.find((entry) => entry.platform === 'instagram');
+  const ASSETS = assets(() => new Response(siteList));
+  const response = await onRequest({ request: ask(`compte=${encodeURIComponent(`instagram:${instagram.handle}`)}`), env: { ASSETS } });
+  assert.equal(response.status, 302);
+  assert.equal(response.headers.get('location'), `https://www.instagram.com/${instagram.handle}/`);
+  assert.deepEqual(ASSETS.asked, ['/partisans.json']);
+});
+
+test('Cloudflare Pages : sans la liste, la fonction répond 503', async () => {
+  const response = await onRequest({ request: ask('compte=x%3Aalicemartin'), env: { ASSETS: assets(() => new Response(null, { status: 500 })) } });
+  assert.equal(response.status, 503);
+});
+
+test('la fonction n\'importe pas de JSON (l\'outil de Cloudflare, wrangler 3, ne sait pas le compiler)', () => {
+  assert.doesNotMatch(readFileSync(new URL('../functions/api/dernier-post.js', import.meta.url), 'utf8'), /\bwith\s*\{/);
 });
 
 test('la fonction ne journalise rien', () => {
