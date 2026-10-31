@@ -143,6 +143,25 @@ test('Bluesky propose Tout suivre seulement avec un starter pack', () => {
   assert.ok(render('#liste/bluesky', fields, { starterPackUrl: url }).includes(`<a class="btn" data-follow-all="bluesky" href="${url}" ${EXTERNAL}>Tout suivre →</a>`));
 });
 
+test('Instagram et Threads proposent le compte relais seulement s\'il est réglé', () => {
+  const fields = { platforms: ['instagram', 'threads', 'x'] };
+  const relayAccounts = { instagram: 'relais', threads: 'relais' };
+  assert.ok(!render('#liste/instagram', fields).includes('class="raccourci"'));
+  assert.ok(!render('#liste/x', fields, { relayAccounts }).includes('class="raccourci"'));
+  assertInOrder(render('#liste/instagram', fields, { relayAccounts }), [
+    '<div class="progression">',
+    '<div class="raccourci"><p class="raccourci-titre">Plus rapide : abonne-toi depuis l\'appli.</p>',
+    `<a class="btn" href="https://www.instagram.com/relais/" ${EXTERNAL}>Ouvrir @relais →</a>`,
+    '<p class="discret">Sur son profil, touche « suivi(e)s » : tous les comptes de la liste y sont, chacun avec son bouton « Suivre ». Pas besoin de revenir ici.</p></div>',
+    'Appuie sur Suivre, puis confirme',
+    '<section class="groupe',
+  ]);
+  assertInOrder(render('#liste/threads', fields, { relayAccounts }), [
+    `<a class="btn" href="https://www.threads.com/@relais" ${EXTERNAL}>Ouvrir @relais →</a>`,
+    'Sur son profil, touche « followers », puis l\'onglet « Suivi(e)s » : tous les comptes de la liste y sont',
+  ]);
+});
+
 test('les noms sont échappés', () => {
   const html = render('#liste/youtube', { platforms: ['youtube'], categories: ['media'] });
   assert.ok(html.includes('L&#39;Écho &amp; &lt;Cie&gt;'));

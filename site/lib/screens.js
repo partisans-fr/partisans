@@ -6,7 +6,7 @@
 import { PLATFORMS, accountGroups, categoryCounts, entryKey, followedCount, peopleCount, platformKeys, progress } from './catalog.js';
 import { homeScreen } from './home.js';
 import { EXTERNAL, bar, button, escapeHtml, fist, plural } from './html.js';
-import { commentUrl, followUrl, normalizeInstance } from './links.js';
+import { commentUrl, followUrl, normalizeInstance, profileUrl } from './links.js';
 import { selectedCategories } from './state.js';
 
 export { escapeHtml } from './html.js';
@@ -89,7 +89,22 @@ function accountRow(entry, state) {
   return `<li class="compte"><span class="nom">${name}</span><span class="action">${action}</span>${comment}</li>`;
 }
 
-function listScreen({ list, state, starterPackUrl }, platform) {
+// Où trouver, sur le profil du compte relais, la liste des comptes qu'il suit (libellés de l'appli en français).
+const RELAY_STEPS = {
+  instagram: 'touche « suivi(e)s »',
+  threads: 'touche « followers », puis l\'onglet « Suivi(e)s »',
+};
+
+// Le compte relais du projet suit toute la liste : depuis son profil, on s'abonne dans l'appli sans
+// revenir au site. Le site ne sait pas à qui la personne s'abonne là-bas, donc la progression ne bouge pas.
+function relayShortcut(platform, handle) {
+  const url = profileUrl({ platform, handle });
+  return `<div class="raccourci"><p class="raccourci-titre">Plus rapide : abonne-toi depuis l'appli.</p>
+    <a class="btn" href="${escapeHtml(url)}" ${EXTERNAL}>Ouvrir @${escapeHtml(handle)} →</a>
+    <p class="discret">Sur son profil, ${RELAY_STEPS[platform]} : tous les comptes de la liste y sont, chacun avec son bouton « Suivre ». Pas besoin de revenir ici.</p></div>`;
+}
+
+function listScreen({ list, state, starterPackUrl, relayAccounts }, platform) {
   const categories = selectedCategories(list, state);
   const tabs = chosenPlatforms(state)
     .map((slug) => {
@@ -107,6 +122,8 @@ function listScreen({ list, state, starterPackUrl }, platform) {
     platform === 'bluesky' && starterPackUrl && total
       ? `<a class="btn" data-follow-all="bluesky" href="${escapeHtml(starterPackUrl)}" ${EXTERNAL}>Tout suivre →</a>`
       : '';
+  const relayHandle = RELAY_STEPS[platform] && relayAccounts[platform];
+  const relay = relayHandle && total ? relayShortcut(platform, relayHandle) : '';
   // En-têtes de groupe alternés, noir puis rouge, dans l'ordre affiché.
   const groups = accountGroups(list, platform, categories)
     .map(({ label, entries }, rank) => `<section class="groupe ${rank % 2 ? 'tete-rouge' : 'tete-noire'}"><h2>${escapeHtml(label)}</h2>
@@ -115,6 +132,7 @@ function listScreen({ list, state, starterPackUrl }, platform) {
   return `${bar(step(3))}<nav class="onglets" aria-label="Tes réseaux">${tabs}</nav><div class="contenu">
     <h1 class="titre-liste" id="titre-liste">Ta liste ${PLATFORMS[platform]}</h1>
     ${progression}
+    ${relay}
     ${total ? '<p class="discret">Appuie sur Suivre, puis confirme dans l\'appli ou la page qui s\'ouvre.</p>' : ''}
     ${followAll}
     ${groups}
@@ -167,8 +185,8 @@ const home = ({ list, state }) => homeScreen({ list, resume: resolveRoute('#list
 
 const SCREENS = { accueil: home, reseaux: platformsScreen, categories: categoriesScreen, fin: endScreen, mentions: legalScreen };
 
-export function renderScreen(route, { list, state, starterPackUrl = null }) {
-  const context = { list, state, starterPackUrl };
+export function renderScreen(route, { list, state, starterPackUrl = null, relayAccounts = {} }) {
+  const context = { list, state, starterPackUrl, relayAccounts };
   const body = route.screen === 'liste' ? listScreen(context, route.platform) : SCREENS[route.screen](context);
   return `<section class="ecran ecran-${route.screen}">${body}</section>`;
 }

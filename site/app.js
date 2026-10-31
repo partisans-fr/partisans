@@ -1,6 +1,6 @@
 // Branchement du site : charge la liste, affiche l'écran de l'ancre, écoute les gestes et sauvegarde.
 
-import { STARTER_PACK_URL } from './config.js';
+import { RELAY_ACCOUNTS, STARTER_PACK_URL } from './config.js';
 import { platformKeys } from './lib/catalog.js';
 import { COUNTER_URL, commitRecord, loadCounter, recordOpened, recordVisit } from './lib/counter.js';
 import { siteUrl } from './lib/links.js';
@@ -33,7 +33,7 @@ const hashOf = (route) => {
 
 function currentScreen() {
   const route = resolveRoute(location.hash, list, state);
-  return { route, html: renderScreen(route, { list, state, starterPackUrl: STARTER_PACK_URL }) };
+  return { route, html: renderScreen(route, { list, state, starterPackUrl: STARTER_PACK_URL, relayAccounts: RELAY_ACCOUNTS }) };
 }
 
 // L'écran est refait en entier : le focus revient à la même case, ou au même compte (Suivre devenu

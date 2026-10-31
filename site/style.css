@@ -220,6 +220,16 @@ input {
   line-height: 1.4;
 }
 
+/* Raccourci vers le compte relais, sur les listes Instagram et Threads. */
+.raccourci {
+  display: grid;
+  gap: 10px;
+}
+
+.raccourci-titre {
+  font-weight: 700;
+}
+
 .actions {
   margin-top: auto;
   padding-top: 10px;
