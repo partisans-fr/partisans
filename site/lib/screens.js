@@ -76,7 +76,25 @@ function categoriesScreen({ list, state }) {
     </div>`;
 }
 
-function accountRow(entry, state, roles) {
+const ARTICLES = new Set(['le', 'la', 'les', 'l', 'de', 'du', 'des', 'd']);
+
+// Les initiales des deux premiers mots qui comptent : « La France insoumise » donne FI.
+const initials = (name) =>
+  name
+    .split(/[\s'’-]+/)
+    .filter((word) => /^\p{L}/u.test(word) && !ARTICLES.has(word.toLowerCase()))
+    .slice(0, 2)
+    .map((word) => word[0].toUpperCase())
+    .join('');
+
+// L'avatar est décoratif : le nom suit, d'où alt="" et aria-hidden.
+function avatar(name, avatars) {
+  const file = avatars[name]?.file;
+  if (file) return `<img class="avatar" src="img/avatars/${escapeHtml(file)}" width="40" height="40" alt="" loading="lazy" decoding="async">`;
+  return `<span class="avatar initiales" aria-hidden="true">${escapeHtml(initials(name))}</span>`;
+}
+
+function accountRow(entry, state, roles, avatars) {
   const key = escapeHtml(entryKey(entry));
   const name = escapeHtml(entry.displayName);
   const role = roles?.[entry.displayName];
@@ -88,7 +106,7 @@ function accountRow(entry, state, roles) {
   const commentLabel = followed ? 'Commenter leur dernier post' : 'Déjà abonné·e\u202f? Commenter leur dernier post';
   const comment = `<a class="commenter" data-comment="${key}" href="${escapeHtml(commentUrl(entry, { mastodonInstance }))}" ${EXTERNAL} aria-label="${commentLabel} : ${name}">${commentLabel} →</a>`;
   const roleText = role ? `<span class="fonction">${escapeHtml(role)}</span>` : '';
-  return `<li class="compte"><span class="nom">${name}${roleText}</span><span class="action">${action}</span>${comment}</li>`;
+  return `<li class="compte">${avatar(entry.displayName, avatars)}<span class="nom">${name}${roleText}</span><span class="action">${action}</span>${comment}</li>`;
 }
 
 // Où trouver, sur le profil du compte relais, la liste des comptes qu'il suit (libellés de l'appli en français).
@@ -106,7 +124,7 @@ function relayShortcut(platform, handle) {
     <p class="discret">Sur son profil, ${RELAY_STEPS[platform]} : tous les comptes de la liste y sont, chacun avec son bouton « Suivre ». Pas besoin de revenir ici.</p></div>`;
 }
 
-function listScreen({ list, state, starterPackUrl, relayAccounts }, platform) {
+function listScreen({ list, state, starterPackUrl, relayAccounts, avatars }, platform) {
   const categories = selectedCategories(list, state);
   const tabs = chosenPlatforms(state)
     .map((slug) => {
@@ -129,7 +147,7 @@ function listScreen({ list, state, starterPackUrl, relayAccounts }, platform) {
   // En-têtes de groupe alternés, noir puis rouge, dans l'ordre affiché.
   const groups = accountGroups(list, platform, categories)
     .map(({ label, entries }, rank) => `<section class="groupe ${rank % 2 ? 'tete-rouge' : 'tete-noire'}"><h2>${escapeHtml(label)}</h2>
-      <ul class="comptes">${entries.map((entry) => accountRow(entry, state, list.roles)).join('\n')}</ul></section>`)
+      <ul class="comptes">${entries.map((entry) => accountRow(entry, state, list.roles, avatars)).join('\n')}</ul></section>`)
     .join('\n');
   return `${bar(step(3))}<nav class="onglets" aria-label="Tes réseaux">${tabs}</nav><div class="contenu">
     <h1 class="titre-liste" id="titre-liste">Ta liste ${PLATFORMS[platform]}</h1>
@@ -170,7 +188,16 @@ const REPO_URL = 'https://github.com/partisans-fr/partisans';
 
 // L'éditeur, particulier non professionnel, reste anonyme : la loi lui demande seulement de nommer
 // l'hébergeur, à qui il a donné son identité.
-function legalScreen({ list }) {
+// Les images de Wikimedia Commons citent leur auteur et leur licence ; celles des réseaux non.
+function creditsSection(avatars) {
+  const credits = Object.entries(avatars)
+    .filter(([, { credit }]) => credit)
+    .map(([name, { credit }]) => `<li>${escapeHtml(name)} : ${escapeHtml(credit.author)}, <a href="${escapeHtml(credit.url)}" ${EXTERNAL}>${escapeHtml(credit.license)}</a></li>`);
+  if (!credits.length) return '';
+  return `<section><h2>Crédits photos</h2><p>Photos et logos de Wikimedia Commons :</p><ul class="credits">${credits.join('')}</ul></section>`;
+}
+
+function legalScreen({ list, avatars }) {
   const suggest = list.suggestUrl ? ` Un compte à ajouter ? <a href="${escapeHtml(list.suggestUrl)}" ${EXTERNAL}>Suggère-le</a>.` : '';
   return `${bar()}<div class="contenu mentions">
     <h1>Mentions légales</h1>
@@ -179,6 +206,7 @@ function legalScreen({ list }) {
     <section><h2>Contact</h2><p>Un compte erroné ? <a href="${escapeHtml(list.contestUrl)}" ${EXTERNAL}>Signale-le</a>.${suggest} Pour tout le reste, ouvre un ticket sur <a href="${REPO_URL}/issues" ${EXTERNAL}>le dépôt du projet</a>.</p></section>
     <section><h2>Données personnelles</h2><p>Aucun cookie, aucun compte, aucun pistage. Tes choix (réseaux, catégories, comptes suivis) restent dans ton navigateur. Le site compte seulement, de façon anonyme, combien de personnes l'ont ouvert et combien de comptes y ont été ouverts : deux totaux, sans adresse IP ni identifiant. Comme tout hébergeur, Netlify reçoit l'adresse IP de chaque visite pour servir les pages.</p></section>
     <section><h2>Code source</h2><p>Le code du site est libre, sous licence GPL v3 : <a href="${REPO_URL}" ${EXTERNAL}>github.com/partisans-fr/partisans</a>.</p></section>
+    ${creditsSection(avatars)}
     <p class="liens"><a href="#">Retour à l'accueil</a></p>
     </div>`;
 }
@@ -187,8 +215,8 @@ const home = ({ list, state }) => homeScreen({ list, resume: resolveRoute('#list
 
 const SCREENS = { accueil: home, reseaux: platformsScreen, categories: categoriesScreen, fin: endScreen, mentions: legalScreen };
 
-export function renderScreen(route, { list, state, starterPackUrl = null, relayAccounts = {} }) {
-  const context = { list, state, starterPackUrl, relayAccounts };
+export function renderScreen(route, { list, state, starterPackUrl = null, relayAccounts = {}, avatars = {} }) {
+  const context = { list, state, starterPackUrl, relayAccounts, avatars };
   const body = route.screen === 'liste' ? listScreen(context, route.platform) : SCREENS[route.screen](context);
   return `<section class="ecran ecran-${route.screen}">${body}</section>`;
 }

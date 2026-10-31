@@ -99,8 +99,8 @@ test('l\'onglet d\'un réseau montre sa progression et ses comptes', () => {
   assert.ok(html.includes('<h1 class="titre-liste" id="titre-liste">Ta liste Instagram</h1>'));
   assert.match(html, /role="progressbar" aria-labelledby="titre-liste" aria-valuemin="0" aria-valuemax="3" aria-valuenow="1"/);
   assert.ok(html.includes('<p class="meta">1 sur 3</p>'));
-  assert.ok(html.includes('<li class="compte"><span class="nom">Alice Martin</span><span class="action"><button data-unfollow="instagram:alicemartin" aria-label="Annuler le suivi : Alice Martin">Annuler</button> <span class="suivi">✓ Suivi</span></span>'));
-  assert.ok(html.includes('<li class="compte"><span class="nom">Le Journal</span>'));
+  assert.ok(html.includes('<li class="compte"><span class="avatar initiales" aria-hidden="true">AM</span><span class="nom">Alice Martin</span><span class="action"><button data-unfollow="instagram:alicemartin" aria-label="Annuler le suivi : Alice Martin">Annuler</button> <span class="suivi">✓ Suivi</span></span>'));
+  assert.ok(html.includes('<li class="compte"><span class="avatar initiales" aria-hidden="true">J</span><span class="nom">Le Journal</span>'));
   assert.ok(!html.includes('est-suivi'));
   assert.ok(html.includes('data-unfollow="instagram:alicemartin"'));
   assert.ok(html.includes('data-follow="instagram:lejournal" href="https://www.instagram.com/lejournal/"'));
@@ -169,6 +169,30 @@ test('la fonction s\'affiche sous le nom, échappée', () => {
   assert.ok(html.includes('<span class="nom">Alice Martin<span class="fonction">Députée</span></span>'));
   assert.ok(html.includes('<span class="fonction">Quotidien &lt;du soir&gt;</span>'));
   assert.ok(html.includes('<span class="nom">Collectif Solidaire</span>'));
+});
+
+test('chaque compte a son avatar, ou ses initiales à défaut', () => {
+  const avatars = { 'Alice Martin': { file: 'alice-martin.webp' } };
+  const fields = { platforms: ['instagram', 'x', 'youtube'] };
+  const x = render('#liste/x', fields, { avatars });
+  assert.ok(x.includes('<li class="compte"><img class="avatar" src="img/avatars/alice-martin.webp" width="40" height="40" alt="" loading="lazy" decoding="async"><span class="nom">Alice Martin'));
+  assert.ok(x.includes('<li class="compte"><span class="avatar initiales" aria-hidden="true">BP</span><span class="nom">Bruno Petit'));
+  assert.ok(render('#liste/instagram', fields, { avatars }).includes('<span class="avatar initiales" aria-hidden="true">J</span><span class="nom">Le Journal'));
+  assert.ok(render('#liste/youtube', fields, { avatars }).includes('<span class="avatar initiales" aria-hidden="true">É</span><span class="nom">L&#39;Écho'));
+});
+
+test('les mentions légales créditent les images de Wikimedia Commons', () => {
+  assert.ok(!render('#mentions', {}).includes('Crédits photos'));
+  const credit = { author: 'Jean <Photo>', license: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Alice.jpg' };
+  const avatars = { 'Alice Martin': { file: 'alice-martin.webp', credit }, 'Bruno Petit': { file: 'bruno-petit.webp' } };
+  const html = render('#mentions', {}, { avatars });
+  assertInOrder(html, [
+    '<h2>Code source</h2>',
+    '<h2>Crédits photos</h2>',
+    `<li>Alice Martin : Jean &lt;Photo&gt;, <a href="${credit.url}" ${EXTERNAL}>CC BY-SA 4.0</a></li>`,
+    '<a href="#">Retour à l\'accueil</a>',
+  ]);
+  assert.ok(!html.includes('Bruno Petit'));
 });
 
 test('les noms sont échappés', () => {

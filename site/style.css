@@ -565,7 +565,7 @@ input:checked + .case,
    Suivie, elle reste à sa place, sur le même fond. */
 .compte {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   grid-template-rows: minmax(60px, auto);
   align-items: center;
   column-gap: 8px;
@@ -577,8 +577,25 @@ input:checked + .case,
   border-top: 0;
 }
 
+/* Carré de l'avatar, ou des initiales quand il n'y a pas d'image. */
+.avatar {
+  width: 40px;
+  height: 40px;
+  margin-left: 16px;
+  object-fit: cover;
+  background: var(--noir);
+}
+
+.avatar.initiales {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--rouge);
+  font: 400 15px/1 var(--font-titre);
+}
+
 .compte .nom {
-  padding: 8px 0 8px 16px;
+  padding: 8px 0 8px 4px;
   font: 800 17px/1.25 var(--font-texte);
   overflow-wrap: break-word;
 }
@@ -770,6 +787,14 @@ input:checked + .case,
 .mentions a {
   color: inherit;
   text-underline-offset: 3px;
+}
+
+.credits {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14px;
 }
 
 /* Chargement et erreurs */
