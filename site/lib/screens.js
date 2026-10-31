@@ -76,9 +76,10 @@ function categoriesScreen({ list, state }) {
     </div>`;
 }
 
-function accountRow(entry, state) {
+function accountRow(entry, state, roles) {
   const key = escapeHtml(entryKey(entry));
   const name = escapeHtml(entry.displayName);
+  const role = roles?.[entry.displayName];
   const mastodonInstance = normalizeInstance(state.mastodonInstance);
   const followed = state.followed.includes(entryKey(entry));
   const action = followed
@@ -86,7 +87,8 @@ function accountRow(entry, state) {
     : `<a class="suivre" data-follow="${key}" href="${escapeHtml(followUrl(entry, { mastodonInstance }))}" ${EXTERNAL} aria-label="Suivre ${name}">Suivre</a>`;
   const commentLabel = followed ? 'Commenter leur dernier post' : 'Déjà abonné·e\u202f? Commenter leur dernier post';
   const comment = `<a class="commenter" data-comment="${key}" href="${escapeHtml(commentUrl(entry, { mastodonInstance }))}" ${EXTERNAL} aria-label="${commentLabel} : ${name}">${commentLabel} →</a>`;
-  return `<li class="compte"><span class="nom">${name}</span><span class="action">${action}</span>${comment}</li>`;
+  const roleText = role ? `<span class="fonction">${escapeHtml(role)}</span>` : '';
+  return `<li class="compte"><span class="nom">${name}${roleText}</span><span class="action">${action}</span>${comment}</li>`;
 }
 
 // Où trouver, sur le profil du compte relais, la liste des comptes qu'il suit (libellés de l'appli en français).
@@ -127,7 +129,7 @@ function listScreen({ list, state, starterPackUrl, relayAccounts }, platform) {
   // En-têtes de groupe alternés, noir puis rouge, dans l'ordre affiché.
   const groups = accountGroups(list, platform, categories)
     .map(({ label, entries }, rank) => `<section class="groupe ${rank % 2 ? 'tete-rouge' : 'tete-noire'}"><h2>${escapeHtml(label)}</h2>
-      <ul class="comptes">${entries.map((entry) => accountRow(entry, state)).join('\n')}</ul></section>`)
+      <ul class="comptes">${entries.map((entry) => accountRow(entry, state, list.roles)).join('\n')}</ul></section>`)
     .join('\n');
   return `${bar(step(3))}<nav class="onglets" aria-label="Tes réseaux">${tabs}</nav><div class="contenu">
     <h1 class="titre-liste" id="titre-liste">Ta liste ${PLATFORMS[platform]}</h1>

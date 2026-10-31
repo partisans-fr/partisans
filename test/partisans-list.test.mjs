@@ -35,6 +35,20 @@ test('une personne a une seule catégorie', () => {
   }
 });
 
+test('chaque personne ou organisation a sa fonction, et chaque fonction sa personne', () => {
+  const names = new Set(list.entries.map((entry) => entry.displayName));
+  assert.deepEqual([...names].filter((name) => !Object.hasOwn(list.roles ?? {}, name)), []);
+  assert.deepEqual(Object.keys(list.roles).filter((name) => !names.has(name)), []);
+});
+
+test('une fonction est un texte de 1 à 60 caractères', () => {
+  const problems = (roles) => parseList({ ...list, roles }).errors;
+  assert.deepEqual(problems({ 'Mathilde Panot': 'Députée' }), []);
+  for (const roles of [{ 'Mathilde Panot': '' }, { 'Mathilde Panot': 'x'.repeat(61) }, ['Députée']]) {
+    assert.equal(problems(roles).length, 1, JSON.stringify(roles));
+  }
+});
+
 test('les adresses de signalement et de suggestion sont renseignées', () => {
   assert.ok(list.contestUrl);
   assert.ok(list.suggestUrl);

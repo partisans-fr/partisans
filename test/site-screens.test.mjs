@@ -162,6 +162,15 @@ test('Instagram et Threads proposent le compte relais seulement s\'il est régl�
   ]);
 });
 
+test('la fonction s\'affiche sous le nom, échappée', () => {
+  const list = { ...miniList, roles: { 'Alice Martin': 'Députée', 'Le Journal': 'Quotidien <du soir>' } };
+  const current = state({ platforms: ['instagram'] });
+  const html = renderScreen(resolveRoute('#liste/instagram', list, current), { list, state: current });
+  assert.ok(html.includes('<span class="nom">Alice Martin<span class="fonction">Députée</span></span>'));
+  assert.ok(html.includes('<span class="fonction">Quotidien &lt;du soir&gt;</span>'));
+  assert.ok(html.includes('<span class="nom">Collectif Solidaire</span>'));
+});
+
 test('les noms sont échappés', () => {
   const html = render('#liste/youtube', { platforms: ['youtube'], categories: ['media'] });
   assert.ok(html.includes('L&#39;Écho &amp; &lt;Cie&gt;'));

@@ -30,7 +30,7 @@ const HANDLE_FORMATS = {
 
 export const isValidHandle = (platform, handle) => handle.length <= 253 && HANDLE_FORMATS[platform].regex.test(handle);
 
-const LIST_FIELDS = ['$schema', 'schemaVersion', 'name', 'description', 'maintainer', 'contestUrl', 'suggestUrl', 'version', 'updatedAt', 'categories', 'packs', 'entries'];
+const LIST_FIELDS = ['$schema', 'schemaVersion', 'name', 'description', 'maintainer', 'contestUrl', 'suggestUrl', 'version', 'updatedAt', 'categories', 'packs', 'roles', 'entries'];
 const MAINTAINER_FIELDS = ['name', 'url'];
 const PACK_FIELDS = ['name', 'categories'];
 const ENTRY_FIELDS = ['platform', 'handle', 'id', 'displayName', 'category', 'source', 'addedAt'];
@@ -63,6 +63,10 @@ const isPack = (value) =>
   new Set(value.categories).size === value.categories.length;
 
 const isPacks = (value) => Array.isArray(value) && value.every(isPack);
+
+// Fonction de chaque personne ou organisation, affichée sous son nom : { displayName: libellé }.
+const isRoles = (value) =>
+  isObject(value) && Object.entries(value).every(([name, role]) => isText(name, 100) && isText(role, 60));
 
 const textProblem = (field, max) => `« ${field} » doit être un texte de 1 à ${max} caractères`;
 const urlProblem = (field) => `« ${field} » doit être une URL http(s)`;
@@ -102,6 +106,10 @@ function metadataProblems(list) {
   check(
     isOptional(list.packs, isPacks),
     '« packs » doit être un tableau de { name, categories } : un nom de 1 à 60 caractères et au moins une catégorie, sans doublon',
+  );
+  check(
+    isOptional(list.roles, isRoles),
+    '« roles » doit associer des noms (1 à 100 caractères) à des fonctions de 1 à 60 caractères',
   );
   check(Array.isArray(list.entries), '« entries » doit être un tableau');
   return problems;
