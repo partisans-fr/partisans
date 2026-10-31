@@ -5,8 +5,9 @@ import { PLATFORMS } from './catalog.js';
 
 export const STORAGE_KEY = 'partisans';
 
-// categories: null = pas encore choisies, donc toutes cochées ; mastodonInstance = texte saisi tel quel.
-export const emptyState = () => ({ platforms: [], mastodonInstance: null, categories: null, followed: [] });
+// categories: null = pas encore choisies, donc toutes cochées ; mastodonInstance = texte saisi tel quel ;
+// followed : du plus ancien au plus récent ; hideFollowed : la case « Masquer les comptes déjà suivis ».
+export const emptyState = () => ({ platforms: [], mastodonInstance: null, categories: null, followed: [], hideFollowed: false });
 
 const texts = (value) => (Array.isArray(value) ? value.filter((item) => typeof item === 'string') : []);
 
@@ -23,6 +24,7 @@ export function loadState(storage) {
     mastodonInstance: typeof saved.mastodonInstance === 'string' ? saved.mastodonInstance : null,
     categories: Array.isArray(saved.categories) ? texts(saved.categories) : null,
     followed: texts(saved.followed),
+    hideFollowed: saved.hideFollowed === true,
   };
 }
 

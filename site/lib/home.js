@@ -49,7 +49,8 @@ function showcaseSection(list) {
 const networksList = (list) =>
   `<ul class="reseaux-dispo">${Object.keys(PLATFORMS).filter((platform) => list.entries.some((entry) => entry.platform === platform)).map((platform) => `<li>${PLATFORMS[platform]}</li>`).join('')}</ul>`;
 
-export function homeScreen({ list, resume }) {
+// gesture : le geste du jour, déjà en HTML, ou rien pour qui ne suit encore aucun compte.
+export function homeScreen({ list, resume, gesture = '' }) {
   const links = '<nav class="barre-liens"><a href="#la-liste" data-defiler>La liste</a><a href="#la-consigne" data-defiler>La consigne</a></nav>';
   return `${bar(`${links}<a class="btn" href="#fais-tourner" data-defiler>Fais tourner</a>`)}
   <div class="hero">
@@ -59,6 +60,7 @@ export function homeScreen({ list, resume }) {
       <h1><span class="ligne"><span data-anim="line">Soyons</span></span> <span class="ligne"><span data-anim="line">partisan·es.</span></span></h1>
       <p class="chapo">Abonne-toi en quelques minutes aux élu·es, médias et collectifs de gauche qui combattent l'extrême droite.</p>
       <div class="hero-boutons">${button('Voir la liste →', '#reseaux')}${resume ? button('Reprendre ma liste', '#liste', { secondary: true }) : ''}</div>
+      ${gesture}
       <p class="discret">Il ne te sera demandé aucun mot de passe, toutes tes données restent confidentielles.</p>
     </div>
   </div>

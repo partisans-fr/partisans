@@ -3,7 +3,7 @@
 // par escapeHtml. app.js s'appuie sur les attributs name, data-* et les ancres (#reseaux, #categories,
 // #liste/<réseau>, #fin, #mentions) produits ici.
 
-import { PLATFORMS, accountGroups, categoryCounts, entryKey, followedCount, peopleCount, platformKeys, progress } from './catalog.js';
+import { PLATFORMS, accountGroups, categoryCounts, entryKey, followedCount, peopleCount, platformKeys, progress, recentlyFollowed } from './catalog.js';
 import { homeScreen } from './home.js';
 import { EXTERNAL, bar, button, escapeHtml, fist, plural } from './html.js';
 import { commentUrl, followUrl, normalizeInstance, profileUrl } from './links.js';
@@ -94,6 +94,20 @@ function avatar(name, avatars) {
   return `<span class="avatar initiales" aria-hidden="true">${escapeHtml(initials(name))}</span>`;
 }
 
+// Lien vers les derniers posts du compte : Bluesky ouvre le dernier post, les autres réseaux le profil,
+// où il est en haut. Le compte qu'on vient de suivre a droit au bandeau qui relance.
+function likeLink(entry, state, last) {
+  const key = escapeHtml(entryKey(entry));
+  const name = escapeHtml(entry.displayName);
+  const href = escapeHtml(commentUrl(entry, { mastodonInstance: normalizeInstance(state.mastodonInstance) }));
+  const link = (className, label, text) => `<a class="${className}" data-comment="${key}" href="${href}" ${EXTERNAL} aria-label="${label} : ${name}">${text}</a>`;
+  if (!state.followed.includes(entryKey(entry))) {
+    return link('commenter', 'Déjà abonné·e\u202f? Like ses derniers posts', 'Déjà abonné·e\u202f? Like ses derniers posts →');
+  }
+  if (last) return link('commenter bravo', 'Like ses derniers posts', 'Bien joué ! Donne-lui de la force : <span>like ses derniers posts →</span>');
+  return link('commenter', 'Like ses derniers posts', 'Like ses derniers posts →');
+}
+
 function accountRow(entry, state, roles, avatars) {
   const key = escapeHtml(entryKey(entry));
   const name = escapeHtml(entry.displayName);
@@ -103,25 +117,25 @@ function accountRow(entry, state, roles, avatars) {
   const action = followed
     ? `<button data-unfollow="${key}" aria-label="Annuler le suivi : ${name}">Annuler</button> <span class="suivi">✓ Suivi</span>`
     : `<a class="suivre" data-follow="${key}" href="${escapeHtml(followUrl(entry, { mastodonInstance }))}" ${EXTERNAL} aria-label="Suivre ${name}">Suivre</a>`;
-  const commentLabel = followed ? 'Commenter leur dernier post' : 'Déjà abonné·e\u202f? Commenter leur dernier post';
-  const comment = `<a class="commenter" data-comment="${key}" href="${escapeHtml(commentUrl(entry, { mastodonInstance }))}" ${EXTERNAL} aria-label="${commentLabel} : ${name}">${commentLabel} →</a>`;
+  const comment = likeLink(entry, state, entryKey(entry) === state.followed.at(-1));
   const roleText = role ? `<span class="fonction">${escapeHtml(role)}</span>` : '';
   return `<li class="compte">${avatar(entry.displayName, avatars)}<span class="nom">${name}${roleText}</span><span class="action">${action}</span>${comment}</li>`;
 }
 
 // Où trouver, sur le profil du compte relais, la liste des comptes qu'il suit (libellés de l'appli en français).
 const RELAY_STEPS = {
-  instagram: 'touche « suivi(e)s »',
-  threads: 'touche « followers », puis l\'onglet « Suivi(e)s »',
+  instagram: 'touche «\u202fsuivi(e)s\u202f»',
+  threads: 'touche «\u202ffollowers\u202f», puis l\'onglet «\u202fSuivi(e)s\u202f»,',
 };
 
 // Le compte relais du projet suit toute la liste : depuis son profil, on s'abonne dans l'appli sans
 // revenir au site. Le site ne sait pas à qui la personne s'abonne là-bas, donc la progression ne bouge pas.
-function relayShortcut(platform, handle) {
+function relayShortcut(platform, handle, count) {
   const url = profileUrl({ platform, handle });
+  const accounts = count === 1 ? 'le compte' : `les ${count} comptes`;
   return `<div class="raccourci"><p class="raccourci-titre">Plus rapide : abonne-toi depuis l'appli.</p>
     <a class="btn" href="${escapeHtml(url)}" ${EXTERNAL}>Ouvrir @${escapeHtml(handle)} →</a>
-    <p class="discret">Sur son profil, ${RELAY_STEPS[platform]} : tous les comptes de la liste y sont, chacun avec son bouton « Suivre ». Pas besoin de revenir ici.</p></div>`;
+    <p class="discret">Ce compte suit ${accounts} de la liste. Sur son profil, ${RELAY_STEPS[platform]} et abonne-toi à chacun, sans revenir ici.</p></div>`;
 }
 
 function listScreen({ list, state, starterPackUrl, relayAccounts, avatars }, platform) {
@@ -143,10 +157,16 @@ function listScreen({ list, state, starterPackUrl, relayAccounts, avatars }, pla
       ? `<a class="btn" data-follow-all="bluesky" href="${escapeHtml(starterPackUrl)}" ${EXTERNAL}>Tout suivre →</a>`
       : '';
   const relayHandle = RELAY_STEPS[platform] && relayAccounts[platform];
-  const relay = relayHandle && total ? relayShortcut(platform, relayHandle) : '';
-  // En-têtes de groupe alternés, noir puis rouge, dans l'ordre affiché.
+  const relay = relayHandle && total ? relayShortcut(platform, relayHandle, platformKeys(list, platform).length) : '';
+  // Case cochée : les comptes suivis disparaissent, sauf le dernier, qui garde son bandeau.
+  const shown = (entry) => !state.hideFollowed || !state.followed.includes(entryKey(entry)) || entryKey(entry) === state.followed.at(-1);
+  const hide = total ? `<label class="masquer">${checkbox('masquer', 'oui', { checked: state.hideFollowed })}Masquer les comptes déjà suivis</label>` : '';
+  const allFollowed = total && done === total ? `<p class="tout-suivi">Tu suis tous les comptes de ta sélection sur ${PLATFORMS[platform]}.</p>` : '';
+  // En-têtes de groupe alternés, noir puis rouge, dans l'ordre affiché, avec le décompte du groupe.
   const groups = accountGroups(list, platform, categories)
-    .map(({ label, entries }, rank) => `<section class="groupe ${rank % 2 ? 'tete-rouge' : 'tete-noire'}"><h2>${escapeHtml(label)}</h2>
+    .map((group) => ({ ...group, done: group.entries.filter((entry) => state.followed.includes(entryKey(entry))).length, entries: group.entries.filter(shown), total: group.entries.length }))
+    .filter((group) => group.entries.length)
+    .map(({ label, entries, done: groupDone, total: groupTotal }, rank) => `<section class="groupe ${rank % 2 ? 'tete-rouge' : 'tete-noire'}"><h2>${escapeHtml(label)} <span class="decompte">${groupDone}/${groupTotal}</span></h2>
       <ul class="comptes">${entries.map((entry) => accountRow(entry, state, list.roles, avatars)).join('\n')}</ul></section>`)
     .join('\n');
   return `${bar(step(3))}<nav class="onglets" aria-label="Tes réseaux">${tabs}</nav><div class="contenu">
@@ -155,6 +175,8 @@ function listScreen({ list, state, starterPackUrl, relayAccounts, avatars }, pla
     ${relay}
     ${total ? '<p class="discret">Appuie sur Suivre, puis confirme dans l\'appli ou la page qui s\'ouvre.</p>' : ''}
     ${followAll}
+    ${allFollowed}
+    ${hide}
     ${groups}
     <div class="actions">${button('J\'ai fini', '#fin', { secondary: true })}</div>
     <p class="liens"><a href="#reseaux">Changer mes réseaux</a> <a href="#categories">Changer mes catégories</a></p>
@@ -171,17 +193,30 @@ function headline(count) {
   return ['C\'est fait :', `${count} ${count === 1 ? 'abonnement' : 'abonnements'}.`];
 }
 
-function endScreen({ list, state }) {
+// Les trois derniers comptes suivis, pour liker tout de suite plutôt que « un jour ».
+function startNow(list, state, avatars) {
+  const recent = recentlyFollowed(list, state.followed, state.platforms).slice(0, 3);
+  if (!recent.length) return '';
+  const mastodonInstance = normalizeInstance(state.mastodonInstance);
+  const rows = recent.map((entry) => {
+    const name = escapeHtml(entry.displayName);
+    return `<li><a class="geste" data-comment="${escapeHtml(entryKey(entry))}" href="${escapeHtml(commentUrl(entry, { mastodonInstance }))}" ${EXTERNAL} aria-label="Like ses derniers posts : ${name}">${avatar(entry.displayName, avatars)}<span class="nom">${name}<span class="fonction">ses derniers posts</span></span><span class="like">Like →</span></a></li>`;
+  });
+  return `<p class="commence">Commence tout de suite :</p><ul class="gestes">${rows.join('')}</ul>`;
+}
+
+function endScreen({ list, state, avatars }) {
   const count = followedCount(list, state.platforms, selectedCategories(list, state), state.followed);
   const title = headline(count).map((line) => `<span class="ligne"><span data-anim="line">${line}</span></span>`).join(' ');
   return `${bar()}<div class="contenu">
     <h1>${title}</h1>
     <p>Maintenant, chaque jour, sur leurs posts :</p>
     <ul class="verbes"><li>Aime.</li><li>Partage.</li><li>Commente.</li></ul>
-    <p class="ignore">Et l'extrême droite\u202f? <strong>Ignore-la.</strong> Ne réponds pas, ne cite pas, passe ton chemin.</p>
+    ${startNow(list, state, avatars)}
+    <p class="ignore">Et l'extrême droite\u202f? <strong>Ignore-la.</strong> Chaque réponse, même pour la dénoncer, la fait remonter dans les algorithmes.</p>
     <div class="fin-bas"><p class="liens"><a href="#liste">Revenir à ma liste</a></p>${fist('146px')}</div>
     </div>
-    <div class="fin-partage"><p class="mot">Fais passer le mot.</p><button class="btn" data-share>Partager le site</button><p class="statut" role="status"></p><p class="adresse">soyonspartisans.fr</p></div>`;
+    <div class="fin-partage"><p class="mot">Fais passer le mot.</p><button class="btn" data-share>Partager le site</button><a class="btn secondaire" href="visuels/soyons-partisans-story-soyons.jpg" download data-visuel>Télécharger la story\u00a0↓</a><p class="statut" role="status"></p><p class="adresse">soyonspartisans.fr</p></div>`;
 }
 
 const REPO_URL = 'https://github.com/partisans-fr/partisans';
@@ -211,12 +246,30 @@ function legalScreen({ list, avatars }) {
     </div>`;
 }
 
-const home = ({ list, state }) => homeScreen({ list, resume: resolveRoute('#liste', list, state).screen === 'liste' });
+const DAY = 24 * 60 * 60 * 1000;
+const GESTURES = ['Aime ses derniers posts →', 'Commente un de ses posts →', 'Partage un de ses posts →'];
+
+// Geste du jour : un compte suivi et un geste, choisis par la date et non au hasard. Le compte change
+// chaque jour, le geste quand on a fait le tour des comptes : toutes les paires finissent par venir.
+function dailyGesture(list, state, avatars, today) {
+  const followed = recentlyFollowed(list, state.followed, state.platforms);
+  if (!followed.length) return '';
+  const day = Math.floor(today.getTime() / DAY);
+  const entry = followed[day % followed.length];
+  const name = escapeHtml(entry.displayName);
+  const href = escapeHtml(commentUrl(entry, { mastodonInstance: normalizeInstance(state.mastodonInstance) }));
+  return `<a class="geste-du-jour" data-comment="${escapeHtml(entryKey(entry))}" href="${href}" ${EXTERNAL}><span class="geste-titre">Ton geste du jour</span><span class="geste-compte">${avatar(entry.displayName, avatars)}<span class="nom">${name}</span></span><span class="geste-action">${GESTURES[Math.floor(day / followed.length) % GESTURES.length]}</span></a>`;
+}
+
+function home({ list, state, avatars, today }) {
+  const resume = resolveRoute('#liste', list, state).screen === 'liste';
+  return homeScreen({ list, resume, gesture: resume ? dailyGesture(list, state, avatars, today) : '' });
+}
 
 const SCREENS = { accueil: home, reseaux: platformsScreen, categories: categoriesScreen, fin: endScreen, mentions: legalScreen };
 
-export function renderScreen(route, { list, state, starterPackUrl = null, relayAccounts = {}, avatars = {} }) {
-  const context = { list, state, starterPackUrl, relayAccounts, avatars };
+export function renderScreen(route, { list, state, starterPackUrl = null, relayAccounts = {}, avatars = {}, today = new Date() }) {
+  const context = { list, state, starterPackUrl, relayAccounts, avatars, today };
   const body = route.screen === 'liste' ? listScreen(context, route.platform) : SCREENS[route.screen](context);
   return `<section class="ecran ecran-${route.screen}">${body}</section>`;
 }

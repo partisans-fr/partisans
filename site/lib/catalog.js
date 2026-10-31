@@ -47,6 +47,17 @@ export function progress(list, platform, categories, followed) {
 
 export const followedCount = (list, platforms, categories, followed) => followedAmong(entriesOn(list, platforms, categories), followed);
 
+// Les comptes suivis encore dans la liste, sur les réseaux donnés, du plus récent au plus ancien, une
+// seule fois par personne ou organisation.
+export function recentlyFollowed(list, followed, platforms) {
+  const byKey = new Map(list.entries.map((entry) => [entryKey(entry), entry]));
+  const names = new Set();
+  return [...followed]
+    .reverse()
+    .map((key) => byKey.get(key))
+    .filter((entry) => entry && platforms.includes(entry.platform) && !names.has(entry.displayName) && names.add(entry.displayName));
+}
+
 export const platformKeys = (list, platform) => list.entries.filter((entry) => entry.platform === platform).map(entryKey);
 
 // Vitrine de l'accueil sur ordi : trois colonnes, une carte par personne ou organisation.

@@ -86,6 +86,46 @@
   font-size: 19px;
 }
 
+/* Geste du jour, pour qui suit déjà des comptes : un bloc noir cliquable sous les boutons. */
+.geste-du-jour {
+  display: grid;
+  gap: 8px;
+  padding: 14px 16px;
+  background: var(--noir);
+  color: var(--papier);
+  text-decoration: none;
+}
+
+.geste-du-jour:focus-visible {
+  outline: 3px solid var(--rouge);
+  outline-offset: 3px;
+}
+
+.geste-titre {
+  color: var(--rouge);
+  font: 800 12px/1 var(--font-texte);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.geste-compte {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 17px;
+}
+
+.geste-compte .avatar {
+  margin-left: 0;
+}
+
+.geste-action {
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .hero .discret {
   color: var(--gris);
   font-style: normal;
@@ -444,6 +484,10 @@
 
   .hero .discret {
     font-size: 16px;
+  }
+
+  .geste-du-jour {
+    max-width: 560px;
   }
 
   .panneau {

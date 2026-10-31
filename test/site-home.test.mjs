@@ -164,3 +164,19 @@ test('une colonne montre six cartes, la suite se déplie', () => {
   assert.equal(rest.match(/<li class="carte">/g).length, 2);
   assert.ok(!home().includes('<details'));
 });
+
+test('le geste du jour propose un compte suivi, et change avec la date', () => {
+  const state = { ...emptyState(), platforms: ['instagram'], followed: ['instagram:lejournal'] };
+  const on = (date) => renderScreen(resolveRoute('', miniList, state), { list: miniList, state, today: new Date(date) });
+  const day = on('2026-10-31T09:00:00Z');
+  assertInOrder(day, [
+    'Reprendre ma liste',
+    `<a class="geste-du-jour" data-comment="instagram:lejournal" href="https://www.instagram.com/lejournal/" ${EXTERNAL}><span class="geste-titre">Ton geste du jour</span><span class="geste-compte"><span class="avatar initiales" aria-hidden="true">J</span><span class="nom">Le Journal</span></span><span class="geste-action">`,
+    'Il ne te sera demandé aucun mot de passe',
+  ]);
+  assert.equal(on('2026-10-31T22:00:00Z'), day);
+  const actions = ['2026-10-31', '2026-11-01', '2026-11-02'].map((date) => on(`${date}T12:00:00Z`).match(/<span class="geste-action">([^<]*)<\/span>/)[1]);
+  assert.deepEqual(new Set(actions), new Set(['Aime ses derniers posts →', 'Commente un de ses posts →', 'Partage un de ses posts →']));
+  assert.ok(!home({ platforms: ['instagram'] }).includes('geste-du-jour'));
+  assert.ok(!home({ platforms: ['instagram'], followed: ['instagram:disparu'] }).includes('geste-du-jour'));
+});

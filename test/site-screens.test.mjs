@@ -104,7 +104,11 @@ test('l\'onglet d\'un réseau montre sa progression et ses comptes', () => {
   assert.ok(!html.includes('est-suivi'));
   assert.ok(html.includes('data-unfollow="instagram:alicemartin"'));
   assert.ok(html.includes('data-follow="instagram:lejournal" href="https://www.instagram.com/lejournal/"'));
-  assertInOrder(html, ['<h2>Personnalités politiques</h2>', '<h2>Médias</h2>', '<h2>Associations</h2>']);
+  assertInOrder(html, [
+    '<h2>Personnalités politiques <span class="decompte">1/1</span></h2>',
+    '<h2>Médias <span class="decompte">0/1</span></h2>',
+    '<h2>Associations <span class="decompte">0/1</span></h2>',
+  ]);
   assert.ok(html.includes('href="https://example.com/signaler"'));
   assert.ok(html.includes('href="https://example.com/suggerer"'));
 });
@@ -112,9 +116,9 @@ test('l\'onglet d\'un réseau montre sa progression et ses comptes', () => {
 test('les groupes alternent noir et rouge', () => {
   const html = render('#liste/instagram', { platforms: ['instagram'] });
   assertInOrder(html, [
-    '<section class="groupe tete-noire"><h2>Personnalités politiques</h2>',
-    '<section class="groupe tete-rouge"><h2>Médias</h2>',
-    '<section class="groupe tete-noire"><h2>Associations</h2>',
+    '<section class="groupe tete-noire"><h2>Personnalités politiques <span class="decompte">',
+    '<section class="groupe tete-rouge"><h2>Médias <span class="decompte">',
+    '<section class="groupe tete-noire"><h2>Associations <span class="decompte">',
   ]);
   assert.ok(!html.includes('teinte-'));
 });
@@ -152,13 +156,13 @@ test('Instagram et Threads proposent le compte relais seulement s\'il est régl�
     '<div class="progression">',
     '<div class="raccourci"><p class="raccourci-titre">Plus rapide : abonne-toi depuis l\'appli.</p>',
     `<a class="btn" href="https://www.instagram.com/relais/" ${EXTERNAL}>Ouvrir @relais →</a>`,
-    '<p class="discret">Sur son profil, touche « suivi(e)s » : tous les comptes de la liste y sont, chacun avec son bouton « Suivre ». Pas besoin de revenir ici.</p></div>',
+    '<p class="discret">Ce compte suit les 3 comptes de la liste. Sur son profil, touche «\u202fsuivi(e)s\u202f» et abonne-toi à chacun, sans revenir ici.</p></div>',
     'Appuie sur Suivre, puis confirme',
     '<section class="groupe',
   ]);
   assertInOrder(render('#liste/threads', fields, { relayAccounts }), [
     `<a class="btn" href="https://www.threads.com/@relais" ${EXTERNAL}>Ouvrir @relais →</a>`,
-    'Sur son profil, touche « followers », puis l\'onglet « Suivi(e)s » : tous les comptes de la liste y sont',
+    'Ce compte suit le compte de la liste. Sur son profil, touche «\u202ffollowers\u202f», puis l\'onglet «\u202fSuivi(e)s\u202f», et abonne-toi à chacun, sans revenir ici.',
   ]);
 });
 
@@ -214,10 +218,25 @@ test('la fin compte les abonnements et porte le message', () => {
     'Commente.',
     'Et l\'extrême droite\u202f?',
     'Ignore-la.',
-    'Ne réponds pas, ne cite pas, passe ton chemin.',
+    'Chaque réponse, même pour la dénoncer, la fait remonter dans les algorithmes.',
     `<div class="fin-bas"><p class="liens"><a href="#liste">Revenir à ma liste</a></p>${fist('146px')}</div>`,
-    '<div class="fin-partage"><p class="mot">Fais passer le mot.</p><button class="btn" data-share>Partager le site</button><p class="statut" role="status"></p><p class="adresse">soyonspartisans.fr</p></div>',
+    '<div class="fin-partage"><p class="mot">Fais passer le mot.</p><button class="btn" data-share>Partager le site</button><a class="btn secondaire" href="visuels/soyons-partisans-story-soyons.jpg" download data-visuel>Télécharger la story\u00a0↓</a><p class="statut" role="status"></p><p class="adresse">soyonspartisans.fr</p></div>',
   ]);
+});
+
+test('la fin propose de commencer tout de suite par les trois derniers comptes suivis', () => {
+  const followed = ['x:brunopetit', 'instagram:alicemartin', 'x:alicemartin', 'instagram:lejournal', 'instagram:collectifsolidaire'];
+  const html = render('#fin', { platforms: ['instagram', 'x'], followed });
+  assertInOrder(html, [
+    'Commente.',
+    '<p class="commence">Commence tout de suite :</p><ul class="gestes">',
+    `<li><a class="geste" data-comment="instagram:collectifsolidaire" href="https://www.instagram.com/collectifsolidaire/" ${EXTERNAL} aria-label="Like ses derniers posts : Collectif Solidaire"><span class="avatar initiales" aria-hidden="true">CS</span><span class="nom">Collectif Solidaire<span class="fonction">ses derniers posts</span></span><span class="like">Like →</span></a></li>`,
+    'data-comment="instagram:lejournal"',
+    'data-comment="x:alicemartin"',
+    'Et l\'extrême droite',
+  ]);
+  assert.equal(html.match(/class="geste"/g).length, 3);
+  assert.ok(!render('#fin', { platforms: ['instagram'] }).includes('Commence tout de suite'));
 });
 
 test('chaque écran du parcours a la barre au logo, qui ramène à l\'accueil, et au plus un bouton rouge plein', () => {
@@ -237,10 +256,32 @@ test('un « ? » suit toujours une espace insécable fine', () => {
   assert.equal(screens.join('').match(/\u202f\?/g).length, 9);
 });
 
-test('chaque compte propose de commenter son dernier post', () => {
-  const html = render('#liste/instagram', { platforms: ['instagram'], followed: ['instagram:alicemartin'] });
-  assert.ok(html.includes(`<a class="commenter" data-comment="instagram:lejournal" href="https://www.instagram.com/lejournal/" ${EXTERNAL} aria-label="Déjà abonné·e\u202f? Commenter leur dernier post : Le Journal">Déjà abonné·e\u202f? Commenter leur dernier post →</a></li>`));
-  assert.ok(html.includes(`<a class="commenter" data-comment="instagram:alicemartin" href="https://www.instagram.com/alicemartin/" ${EXTERNAL} aria-label="Commenter leur dernier post : Alice Martin">Commenter leur dernier post →</a></li>`));
-  assert.ok(render('#liste/youtube', { platforms: ['youtube'] }).includes('aria-label="Déjà abonné·e\u202f? Commenter leur dernier post : L&#39;Écho &amp; &lt;Cie&gt;"'));
+test('chaque compte propose de liker ses derniers posts, avec un bandeau pour le dernier suivi', () => {
+  const html = render('#liste/instagram', { platforms: ['instagram'], followed: ['instagram:collectifsolidaire', 'instagram:alicemartin'] });
+  assert.ok(html.includes(`<a class="commenter" data-comment="instagram:lejournal" href="https://www.instagram.com/lejournal/" ${EXTERNAL} aria-label="Déjà abonné·e\u202f? Like ses derniers posts : Le Journal">Déjà abonné·e\u202f? Like ses derniers posts →</a></li>`));
+  assert.ok(html.includes(`<a class="commenter bravo" data-comment="instagram:alicemartin" href="https://www.instagram.com/alicemartin/" ${EXTERNAL} aria-label="Like ses derniers posts : Alice Martin">Bien joué ! Donne-lui de la force : <span>like ses derniers posts →</span></a></li>`));
+  assert.ok(html.includes(`<a class="commenter" data-comment="instagram:collectifsolidaire" href="https://www.instagram.com/collectifsolidaire/" ${EXTERNAL} aria-label="Like ses derniers posts : Collectif Solidaire">Like ses derniers posts →</a></li>`));
+  assert.equal(html.match(/class="commenter bravo"/g).length, 1);
+  assert.ok(render('#liste/youtube', { platforms: ['youtube'] }).includes('aria-label="Déjà abonné·e\u202f? Like ses derniers posts : L&#39;Écho &amp; &lt;Cie&gt;"'));
   assert.ok(render('#liste/bluesky', { platforms: ['bluesky'], categories: ['media'] }).includes('href="/.netlify/functions/dernier-post?compte=bluesky%3Alejournal.bsky.social"'));
+});
+
+test('la case « Masquer les comptes déjà suivis » garde le dernier suivi en vue', () => {
+  const followed = ['instagram:alicemartin', 'instagram:lejournal'];
+  const shown = render('#liste/instagram', { platforms: ['instagram'], followed });
+  assert.ok(shown.includes('<label class="masquer"><input type="checkbox" name="masquer" value="oui"><span class="case" aria-hidden="true"></span>Masquer les comptes déjà suivis</label>'));
+  assert.ok(shown.includes('Alice Martin'));
+  const hidden = render('#liste/instagram', { platforms: ['instagram'], followed, hideFollowed: true });
+  assert.ok(hidden.includes('<input type="checkbox" name="masquer" value="oui" checked>'));
+  assert.ok(!hidden.includes('Alice Martin'));
+  assert.ok(!hidden.includes('<h2>Personnalités politiques'));
+  assert.ok(hidden.includes('Le Journal'));
+  assert.ok(hidden.includes('Collectif Solidaire'));
+  assert.ok(hidden.includes('<p class="meta">2 sur 3</p>'));
+});
+
+test('tout suivre sur un réseau le dit', () => {
+  const followed = ['instagram:alicemartin', 'instagram:lejournal', 'instagram:collectifsolidaire'];
+  assert.ok(render('#liste/instagram', { platforms: ['instagram'], followed }).includes('<p class="tout-suivi">Tu suis tous les comptes de ta sélection sur Instagram.</p>'));
+  assert.ok(!render('#liste/instagram', { platforms: ['instagram'] }).includes('tout-suivi'));
 });

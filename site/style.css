@@ -547,6 +547,50 @@ input:checked + .case,
   line-height: 1.2;
 }
 
+.groupe h2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.decompte {
+  flex: none;
+  font: 800 15px/1 var(--font-texte);
+}
+
+/* Case « Masquer les comptes déjà suivis » : la case dessinée des écrans de choix, sans la ligne. */
+.masquer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  font-weight: 800;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.masquer input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+}
+
+.masquer:has(input:focus-visible) .case {
+  outline: 3px solid var(--noir);
+  outline-offset: 2px;
+}
+
+.tout-suivi {
+  padding: 14px 16px;
+  background: var(--noir);
+  color: var(--papier);
+  font-weight: 800;
+}
+
 .tete-noire h2 {
   background: var(--noir);
   color: var(--papier);
@@ -626,6 +670,21 @@ input:checked + .case,
   color: var(--noir);
   font-size: 13px;
   text-decoration-color: var(--filet-clair);
+  text-underline-offset: 3px;
+}
+
+/* Le dernier compte suivi : un bandeau rouge qui relance vers ses posts. */
+.commenter.bravo {
+  display: block;
+  padding: 12px 16px;
+  border-top: 0;
+  background: var(--rouge);
+  font: 800 14px/1.35 var(--font-texte);
+  text-decoration: none;
+}
+
+.commenter.bravo span {
+  text-decoration: underline;
   text-underline-offset: 3px;
 }
 
@@ -738,6 +797,47 @@ input:checked + .case,
   color: var(--rouge);
 }
 
+/* « Commence tout de suite » : les trois derniers comptes suivis, chacun vers ses posts. */
+.commence {
+  font-weight: 800;
+}
+
+.gestes {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  border: var(--filet);
+}
+
+.gestes li + li {
+  border-top: 1px solid var(--filet-clair);
+}
+
+.geste {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 8px;
+  min-height: 60px;
+  background: var(--carte);
+  color: var(--noir);
+  text-decoration: none;
+}
+
+.geste .nom {
+  padding: 8px 0 8px 4px;
+  font: 800 16px/1.25 var(--font-texte);
+  overflow-wrap: break-word;
+}
+
+.like {
+  margin-right: 8px;
+  padding: 11px 12px;
+  background: var(--rouge);
+  font: 400 13px/1 var(--font-titre);
+  text-transform: uppercase;
+}
+
 .fin-partage {
   margin-top: auto;
   display: flex;
@@ -760,6 +860,11 @@ input:checked + .case,
 .fin-partage .btn:hover {
   background: var(--papier);
   color: var(--noir);
+}
+
+.fin-partage .btn.secondaire {
+  border-color: var(--papier);
+  color: var(--papier);
 }
 
 .fin-partage .adresse {

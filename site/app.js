@@ -40,7 +40,7 @@ function currentScreen() {
 // L'écran est refait en entier : le focus revient à la même case, ou au même compte (Suivre devenu
 // Annuler et inversement, ou son lien Commenter), pour le clavier et les lecteurs d'écran.
 function focusSelector(element) {
-  if (element.name === 'platform' || element.name === 'category') return `input[name="${element.name}"][value="${CSS.escape(element.value)}"]`;
+  if (['platform', 'category', 'masquer'].includes(element.name)) return `input[name="${element.name}"][value="${CSS.escape(element.value)}"]`;
   if (element.dataset?.comment) return `[data-comment="${CSS.escape(element.dataset.comment)}"]`;
   const key = element.dataset?.follow ?? element.dataset?.unfollow;
   return key ? `[data-follow="${CSS.escape(key)}"], [data-unfollow="${CSS.escape(key)}"]` : null;
@@ -170,6 +170,7 @@ app.addEventListener('change', (event) => {
   const { name, value } = event.target;
   if (name === 'platform') update({ platforms: toggle(state.platforms, value) });
   else if (name === 'category') update({ categories: toggle(selectedCategories(list, state), value) });
+  else if (name === 'masquer') update({ hideFollowed: event.target.checked });
   else return;
   render();
   playToggle(app.querySelector(`input[name="${name}"][value="${CSS.escape(value)}"]`)?.closest('label'));
