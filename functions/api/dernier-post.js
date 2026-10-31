@@ -35,4 +35,4 @@ export async function handle(request, { list, fetch, timeoutMs }) {
   return new Response(null, { status: 302, headers: { Location: post ?? profileUrl(entry), 'Cache-Control': 'no-store' } });
 }
 
-export default (request) => handle(request, { list, fetch });
+export const onRequest = ({ request }) => handle(request, { list, fetch });

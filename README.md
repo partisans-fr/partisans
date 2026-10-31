@@ -27,13 +27,13 @@ sh scripts/install-hooks.sh
 
 Il refuse tout commit qui contiendrait une identité non anonyme, un chemin absolu de ta machine ou des métadonnées d'image.
 
-- **Aperçu local** : `python3 -m http.server 8000 -d site`, puis http://localhost:8000.
-- **Tests** (Node 22 ou plus récent) : `npm install` (dépendance `@netlify/blobs` du compteur), puis `npm test`.
+- **Aperçu local** : `python3 -m http.server 8000 -d site`, puis http://localhost:8000. Avec les deux fonctions et le compteur, comme en ligne : `npx wrangler pages dev site --d1 DB`, puis http://localhost:8788.
+- **Tests** (Node 22.13 ou plus récent, sans dépendance) : `npm test`.
 - **Starter pack Bluesky** (bouton « Tout suivre ») : `node --env-file=.env scripts/publish-bluesky-starterpack.mjs site/partisans.json --dry-run`, puis sans `--dry-run`. Le fichier `.env` (ignoré par git) contient `BLUESKY_IDENTIFIER` et `BLUESKY_APP_PASSWORD`. Publie depuis le compte du projet, jamais depuis un compte personnel. L'adresse affichée va dans `STARTER_PACK_URL` (`site/config.js`).
-- **Compteur** : `netlify/functions/compter.mjs` additionne les deux totaux dans le magasin Netlify Blobs `compteur` (clé `totaux`). Pour les lire : interface Netlify, Data & Storage > Blobs.
-- **Dernier post** : `netlify/functions/dernier-post.mjs` mène au dernier post Bluesky d'un compte de la liste, cherché côté serveur.
+- **Compteur** : `functions/api/compter.js` additionne les deux totaux dans la base D1 `partisans` de Cloudflare (table `totaux`, créée au premier envoi). Pour les lire : Cloudflare, Storage & databases > D1 > partisans > Console, puis `SELECT * FROM totaux`.
+- **Dernier post** : `functions/api/dernier-post.js` mène au dernier post Bluesky d'un compte de la liste, cherché côté serveur.
 
-Le site est servi par Netlify depuis le dossier `site/` (voir `netlify.toml`), à l'adresse https://soyonspartisans.fr/ (https://partisans.netlify.app/ y redirige).
+Le site est servi par Cloudflare Pages, à l'adresse https://soyonspartisans.fr/ : dossier `site/` publié sans build, fonctions dans `functions/`, base D1 reliée au projet sous le nom `DB`, réglages dans `site/_headers`. L'ancienne adresse https://partisans.netlify.app/ y redirige encore (dernier déploiement Netlify, laissé tel quel).
 
 ### Visuels
 

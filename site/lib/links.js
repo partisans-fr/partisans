@@ -57,7 +57,7 @@ export const profileUrl = (entry) => (PROFILE_URLS[entry.platform] ?? FOLLOW_URL
 // en premier) ; ailleurs, la page du compte, où le dernier post est en haut.
 // `mastodonInstance` est déjà normalisée par normalizeInstance.
 export function commentUrl(entry, { mastodonInstance }) {
-  if (entry.platform === 'bluesky') return `/.netlify/functions/dernier-post?compte=${encodeURIComponent(entryKey(entry))}`;
+  if (entry.platform === 'bluesky') return `/api/dernier-post?compte=${encodeURIComponent(entryKey(entry))}`;
   if (entry.platform === 'mastodon') return followUrl(entry, { mastodonInstance });
   if (entry.platform === 'youtube') return `${profileUrl(entry)}/videos`;
   return profileUrl(entry);

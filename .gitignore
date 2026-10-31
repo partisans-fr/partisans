@@ -30,3 +30,6 @@ $RECYCLE.BIN/
 # Outils IA locaux
 .claude/
 CLAUDE.local.md
+
+# Cloudflare (wrangler, en local)
+.wrangler/

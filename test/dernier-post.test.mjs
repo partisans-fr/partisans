@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { handle } from '../netlify/functions/dernier-post.mjs';
+import { handle, onRequest } from '../functions/api/dernier-post.js';
 import { fakeFetch } from './helpers/fake-fetch.mjs';
 import { miniList } from './helpers/partisans-fixture.mjs';
 
@@ -10,7 +10,7 @@ const feed = { feed: [
   { post: { uri: 'at://did:plc:abc/app.bsky.feed.post/3krepost' }, reason: { $type: 'app.bsky.feed.defs#reasonRepost' } },
   { post: { uri: 'at://did:plc:abc/app.bsky.feed.post/3kdernier' } },
 ] };
-const ask = (query) => new Request(`https://partisans.test/.netlify/functions/dernier-post?${query}`);
+const ask = (query) => new Request(`https://partisans.test/api/dernier-post?${query}`);
 const redirectOf = async (query, fetch, timeoutMs) => {
   const response = await handle(ask(query), { list: miniList, fetch, timeoutMs });
   assert.equal(response.status, 302);
@@ -48,6 +48,11 @@ test('un compte hors de la liste est refusé', async () => {
   }
 });
 
+test('Cloudflare Pages : la fonction lit la liste du site', async () => {
+  const response = await onRequest({ request: ask('compte=inconnu%3Apersonne') });
+  assert.equal(response.status, 404);
+});
+
 test('la fonction ne journalise rien', () => {
-  assert.doesNotMatch(readFileSync(new URL('../netlify/functions/dernier-post.mjs', import.meta.url), 'utf8'), /console\./);
+  assert.doesNotMatch(readFileSync(new URL('../functions/api/dernier-post.js', import.meta.url), 'utf8'), /console\./);
 });

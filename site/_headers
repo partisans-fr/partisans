@@ -1,0 +1,6 @@
+# Lu par Cloudflare Pages, jamais servi aux visiteurs.
+
+# L'adresse technique du projet chez Cloudflare reste hors des moteurs de recherche :
+# le site, c'est https://soyonspartisans.fr/.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex

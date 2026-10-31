@@ -1,9 +1,10 @@
 // Compteur anonyme : deux totaux, les visiteurs et les comptes ouverts depuis le site, additionnés par
-// une fonction Netlify. Ce navigateur se souvient seulement de ce qu'il a déjà compté (localStorage),
-// pour ne rien compter deux fois. Sans stockage, rien n'est envoyé plutôt que de recompter à chaque visite.
+// une fonction Cloudflare (functions/api/compter.js). Ce navigateur se souvient seulement de ce qu'il a
+// déjà compté (localStorage), pour ne rien compter deux fois. Sans stockage, rien n'est envoyé plutôt
+// que de recompter à chaque visite.
 
 export const COUNTER_KEY = 'partisans-compteur';
-export const COUNTER_URL = '/.netlify/functions/compter';
+export const COUNTER_URL = '/api/compter';
 
 export const emptyCounter = () => ({ visited: false, opened: [] });
 

@@ -37,13 +37,15 @@ test('les mentions légales nomment l\'hébergeur et gardent l\'éditeur anonyme
     '<h2>Éditeur</h2>',
     'article 1-1 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l\'économie numérique',
     '<h2>Hébergeur</h2>',
-    'Netlify, Inc., 101 2nd Street, San Francisco, CA 94105, États-Unis.',
+    'Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, États-Unis.',
     '<h2>Contact</h2>',
     `<a href="${miniList.contestUrl}" ${EXTERNAL}>`,
     '<h2>Données personnelles</h2>',
     '<a href="#">Retour à l\'accueil</a>',
   ]);
   assert.ok(!html.includes('class="btn"'));
+  assert.ok(html.includes('Comme tout hébergeur, Cloudflare reçoit l\'adresse IP'));
+  assert.ok(!html.includes('Netlify'));
 });
 
 test('Continuer attend un réseau et une instance valide', () => {
@@ -263,7 +265,7 @@ test('chaque compte propose de liker ses derniers posts, avec un bandeau pour le
   assert.ok(html.includes(`<a class="commenter" data-comment="instagram:collectifsolidaire" href="https://www.instagram.com/collectifsolidaire/" ${EXTERNAL} aria-label="Like ses derniers posts : Collectif Solidaire">Like ses derniers posts →</a></li>`));
   assert.equal(html.match(/class="commenter bravo"/g).length, 1);
   assert.ok(render('#liste/youtube', { platforms: ['youtube'] }).includes('aria-label="Déjà abonné·e\u202f? Like ses derniers posts : L&#39;Écho &amp; &lt;Cie&gt;"'));
-  assert.ok(render('#liste/bluesky', { platforms: ['bluesky'], categories: ['media'] }).includes('href="/.netlify/functions/dernier-post?compte=bluesky%3Alejournal.bsky.social"'));
+  assert.ok(render('#liste/bluesky', { platforms: ['bluesky'], categories: ['media'] }).includes('href="/api/dernier-post?compte=bluesky%3Alejournal.bsky.social"'));
 });
 
 test('la case « Masquer les comptes déjà suivis » garde le dernier suivi en vue', () => {

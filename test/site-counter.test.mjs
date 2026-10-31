@@ -1,8 +1,15 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { COUNTER_KEY, commitRecord, emptyCounter, loadCounter, recordOpened, recordVisit } from '../site/lib/counter.js';
+import { existsSync } from 'node:fs';
+import { COUNTER_KEY, COUNTER_URL, commitRecord, emptyCounter, loadCounter, recordOpened, recordVisit } from '../site/lib/counter.js';
 import { STORAGE_KEY } from '../site/lib/state.js';
 import { fakeStorage, hostile } from './helpers/fake-storage.mjs';
+
+// Cloudflare Pages range ses fonctions par adresse : /api/compter est servie par functions/api/compter.js.
+test('le navigateur envoie à la fonction du compteur', () => {
+  assert.equal(COUNTER_URL, '/api/compter');
+  assert.ok(existsSync(new URL(`../functions${COUNTER_URL}.js`, import.meta.url)));
+});
 
 test('une visite ne compte qu\'une fois par navigateur', () => {
   const first = recordVisit(emptyCounter());

@@ -237,9 +237,9 @@ function legalScreen({ list, avatars }) {
   return `${bar()}<div class="contenu mentions">
     <h1>Mentions légales</h1>
     <section><h2>Éditeur</h2><p>Soyons Partisans est un projet bénévole, édité à titre non professionnel par une personne qui reste anonyme, comme le permet l'article 1-1 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique. Son identité est connue de l'hébergeur.</p></section>
-    <section><h2>Hébergeur</h2><p>Netlify, Inc., 101 2nd Street, San Francisco, CA 94105, États-Unis.</p></section>
+    <section><h2>Hébergeur</h2><p>Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, États-Unis.</p></section>
     <section><h2>Contact</h2><p>Un compte erroné ? <a href="${escapeHtml(list.contestUrl)}" ${EXTERNAL}>Signale-le</a>.${suggest} Pour tout le reste, ouvre un ticket sur <a href="${REPO_URL}/issues" ${EXTERNAL}>le dépôt du projet</a>.</p></section>
-    <section><h2>Données personnelles</h2><p>Aucun cookie, aucun compte, aucun pistage. Tes choix (réseaux, catégories, comptes suivis) restent dans ton navigateur. Le site compte seulement, de façon anonyme, combien de personnes l'ont ouvert et combien de comptes y ont été ouverts : deux totaux, sans adresse IP ni identifiant. Comme tout hébergeur, Netlify reçoit l'adresse IP de chaque visite pour servir les pages.</p></section>
+    <section><h2>Données personnelles</h2><p>Aucun cookie, aucun compte, aucun pistage. Tes choix (réseaux, catégories, comptes suivis) restent dans ton navigateur. Le site compte seulement, de façon anonyme, combien de personnes l'ont ouvert et combien de comptes y ont été ouverts : deux totaux, sans adresse IP ni identifiant. Comme tout hébergeur, Cloudflare reçoit l'adresse IP de chaque visite pour servir les pages.</p></section>
     <section><h2>Code source</h2><p>Le code du site est libre, sous licence GPL v3 : <a href="${REPO_URL}" ${EXTERNAL}>github.com/partisans-fr/partisans</a>.</p></section>
     ${creditsSection(avatars)}
     <p class="liens"><a href="#">Retour à l'accueil</a></p>

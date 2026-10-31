@@ -60,7 +60,7 @@ test('la vitrine mène au profil de chaque compte', () => {
 
 test('« Commenter leur dernier post » vise le dernier post, ou la page du compte', () => {
   const comment = (platform) => commentUrl(entryOf(platform), { mastodonInstance: 'piaille.fr' });
-  assert.equal(comment('bluesky'), '/.netlify/functions/dernier-post?compte=bluesky%3Alejournal.bsky.social');
+  assert.equal(comment('bluesky'), '/api/dernier-post?compte=bluesky%3Alejournal.bsky.social');
   assert.equal(comment('mastodon'), 'https://piaille.fr/authorize_interaction?uri=echo%40exemple.social');
   assert.equal(comment('youtube'), 'https://www.youtube.com/@echo-cie/videos');
   for (const platform of ['x', 'instagram', 'tiktok', 'threads', 'facebook']) {
